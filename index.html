@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>AI Overnight Challenge Live</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;margin:0;background:#0d1117;color:#e6edf3}
+main{max-width:920px;margin:auto;padding:28px 18px 60px}.hero{margin-bottom:24px}.muted{color:#8b949e}
+.card{background:#161b22;border:1px solid #30363d;border-radius:14px;padding:18px;margin:14px 0}.winner{border-color:#f2cc60}
+a{color:#58a6ff} .badge{display:inline-block;padding:4px 9px;border-radius:999px;background:#21262d;font-size:12px;margin-right:6px}
+.commit{padding:10px 0;border-top:1px solid #30363d}.commit:first-child{border-top:0}code{color:#d2a8ff}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:650px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body><main>
+<div class="hero"><h1>AI Overnight Challenge · Live</h1><p>Five autonomous build challenges. Maze Chase is tonight's winner and runs first. This page reads the public GitHub activity directly, so new commits appear here automatically.</p><p class="muted">Refreshes every 60 seconds. No login required.</p></div>
+<div id="cards"></div>
+</main>
+<script>
+const challenges=[
+['Maze Chase','ai-agent-challenge-05-maze-chase','overnight/maze-chase-2026-09-16',true],
+['MOSSE Object Tracker','ai-agent-challenge-01-mosse-tracker','main',false],
+['2x2 Rubik Solver','ai-agent-challenge-02-rubik-2x2','main',false],
+['Electron Dose Lab','ai-agent-challenge-03-monte-carlo','main',false],
+['3D Path Planner','ai-agent-challenge-04-path-planner','main',false]
+];
+const root=document.getElementById('cards');
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+async function loadOne([name,repo,branch,winner]){
+ const card=document.createElement('section'); card.className='card'+(winner?' winner':'');
+ card.innerHTML=`<h2>${esc(name)}</h2><div><span class="badge">${winner?'WINNER · FIRST RUN':'QUEUED'}</span><span class="badge">${esc(branch)}</span></div><p><a href="https://github.com/gert66/${repo}" target="_blank">Open repository</a> · <a href="https://github.com/gert66/${repo}/commits/${encodeURIComponent(branch)}" target="_blank">Commit history</a></p><div class="commits muted">Loading latest activity…</div>`;
+ root.appendChild(card);
+ try{
+  const r=await fetch(`https://api.github.com/repos/gert66/${repo}/commits?sha=${encodeURIComponent(branch)}&per_page=5`,{headers:{'Accept':'application/vnd.github+json'}});
+  if(!r.ok) throw new Error('GitHub API '+r.status);
+  const data=await r.json();
+  const box=card.querySelector('.commits');
+  box.className='commits';
+  box.innerHTML=data.map(c=>`<div class="commit"><strong>${esc(c.commit.message.split('\n')[0])}</strong><br><span class="muted"><code>${c.sha.slice(0,7)}</code> · ${new Date(c.commit.author.date).toLocaleString()} · ${esc(c.commit.author.name)}</span></div>`).join('') || '<div class="muted">No commits yet.</div>';
+ }catch(e){card.querySelector('.commits').textContent='Live GitHub activity temporarily unavailable. Use the repository link above.'}
+}
+challenges.forEach(loadOne);
+setTimeout(()=>location.reload(),60000);
+</script></body></html>
