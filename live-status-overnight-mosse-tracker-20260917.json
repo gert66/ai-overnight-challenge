@@ -1,10 +1,10 @@
 {
   "job_id": "overnight-mosse-tracker-20260917",
-  "phase": "NEEDS_HUMAN",
+  "phase": "PLANNING",
   "step": "01-scaffold-and-transcode-videos",
-  "heartbeat": "2026-09-16T22:31:10Z",
-  "state_updated_at": "2026-09-16T22:30:26Z",
-  "published_at": "2026-09-16T22:31:10Z",
+  "heartbeat": "2026-09-16T22:36:53Z",
+  "state_updated_at": "2026-09-16T22:36:53Z",
+  "published_at": "2026-09-16T22:36:53Z",
   "commits": [
     {
       "sha": "c63e7e8a09a91dccc901f2548376fa799aff3f38",
