@@ -1,11 +1,17 @@
 {
   "job_id": "overnight-maze-chase-20260916",
-  "phase": "REVIEWING",
-  "step": "09-final-verification-and-report",
-  "heartbeat": "2026-09-16T21:54:12Z",
-  "state_updated_at": "2026-09-16T21:53:42Z",
-  "published_at": "2026-09-16T21:54:12Z",
+  "phase": "DONE",
+  "step": null,
+  "heartbeat": "2026-09-16T21:54:50Z",
+  "state_updated_at": "2026-09-16T21:54:50Z",
+  "published_at": "2026-09-16T21:54:50Z",
   "commits": [
+    {
+      "sha": "52addf06097dea450b8a9542df72fe633d5d19c6",
+      "author": "gert66",
+      "date": "2026-09-16T21:54:33Z",
+      "message": "09-final-verification-and-report: Perform a final from-clean end-to-end verification of the committed Glim"
+    },
     {
       "sha": "3bc42a6c11aefba53d1e78de45e03fe091a8275b",
       "author": "gert66",
