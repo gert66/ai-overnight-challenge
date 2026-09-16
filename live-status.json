@@ -1,8 +1,8 @@
 {
   "job_id": "overnight-maze-chase-20260916",
-  "phase": "PLANNING",
-  "step": null,
-  "heartbeat": "2026-09-16T21:10:11Z",
-  "state_updated_at": "2026-09-16T21:09:38Z",
-  "published_at": "2026-09-16T21:10:11Z"
+  "phase": "WORKING",
+  "step": "05-e2e-headless-smoke-test",
+  "heartbeat": "2026-09-16T21:11:11Z",
+  "state_updated_at": "2026-09-16T21:10:24Z",
+  "published_at": "2026-09-16T21:11:11Z"
 }
