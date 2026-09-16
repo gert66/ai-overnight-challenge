@@ -1,0 +1,76 @@
+{
+  "job_id": "overnight-maze-chase-20260916",
+  "phase": "DONE",
+  "step": null,
+  "heartbeat": "2026-09-16T21:54:50Z",
+  "state_updated_at": "2026-09-16T21:54:50Z",
+  "published_at": "2026-09-16T21:54:50Z",
+  "commits": [
+    {
+      "sha": "52addf06097dea450b8a9542df72fe633d5d19c6",
+      "author": "gert66",
+      "date": "2026-09-16T21:54:33Z",
+      "message": "09-final-verification-and-report: Perform a final from-clean end-to-end verification of the committed Glim"
+    },
+    {
+      "sha": "3bc42a6c11aefba53d1e78de45e03fe091a8275b",
+      "author": "gert66",
+      "date": "2026-09-16T21:50:40Z",
+      "message": "08-level-progression-and-integration-test: Add deterministic level progression to the core engine (advance to the n"
+    },
+    {
+      "sha": "b14e4064e09b569f44490920b6e734f32379af51",
+      "author": "gert66",
+      "date": "2026-09-16T21:38:53Z",
+      "message": "07-visual-audio-polish: Add a polish layer to the browser presentation (src/main.ts, src/style.c"
+    },
+    {
+      "sha": "e8f4b1ad779a41deafbf191c97373b8dbbf34d73",
+      "author": "gert66",
+      "date": "2026-09-16T21:25:13Z",
+      "message": "06-real-pathfinding-for-enemies: Add a deterministic, unit-tested breadth-first shortest-path pathfinder"
+    },
+    {
+      "sha": "808d050bd9c2f3dd88595638f8de3129d5a8c688",
+      "author": "gert66",
+      "date": "2026-09-16T21:15:22Z",
+      "message": "05-e2e-headless-smoke-test: Add a real headless-browser (Playwright/Chromium) end-to-end smoke test"
+    },
+    {
+      "sha": "0481f1672bf73e0ec652696776c96536983b8d95",
+      "author": "gert66",
+      "date": "2026-09-16T21:09:38Z",
+      "message": "04-game-loop-and-rendering: Wire the existing deterministic core engine (src/core/state.ts step(), p"
+    },
+    {
+      "sha": "a92368cb8fbb5c25f451c1778b9e436c05eb22e0",
+      "author": "gert66",
+      "date": "2026-09-16T20:57:43Z",
+      "message": "03-power-ups-and-frighten-mode: Add a deterministic, unit-tested power-up (energizer) mechanic to the co"
+    },
+    {
+      "sha": "8ce520f77caf6a81898f58f7a88ffca3b6531311",
+      "author": "gert66",
+      "date": "2026-09-16T20:47:10Z",
+      "message": "02-enemy-ai-and-collisions: Add deterministic, unit-tested enemy (chaser) entities with at least thr"
+    },
+    {
+      "sha": "eb5055cdb9c025ccb199a99cda1cefa91ceec5d2",
+      "author": "gert66",
+      "date": "2026-09-16T20:33:00Z",
+      "message": "01-scaffold-core-engine: Scaffold a Vite + TypeScript project with a deterministic, unit-tested m"
+    },
+    {
+      "sha": "7d0199f0bcc1886ab2bbadc30dc8223f96d07c0f",
+      "author": "gert66",
+      "date": "2026-09-16T14:45:07Z",
+      "message": "Seed autonomous challenge brief and assets"
+    },
+    {
+      "sha": "411f9bf1792955749fe4052158511a106c9b2ac0",
+      "author": "gert66",
+      "date": "2026-09-16T14:44:12Z",
+      "message": "Initial commit"
+    }
+  ]
+}

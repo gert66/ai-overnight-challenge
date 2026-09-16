@@ -1,0 +1,22 @@
+{
+  "job_id": "overnight-rubik-2x2-20260917",
+  "phase": "QUEUED",
+  "step": null,
+  "heartbeat": "2026-09-16T22:23:10Z",
+  "state_updated_at": "2026-09-16T22:19:25Z",
+  "published_at": "2026-09-16T22:23:10Z",
+  "commits": [
+    {
+      "sha": "10356b667861afc87bd3f2e0a4380ba6d7f4731c",
+      "author": "gert66",
+      "date": "2026-09-16T14:45:10Z",
+      "message": "Seed autonomous challenge brief and assets"
+    },
+    {
+      "sha": "8cfcf437def44509b8b6849c5a70444582f3b1a0",
+      "author": "gert66",
+      "date": "2026-09-16T14:44:01Z",
+      "message": "Initial commit"
+    }
+  ]
+}
