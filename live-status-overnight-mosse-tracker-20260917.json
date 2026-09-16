@@ -1,11 +1,17 @@
 {
   "job_id": "overnight-mosse-tracker-20260917",
-  "phase": "REVIEWING",
-  "step": "01-scaffold-and-transcode-videos",
-  "heartbeat": "2026-09-16T22:53:02Z",
-  "state_updated_at": "2026-09-16T22:52:20Z",
-  "published_at": "2026-09-16T22:53:02Z",
+  "phase": "PLANNING",
+  "step": null,
+  "heartbeat": "2026-09-16T22:54:02Z",
+  "state_updated_at": "2026-09-16T22:53:19Z",
+  "published_at": "2026-09-16T22:54:02Z",
   "commits": [
+    {
+      "sha": "05cc33a54aa3e1defc5aac0bcabee1bc0dc74121",
+      "author": "gert66",
+      "date": "2026-09-16T22:53:19Z",
+      "message": "01-scaffold-and-transcode-videos: Scaffold a Vite + TypeScript browser app with test tooling and produce b"
+    },
     {
       "sha": "c63e7e8a09a91dccc901f2548376fa799aff3f38",
       "author": "gert66",
