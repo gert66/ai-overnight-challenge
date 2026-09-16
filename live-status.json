@@ -1,8 +1,8 @@
 {
   "job_id": "overnight-maze-chase-20260916",
-  "phase": "REVIEWING",
-  "step": "07-visual-audio-polish",
-  "heartbeat": "2026-09-16T21:38:12Z",
-  "state_updated_at": "2026-09-16T21:37:34Z",
-  "published_at": "2026-09-16T21:38:12Z"
+  "phase": "PLANNING",
+  "step": null,
+  "heartbeat": "2026-09-16T21:39:12Z",
+  "state_updated_at": "2026-09-16T21:38:53Z",
+  "published_at": "2026-09-16T21:39:12Z"
 }
