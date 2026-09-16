@@ -1,24 +1,36 @@
 # AI Overnight Challenge
 
-Five autonomous build challenges for tonight. Tap a challenge below for the short brief, expected demo and public background links.
+Tonight an autonomous AI orchestrator will build one of these five challenges. The challenge repositories are public on purpose, so anyone can follow the build as it happens: commits, source files, tests and the final result.
 
-## Challenges
+## Follow the live builds
 
-1. [MOSSE Object Tracker](challenges/01-mosse-tracker.md)  
-   Track a selected object through video, including confidence, trajectory and lost/recovered behaviour.
+1. [MOSSE Object Tracker - Live build](https://github.com/gert66/ai-agent-challenge-01-mosse-tracker)
+2. [2x2x2 Rubik Solver - Live build](https://github.com/gert66/ai-agent-challenge-02-rubik-2x2)
+3. [Electron Dose Lab - Live build](https://github.com/gert66/ai-agent-challenge-03-monte-carlo)
+4. [3D Path Planner - Live build](https://github.com/gert66/ai-agent-challenge-04-path-planner)
+5. [Maze Chase - Live build](https://github.com/gert66/ai-agent-challenge-05-maze-chase)
 
-2. [2x2x2 Rubik Solver](challenges/02-rubik-2x2.md)  
-   Validate, solve and animate a 2x2 cube in a polished browser interface.
+Each repository starts with the challenge brief and public input material. Once the orchestrator starts, new branches, commits and code will appear there during the night.
 
-3. [Electron Dose Lab](challenges/03-electron-dose-lab.md)  
-   Monte Carlo research demonstrator for electrons in synthetic phantoms, supported by NIST ESTAR reference data.
+## What is being tested?
 
-4. [3D Path Planner](challenges/04-3d-path-planner.md)  
-   Find and visualise a collision-free route through a 3D obstacle field.
+The experiment is not only whether an AI can write code. The orchestrator must plan the work, route subtasks to agents, build, test, review, repair problems and produce a demonstrable browser application without human intervention.
 
-5. [Maze Chase](challenges/05-maze-chase.md)  
-   Build an original browser maze-chase game with scoring, enemies and a complete game loop.
+The repositories are deliberately public so the development trail remains visible rather than being reconstructed afterwards.
 
-## Tonight
+## Challenge summaries
 
-The selected challenge will be handed to the autonomous orchestrator for planning, implementation, testing, review and refinement. The goal is a demonstrable browser application by tomorrow morning.
+### 1. MOSSE Object Tracker
+Track one selected object through video and show its movement, confidence and lost/recovered state.
+
+### 2. 2x2x2 Rubik Solver
+Validate and solve a 2x2x2 cube state, then animate the solution on an interactive 3D cube.
+
+### 3. Electron Dose Lab
+Build a simplified Monte Carlo electron-beam research demonstrator using synthetic phantoms and public NIST ESTAR reference data. Not a clinical dose engine.
+
+### 4. 3D Path Planner
+Find and visualise a collision-free route through a synthetic 3D obstacle world and report path/search metrics.
+
+### 5. Maze Chase
+Build an original browser-based maze chase game with original visuals, scoring, collectables, power-ups and multiple enemy behaviours.
