@@ -7,14 +7,14 @@
 <style>
 body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;margin:0;background:#0d1117;color:#e6edf3}
 main{max-width:920px;margin:auto;padding:28px 18px 60px}.hero{margin-bottom:24px}.muted{color:#8b949e}
-.card{background:#161b22;border:1px solid #30363d;border-radius:14px;padding:18px;margin:14px 0;transition:border-color .2s ease,box-shadow .2s ease}.card.active{border:2px solid #f2cc60;box-shadow:0 0 0 1px rgba(242,204,96,.16),0 0 24px rgba(242,204,96,.12)}.card.completed{border:2px solid #3fb950;box-shadow:0 0 0 1px rgba(63,185,80,.12)}
+.card{background:#161b22;border:1px solid #30363d;border-radius:14px;padding:18px;margin:14px 0;transition:border-color .2s ease,box-shadow .2s ease}.card.active{border:2px solid #f2cc60;box-shadow:0 0 0 1px rgba(242,204,96,.16),0 0 24px rgba(242,204,96,.12)}.card.completed{border:2px solid #3fb950;box-shadow:0 0 0 1px rgba(63,185,80,.12)}.card.blocked{border:2px solid #f0883e;box-shadow:0 0 0 1px rgba(240,136,62,.14),0 0 20px rgba(240,136,62,.10)}
 a{color:#58a6ff} .badge{display:inline-block;padding:4px 9px;border-radius:999px;background:#21262d;font-size:12px;margin-right:6px}
 .commit{padding:10px 0;border-top:1px solid #30363d}.commit:first-child{border-top:0}code{color:#d2a8ff}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.live{margin:12px 0;padding:10px 12px;border-radius:10px;background:#0d1117;border:1px solid #30363d}.live strong{color:#7ee787}.mission{margin:12px 0;padding:12px 14px;border-radius:10px;background:#0d1117;border:1px solid #238636}.mission strong{color:#7ee787}
 @media(max-width:650px){.grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body><main>
-<div class="hero"><h1>AI Overnight Challenge · Live</h1><p>Five autonomous build challenges. Maze Chase is tonight's winner and runs first. This page reads the public GitHub activity directly, so new commits appear here automatically.</p><p class="muted">Refreshes every 60 seconds. No login required.</p></div>
+<div class="hero"><h1>AI Overnight Challenge · Live</h1><p>Five autonomous build challenges. Maze Chase is tonight's winner and runs first. This page reads the public GitHub activity directly, so new commits appear here automatically.</p><p class="muted">Refreshes every 15 seconds. No login required.</p></div>
 <div id="cards"></div>
 </main>
 <script>
@@ -31,7 +31,7 @@ async function loadOne([name,repo,branch,jobId,missionNo]){
  const card=document.createElement('section'); card.className='card';
  card.innerHTML=`<h2>${esc(name)}</h2><div><span class="badge">${missionNo===1?'MISSION 1':'MISSION '+missionNo}</span><span class="badge">${esc(branch)}</span></div><p><a href="https://github.com/gert66/${repo}" target="_blank">Open repository</a> · <a href="https://github.com/gert66/${repo}/commits/${encodeURIComponent(branch)}" target="_blank">Commit history</a></p><div class="live muted">Loading orchestrator status…</div><div class="mission" style="display:none"></div><div class="commits muted">Loading latest activity…</div>`;
  root.appendChild(card);
- try{const sr=await fetch(`live-status-${jobId}.json?t=${Date.now()}`,{cache:'no-store'}); if(sr.ok){const st=await sr.json(); const live=card.querySelector('.live'); live.innerHTML=`<strong>${esc(st.phase)}</strong> · ${esc(st.step||'between steps')}<br><span class="muted">Last heartbeat: ${esc(st.heartbeat||'unknown')} · published ${esc(st.published_at||'unknown')}</span>`; const mission=card.querySelector('.mission'); const activePhases=['PLANNING','WORKING','EVIDENCE','REVIEWING']; if(st.phase==='DONE'){card.classList.add('completed'); card.classList.remove('active'); if(mission){mission.style.display='block'; mission.innerHTML=`<strong>MISSION ${missionNo} COMPLETED</strong><br>${missionNo===1?'Glimmerdash is complete and verified. <a href="https://gert66.github.io/ai-agent-challenge-05-maze-chase/" target="_blank">Play Glimmerdash</a>':'Challenge complete and verified.'}`; }} else if(activePhases.includes(st.phase)){card.classList.add('active'); card.classList.remove('completed');} const box=card.querySelector('.commits'); if(Array.isArray(st.commits)){box.className='commits'; box.innerHTML=st.commits.map(c=>`<div class="commit"><strong>${esc(c.message)}</strong><br><span class="muted"><code>${esc(c.sha.slice(0,7))}</code> · ${new Date(c.date).toLocaleString()} · ${esc(c.author)}</span></div>`).join('') || '<div class="muted">No commits yet.</div>'; return;}}}catch(e){}
+ try{const sr=await fetch(`live-status-${jobId}.json?t=${Date.now()}`,{cache:'no-store'}); if(sr.ok){const st=await sr.json(); const live=card.querySelector('.live'); live.innerHTML=`<strong>${esc(st.phase)}</strong> · ${esc(st.step||'between steps')}<br><span class="muted">Last heartbeat: ${esc(st.heartbeat||'unknown')} · published ${esc(st.published_at||'unknown')}</span>`; const mission=card.querySelector('.mission'); const activePhases=['PLANNING','WORKING','EVIDENCE','REVIEWING']; if(st.phase==='DONE'){card.classList.add('completed'); card.classList.remove('active'); if(mission){mission.style.display='block'; mission.innerHTML=`<strong>MISSION ${missionNo} COMPLETED</strong><br>${missionNo===1?'Glimmerdash is complete and verified. <a href="https://gert66.github.io/ai-agent-challenge-05-maze-chase/" target="_blank">Play Glimmerdash</a>':'Challenge complete and verified.'}`; }} else if(st.phase==='NEEDS_HUMAN'){card.classList.add('blocked'); card.classList.remove('active','completed');} else if(activePhases.includes(st.phase)){card.classList.add('active'); card.classList.remove('completed','blocked');} const box=card.querySelector('.commits'); if(Array.isArray(st.commits)){box.className='commits'; box.innerHTML=st.commits.map(c=>`<div class="commit"><strong>${esc(c.message)}</strong><br><span class="muted"><code>${esc(c.sha.slice(0,7))}</code> · ${new Date(c.date).toLocaleString()} · ${esc(c.author)}</span></div>`).join('') || '<div class="muted">No commits yet.</div>'; return;}}}catch(e){}
  try{
   const r=await fetch(`https://api.github.com/repos/gert66/${repo}/commits?sha=${encodeURIComponent(branch)}&per_page=100`,{headers:{'Accept':'application/vnd.github+json'}});
   if(!r.ok) throw new Error('GitHub API '+r.status);
@@ -42,5 +42,5 @@ async function loadOne([name,repo,branch,jobId,missionNo]){
  }catch(e){card.querySelector('.commits').textContent='Live GitHub activity temporarily unavailable. Use the repository link above.'}
 }
 challenges.forEach(loadOne);
-setTimeout(()=>location.reload(),60000);
+setTimeout(()=>location.reload(),15000);
 </script></body></html>
