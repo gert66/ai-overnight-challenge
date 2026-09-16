@@ -19,21 +19,19 @@ a{color:#58a6ff} .badge{display:inline-block;padding:4px 9px;border-radius:999px
 </main>
 <script>
 const challenges=[
-['Maze Chase','ai-agent-challenge-05-maze-chase','overnight/maze-chase-2026-09-16',true],
-['MOSSE Object Tracker','ai-agent-challenge-01-mosse-tracker','main',false],
-['2x2 Rubik Solver','ai-agent-challenge-02-rubik-2x2','main',false],
-['Electron Dose Lab','ai-agent-challenge-03-monte-carlo','main',false],
-['3D Path Planner','ai-agent-challenge-04-path-planner','main',false]
+['Maze Chase','ai-agent-challenge-05-maze-chase','overnight/maze-chase-2026-09-16','overnight-maze-chase-20260916',1],
+['MOSSE Object Tracker','ai-agent-challenge-01-mosse-tracker','overnight/mosse-tracker-2026-09-17','overnight-mosse-tracker-20260917',2],
+['2x2 Rubik Solver','ai-agent-challenge-02-rubik-2x2','overnight/rubik-2x2-2026-09-17','overnight-rubik-2x2-20260917',3],
+['Electron Dose Lab','ai-agent-challenge-03-monte-carlo','overnight/electron-dose-lab-2026-09-17','overnight-electron-dose-lab-20260917',4],
+['3D Path Planner','ai-agent-challenge-04-path-planner','overnight/path-planner-2026-09-17','overnight-path-planner-20260917',5]
 ];
 const root=document.getElementById('cards');
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-async function loadOne([name,repo,branch,winner]){
- const card=document.createElement('section'); card.className='card'+(winner?' winner':'');
- card.innerHTML=`<h2>${esc(name)}</h2><div><span class="badge">${winner?'WINNER · FIRST RUN':'QUEUED'}</span><span class="badge">${esc(branch)}</span></div><p><a href="https://github.com/gert66/${repo}" target="_blank">Open repository</a> · <a href="https://github.com/gert66/${repo}/commits/${encodeURIComponent(branch)}" target="_blank">Commit history</a></p>${winner?'<div class="live muted">Loading orchestrator status…</div><div class="mission" style="display:none"></div>':''}<div class="commits muted">Loading latest activity…</div>`;
+async function loadOne([name,repo,branch,jobId,missionNo]){
+ const card=document.createElement('section'); card.className='card'+(missionNo===1?' winner':'');
+ card.innerHTML=`<h2>${esc(name)}</h2><div><span class="badge">${missionNo===1?'MISSION 1':'MISSION '+missionNo}</span><span class="badge">${esc(branch)}</span></div><p><a href="https://github.com/gert66/${repo}" target="_blank">Open repository</a> · <a href="https://github.com/gert66/${repo}/commits/${encodeURIComponent(branch)}" target="_blank">Commit history</a></p><div class="live muted">Loading orchestrator status…</div><div class="mission" style="display:none"></div><div class="commits muted">Loading latest activity…</div>`;
  root.appendChild(card);
- if(winner){
-  try{const sr=await fetch('live-status.json?t='+Date.now(),{cache:'no-store'}); if(sr.ok){const st=await sr.json(); const live=card.querySelector('.live'); live.innerHTML=`<strong>${esc(st.phase)}</strong> · ${esc(st.step||'between steps')}<br><span class="muted">Last heartbeat: ${esc(st.heartbeat||'unknown')} · published ${esc(st.published_at||'unknown')}</span>`; const mission=card.querySelector('.mission'); if(st.phase==='DONE' && mission){mission.style.display='block'; mission.innerHTML='<strong>MISSION 1 COMPLETED</strong><br>Glimmerdash is complete and verified. <a href="https://gert66.github.io/ai-agent-challenge-05-maze-chase/" target="_blank">Play Glimmerdash</a>'; } const box=card.querySelector('.commits'); if(Array.isArray(st.commits)){box.className='commits'; box.innerHTML=st.commits.map(c=>`<div class="commit"><strong>${esc(c.message)}</strong><br><span class="muted"><code>${esc(c.sha.slice(0,7))}</code> · ${new Date(c.date).toLocaleString()} · ${esc(c.author)}</span></div>`).join('') || '<div class="muted">No commits yet.</div>'; return;}}}catch(e){}
- }
+ try{const sr=await fetch(`live-status-${jobId}.json?t=${Date.now()}`,{cache:'no-store'}); if(sr.ok){const st=await sr.json(); const live=card.querySelector('.live'); live.innerHTML=`<strong>${esc(st.phase)}</strong> · ${esc(st.step||'between steps')}<br><span class="muted">Last heartbeat: ${esc(st.heartbeat||'unknown')} · published ${esc(st.published_at||'unknown')}</span>`; const mission=card.querySelector('.mission'); if(st.phase==='DONE' && mission){mission.style.display='block'; mission.innerHTML=`<strong>MISSION ${missionNo} COMPLETED</strong><br>${missionNo===1?'Glimmerdash is complete and verified. <a href="https://gert66.github.io/ai-agent-challenge-05-maze-chase/" target="_blank">Play Glimmerdash</a>':'Challenge complete and verified.'}`; } const box=card.querySelector('.commits'); if(Array.isArray(st.commits)){box.className='commits'; box.innerHTML=st.commits.map(c=>`<div class="commit"><strong>${esc(c.message)}</strong><br><span class="muted"><code>${esc(c.sha.slice(0,7))}</code> · ${new Date(c.date).toLocaleString()} · ${esc(c.author)}</span></div>`).join('') || '<div class="muted">No commits yet.</div>'; return;}}}catch(e){}
  try{
   const r=await fetch(`https://api.github.com/repos/gert66/${repo}/commits?sha=${encodeURIComponent(branch)}&per_page=100`,{headers:{'Accept':'application/vnd.github+json'}});
   if(!r.ok) throw new Error('GitHub API '+r.status);
