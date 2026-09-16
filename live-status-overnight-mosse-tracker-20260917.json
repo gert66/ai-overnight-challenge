@@ -1,11 +1,17 @@
 {
   "job_id": "overnight-mosse-tracker-20260917",
-  "phase": "REVIEWING",
-  "step": "03-browser-app-select-and-track",
-  "heartbeat": "2026-09-16T23:25:02Z",
-  "state_updated_at": "2026-09-16T23:23:22Z",
-  "published_at": "2026-09-16T23:25:02Z",
+  "phase": "PLANNING",
+  "step": null,
+  "heartbeat": "2026-09-16T23:26:02Z",
+  "state_updated_at": "2026-09-16T23:25:59Z",
+  "published_at": "2026-09-16T23:26:02Z",
   "commits": [
+    {
+      "sha": "e8d36a8077767eec1d9fa28bffb2c97bca7f9138",
+      "author": "gert66",
+      "date": "2026-09-16T23:25:59Z",
+      "message": "03-browser-app-select-and-track: Build the interactive browser app: load any of the three videos from pub"
+    },
     {
       "sha": "37bfa716bf76d2a5906633ca0118073f1d5a4e03",
       "author": "gert66",
