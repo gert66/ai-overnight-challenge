@@ -1,11 +1,17 @@
 {
   "job_id": "overnight-electron-dose-lab-20260917",
   "phase": "WORKING",
-  "step": "04-physics-validation-and-e2e-tests",
-  "heartbeat": "2026-09-17T02:45:14Z",
-  "state_updated_at": "2026-09-17T02:41:42Z",
-  "published_at": "2026-09-17T02:45:14Z",
+  "step": "05-ui-visual-polish",
+  "heartbeat": "2026-09-17T02:50:14Z",
+  "state_updated_at": "2026-09-17T02:49:53Z",
+  "published_at": "2026-09-17T02:50:14Z",
   "commits": [
+    {
+      "sha": "9e2e69bffd19aef9ea5152b224df559cf7399c28",
+      "author": "gert66",
+      "date": "2026-09-17T02:49:17Z",
+      "message": "04-physics-validation-and-e2e-tests: Add a visible physics sanity check comparing simulated results to the ES"
+    },
     {
       "sha": "9ac6f5f1f419e1272a52b825e1f24ef99c64cd50",
       "author": "gert66",
