@@ -1,11 +1,17 @@
 {
   "job_id": "overnight-electron-dose-lab-20260917",
-  "phase": "REVIEWING",
-  "step": "03-interactive-ui",
-  "heartbeat": "2026-09-17T02:40:14Z",
-  "state_updated_at": "2026-09-17T02:38:44Z",
-  "published_at": "2026-09-17T02:40:14Z",
+  "phase": "WORKING",
+  "step": "04-physics-validation-and-e2e-tests",
+  "heartbeat": "2026-09-17T02:45:14Z",
+  "state_updated_at": "2026-09-17T02:41:42Z",
+  "published_at": "2026-09-17T02:45:14Z",
   "commits": [
+    {
+      "sha": "9ac6f5f1f419e1272a52b825e1f24ef99c64cd50",
+      "author": "gert66",
+      "date": "2026-09-17T02:40:45Z",
+      "message": "03-interactive-ui: Build the interactive browser UI: phantom/beam controls wired to the exi"
+    },
     {
       "sha": "b8d76c9250886e24ced0108efbe299328decff54",
       "author": "gert66",
