@@ -1,11 +1,17 @@
 {
   "job_id": "overnight-electron-dose-lab-20260917",
-  "phase": "WORKING",
-  "step": "08-final-report-and-docs",
-  "heartbeat": "2026-09-17T03:50:15Z",
-  "state_updated_at": "2026-09-17T03:48:55Z",
-  "published_at": "2026-09-17T03:50:15Z",
+  "phase": "DONE",
+  "step": null,
+  "heartbeat": "2026-09-17T03:53:30Z",
+  "state_updated_at": "2026-09-17T03:53:29Z",
+  "published_at": "2026-09-17T03:53:30Z",
   "commits": [
+    {
+      "sha": "b609193a60dcacac3e13d2f9c214d90b8d153a82",
+      "author": "gert66",
+      "date": "2026-09-17T03:52:51Z",
+      "message": "08-final-report-and-docs: Write the short final report required by PROMPT_AND_ACCEPTANCE.md and co"
+    },
     {
       "sha": "e6a28b2e66483f1ffed38c2f952117b192cf6af6",
       "author": "gert66",
