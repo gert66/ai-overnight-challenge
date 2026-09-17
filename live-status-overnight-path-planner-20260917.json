@@ -1,11 +1,17 @@
 {
   "job_id": "overnight-path-planner-20260917",
   "phase": "WORKING",
-  "step": "02-threejs-viewer-and-controls",
-  "heartbeat": "2026-09-17T04:10:09Z",
-  "state_updated_at": "2026-09-17T04:05:55Z",
-  "published_at": "2026-09-17T04:10:09Z",
+  "step": "03-exploration-playback-and-drone-animation",
+  "heartbeat": "2026-09-17T04:15:09Z",
+  "state_updated_at": "2026-09-17T04:13:49Z",
+  "published_at": "2026-09-17T04:15:09Z",
   "commits": [
+    {
+      "sha": "f4fbf255e3894ca7adc486b2375ea951f00bdf23",
+      "author": "gert66",
+      "date": "2026-09-17T04:13:17Z",
+      "message": "02-threejs-viewer-and-controls: Replace the placeholder src/main.ts with an interactive three.js 3D view"
+    },
     {
       "sha": "80862f549981c12cb252231ec669f80e9c748146",
       "author": "gert66",
