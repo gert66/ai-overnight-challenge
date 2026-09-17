@@ -2,9 +2,9 @@
   "job_id": "overnight-path-planner-20260917",
   "phase": "WORKING",
   "step": "06-pwa-mobile-readiness",
-  "heartbeat": "2026-09-17T05:40:11Z",
+  "heartbeat": "2026-09-17T05:45:11Z",
   "state_updated_at": "2026-09-17T05:29:38Z",
-  "published_at": "2026-09-17T05:40:11Z",
+  "published_at": "2026-09-17T05:45:11Z",
   "commits": [
     {
       "sha": "24c4f5b57bed2040bb6f00d11454fdd54fa7b8d5",
