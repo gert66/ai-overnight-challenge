@@ -2,9 +2,9 @@
   "job_id": "overnight-path-planner-20260917",
   "phase": "WORKING",
   "step": "05-visual-polish-and-demo-readiness",
-  "heartbeat": "2026-09-17T05:05:10Z",
+  "heartbeat": "2026-09-17T05:10:10Z",
   "state_updated_at": "2026-09-17T04:41:08Z",
-  "published_at": "2026-09-17T05:05:10Z",
+  "published_at": "2026-09-17T05:10:10Z",
   "commits": [
     {
       "sha": "b72524618e8fb3e5816e38b1a73d498c08df12aa",
