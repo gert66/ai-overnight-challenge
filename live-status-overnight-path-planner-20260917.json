@@ -1,10 +1,10 @@
 {
   "job_id": "overnight-path-planner-20260917",
-  "phase": "WORKING",
+  "phase": "REVIEWING",
   "step": "04-playwright-e2e-tests",
-  "heartbeat": "2026-09-17T04:35:10Z",
-  "state_updated_at": "2026-09-17T04:23:57Z",
-  "published_at": "2026-09-17T04:35:10Z",
+  "heartbeat": "2026-09-17T04:40:10Z",
+  "state_updated_at": "2026-09-17T04:37:11Z",
+  "published_at": "2026-09-17T04:40:10Z",
   "commits": [
     {
       "sha": "63fe596d964ed8626941b66fbdd511c2077f6d92",
