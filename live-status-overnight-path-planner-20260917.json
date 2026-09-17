@@ -1,11 +1,17 @@
 {
   "job_id": "overnight-path-planner-20260917",
-  "phase": "WORKING",
-  "step": "01-core-planner-and-scenes",
-  "heartbeat": "2026-09-17T04:00:09Z",
-  "state_updated_at": "2026-09-17T03:54:26Z",
-  "published_at": "2026-09-17T04:00:09Z",
+  "phase": "PLANNING",
+  "step": null,
+  "heartbeat": "2026-09-17T04:05:09Z",
+  "state_updated_at": "2026-09-17T04:05:10Z",
+  "published_at": "2026-09-17T04:05:09Z",
   "commits": [
+    {
+      "sha": "80862f549981c12cb252231ec669f80e9c748146",
+      "author": "gert66",
+      "date": "2026-09-17T04:05:10Z",
+      "message": "01-core-planner-and-scenes: Scaffold a Vite + TypeScript project and implement a headless, unit-test"
+    },
     {
       "sha": "941fe2c75d8325ee8f9e979a3c5af8c4ba59cd11",
       "author": "gert66",
