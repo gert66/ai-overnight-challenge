@@ -1,11 +1,17 @@
 {
   "job_id": "overnight-path-planner-20260917",
-  "phase": "WORKING",
-  "step": "07-final-report-and-audit-trail",
-  "heartbeat": "2026-09-17T05:55:11Z",
-  "state_updated_at": "2026-09-17T05:52:10Z",
-  "published_at": "2026-09-17T05:55:11Z",
+  "phase": "DONE",
+  "step": null,
+  "heartbeat": "2026-09-17T05:57:34Z",
+  "state_updated_at": "2026-09-17T05:57:33Z",
+  "published_at": "2026-09-17T05:57:34Z",
   "commits": [
+    {
+      "sha": "13a370ac77cb2819137e8de9936a1f2afc3d2799",
+      "author": "gert66",
+      "date": "2026-09-17T05:57:14Z",
+      "message": "07-final-report-and-audit-trail: Write the short final report required by PROMPT_AND_ACCEPTANCE.md (docs/"
+    },
     {
       "sha": "38f7ed3f6ce77ba9d95c9f0b0b5dbffebbfc6a66",
       "author": "gert66",
