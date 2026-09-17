@@ -1,10 +1,10 @@
 {
   "job_id": "overnight-rubik-2x2-20260917",
-  "phase": "WORKING",
+  "phase": "REVIEWING",
   "step": "01-scaffold-core-model",
-  "heartbeat": "2026-09-17T00:34:12Z",
-  "state_updated_at": "2026-09-17T00:14:47Z",
-  "published_at": "2026-09-17T00:34:12Z",
+  "heartbeat": "2026-09-17T00:35:12Z",
+  "state_updated_at": "2026-09-17T00:35:16Z",
+  "published_at": "2026-09-17T00:35:12Z",
   "commits": [
     {
       "sha": "10356b667861afc87bd3f2e0a4380ba6d7f4731c",
