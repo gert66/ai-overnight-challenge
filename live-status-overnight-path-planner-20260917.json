@@ -1,11 +1,17 @@
 {
   "job_id": "overnight-path-planner-20260917",
-  "phase": "REVIEWING",
-  "step": "04-playwright-e2e-tests",
-  "heartbeat": "2026-09-17T04:40:10Z",
-  "state_updated_at": "2026-09-17T04:37:11Z",
-  "published_at": "2026-09-17T04:40:10Z",
+  "phase": "WORKING",
+  "step": "05-visual-polish-and-demo-readiness",
+  "heartbeat": "2026-09-17T04:45:10Z",
+  "state_updated_at": "2026-09-17T04:41:08Z",
+  "published_at": "2026-09-17T04:45:10Z",
   "commits": [
+    {
+      "sha": "b72524618e8fb3e5816e38b1a73d498c08df12aa",
+      "author": "gert66",
+      "date": "2026-09-17T04:40:20Z",
+      "message": "04-playwright-e2e-tests: Add end-to-end browser tests (Playwright + headless Chromium, software W"
+    },
     {
       "sha": "63fe596d964ed8626941b66fbdd511c2077f6d92",
       "author": "gert66",
