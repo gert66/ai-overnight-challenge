@@ -1,10 +1,10 @@
 {
   "job_id": "overnight-rubik-2x2-20260917",
-  "phase": "WAITING",
+  "phase": "DONE",
   "step": null,
-  "heartbeat": "2026-09-17T02:05:13Z",
-  "state_updated_at": "2026-09-17T01:59:31Z",
-  "published_at": "2026-09-17T02:05:13Z",
+  "heartbeat": "2026-09-17T02:09:52Z",
+  "state_updated_at": "2026-09-17T02:09:52Z",
+  "published_at": "2026-09-17T02:09:52Z",
   "commits": [
     {
       "sha": "35c0aaebc4a3424f0e0b536ceba436e3ca6f7141",
