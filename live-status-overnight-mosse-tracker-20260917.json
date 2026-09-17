@@ -1,11 +1,17 @@
 {
   "job_id": "overnight-mosse-tracker-20260917",
-  "phase": "REVIEWING",
-  "step": "06-final-report-and-readme",
-  "heartbeat": "2026-09-17T00:13:03Z",
-  "state_updated_at": "2026-09-17T00:12:19Z",
-  "published_at": "2026-09-17T00:13:03Z",
+  "phase": "DONE",
+  "step": null,
+  "heartbeat": "2026-09-17T00:14:08Z",
+  "state_updated_at": "2026-09-17T00:14:08Z",
+  "published_at": "2026-09-17T00:14:08Z",
   "commits": [
+    {
+      "sha": "3a41b132b97ce678ca14c30786d086b81e39959d",
+      "author": "gert66",
+      "date": "2026-09-17T00:13:53Z",
+      "message": "06-final-report-and-readme: Write the short final report (FINAL_REPORT.md) with measured per-video t"
+    },
     {
       "sha": "91ded1685e841a9770ec608a9ddccf4c045cb2a0",
       "author": "gert66",
