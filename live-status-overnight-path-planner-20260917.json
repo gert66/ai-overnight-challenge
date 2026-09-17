@@ -1,11 +1,17 @@
 {
   "job_id": "overnight-path-planner-20260917",
   "phase": "WORKING",
-  "step": "03-exploration-playback-and-drone-animation",
-  "heartbeat": "2026-09-17T04:20:09Z",
-  "state_updated_at": "2026-09-17T04:13:49Z",
-  "published_at": "2026-09-17T04:20:09Z",
+  "step": "04-playwright-e2e-tests",
+  "heartbeat": "2026-09-17T04:25:09Z",
+  "state_updated_at": "2026-09-17T04:23:57Z",
+  "published_at": "2026-09-17T04:25:09Z",
   "commits": [
+    {
+      "sha": "63fe596d964ed8626941b66fbdd511c2077f6d92",
+      "author": "gert66",
+      "date": "2026-09-17T04:23:03Z",
+      "message": "03-exploration-playback-and-drone-animation: Add time-based playback of the A* exploration (search frontier growing o"
+    },
     {
       "sha": "f4fbf255e3894ca7adc486b2375ea951f00bdf23",
       "author": "gert66",
