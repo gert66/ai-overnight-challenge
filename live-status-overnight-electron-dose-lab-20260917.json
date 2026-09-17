@@ -1,10 +1,10 @@
 {
   "job_id": "overnight-electron-dose-lab-20260917",
-  "phase": "PLANNING",
-  "step": null,
-  "heartbeat": "2026-09-17T02:20:13Z",
-  "state_updated_at": "2026-09-17T02:19:20Z",
-  "published_at": "2026-09-17T02:20:13Z",
+  "phase": "WORKING",
+  "step": "02-transport-engine",
+  "heartbeat": "2026-09-17T02:25:14Z",
+  "state_updated_at": "2026-09-17T02:20:27Z",
+  "published_at": "2026-09-17T02:25:14Z",
   "commits": [
     {
       "sha": "4e185adc2aa4398ef697c3ce991cdeba157feb0b",
