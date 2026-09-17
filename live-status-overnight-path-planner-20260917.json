@@ -7,6 +7,12 @@
   "published_at": "2026-09-17T05:57:34Z",
   "commits": [
     {
+      "sha": "4a1b976dc2cfae1ba889b5478454ce81168fee7a",
+      "author": "gert66",
+      "date": "2026-09-17T06:02:53Z",
+      "message": "08-final-polish-acceptance-pass: Independently audit the completed 3D Path Planner against PROMPT_AND_ACC"
+    },
+    {
       "sha": "13a370ac77cb2819137e8de9936a1f2afc3d2799",
       "author": "gert66",
       "date": "2026-09-17T05:57:14Z",
