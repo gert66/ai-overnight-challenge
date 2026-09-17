@@ -1,11 +1,17 @@
 {
   "job_id": "overnight-rubik-2x2-20260917",
-  "phase": "REVIEWING",
-  "step": "02-solver-verified",
-  "heartbeat": "2026-09-17T01:18:13Z",
-  "state_updated_at": "2026-09-17T01:13:03Z",
-  "published_at": "2026-09-17T01:18:13Z",
+  "phase": "PLANNING",
+  "step": null,
+  "heartbeat": "2026-09-17T01:20:13Z",
+  "state_updated_at": "2026-09-17T01:20:16Z",
+  "published_at": "2026-09-17T01:20:13Z",
   "commits": [
+    {
+      "sha": "fa483693d17852343b8b18569b610554d04d924d",
+      "author": "gert66",
+      "date": "2026-09-17T01:20:16Z",
+      "message": "02-solver-verified: Implement an optimal (or near-optimal, bounded) 2x2x2 solver in src/core"
+    },
     {
       "sha": "97096838e2d49b7c6ac0169929c8b9fccba0b019",
       "author": "gert66",
