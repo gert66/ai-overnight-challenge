@@ -207,6 +207,9 @@ per `v2/ARCHITECTURE.md:79-89`).
 
 ### Persona verdict summary
 
+**Superseded by the `v3-07` rework batch below — see "Rework log (v3-07)" for the current table.**
+Table as it stood before that batch (kept for the record):
+
 | Persona | V3 vs V1 | V3 vs V2 |
 |---|---|---|
 | 1. Non-technical admin/secretarial | BETTER | BETTER (one open mobile-layout caveat shared with V2, see M1) |
@@ -1010,6 +1013,98 @@ this repair pass — a content regression versus V2, not a V1-comparison issue.
    `.../commits/overnight/...`). URL-equivalent on GitHub, not a broken link, but not a strict
    byte-identical match either. No fix proposed — this is a V1 root-page characteristic (its own
    JS template), not something to change in V3.
+
+---
+
+## Rework log (v3-07)
+
+Batch `v3-07-rework-review-majors-mobile-verify` addressed Part D findings 1–7. Sandbox note: as
+in the prior repair pass, `python3 -c`, `python3 v3/review-audit.py`, `node -e`, and `npx
+--version` all still return "This command requires approval" in this non-interactive worker batch
+(tried again below, unchanged from Part B/C's finding), so this pass falls back to `grep`-based
+link/caveat verification and static CSS reasoning, same method as the existing Part B/C audits.
+
+1. **MAJOR — dropped clinical caveat — FIXED.** Appended the exact sentence to every page that
+   mentions Electron Dose Lab:
+   - `v3/verhaal.html:81` — appended "Geen klinisch apparaat, wel een echte simulatie op basis van
+     publieke NIST-data." to the `.desc` paragraph.
+   - `v3/en/verhaal.html:81` — appended "Not a clinical device, but a genuine simulation based on
+     public NIST data." to the `.desc` paragraph.
+   - `v3/onder-de-motorkap.html:140` (new line, after the `</table>`) — added
+     `<p class="table-note">Electron Dose Lab: geen klinisch apparaat, wel een echte simulatie op
+     basis van publieke NIST-data.</p>`.
+   - `v3/en/onder-de-motorkap.html:140` — EN equivalent with "not a clinical device...".
+   - `v3/zelf-bouwen.html:161` and `v3/en/zelf-bouwen.html:161` — same `<p class="table-note">`
+     pattern added after the repository table. These two files were not named in the batch's
+     numbered instruction list, but both contain an "Electron Dose Lab" table row (repo-only
+     table) with no caveat anywhere else on the page, so they were fixed too to satisfy the
+     batch's own acceptance criterion ("every v3 page that mentions Electron Dose Lab carries the
+     caveat").
+   - `v3/hoe-kan-ai-dit.html:49` and `v3/en/hoe-kan-ai-dit.html:49` — this conceptual page
+     previously never named Electron Dose Lab at all; added one sentence naming it with the
+     caveat ("Een van de vijf, Electron Dose Lab, is geen klinisch apparaat, wel een echte
+     simulatie op basis van publieke NIST-data." / EN equivalent) inside the existing closing
+     sentence of the loop section, next to the "all five challenges were done" reference.
+   - New CSS support: `.table-note` rule added to `v3/assets/v3.css` (after the `.tech-table`
+     mobile media query, ~line 739) — `margin-top:10px; font-size:13.5px; color:var(--muted);`,
+     matching the existing `.muted`/caption styling, no new colors or fonts introduced.
+   - Verified: `grep -L "klinisch" v3/index.html v3/verhaal.html v3/onder-de-motorkap.html
+     v3/zelf-bouwen.html v3/hoe-kan-ai-dit.html` and the EN equivalent with "clinical device" both
+     return empty (every NL/EN page that contains "Electron Dose Lab" also contains the caveat
+     sentence) — 5/5 NL pages, 5/5 EN pages, up from 2/10 before this batch.
+
+2. **MAJOR — `.demo-links a` tap target — FIXED.** `v3/assets/v3.css` `.demo-links a` (was
+   `~368–377`, no padding declared) now has `padding: 8px 2px; display: inline-flex; align-items:
+   center; min-height: 40px;`. `v3.css`'s global `* { box-sizing: border-box; }` (line 33) makes
+   `min-height: 40px` the actual rendered floor regardless of font metrics, so the computed height
+   is guaranteed ≥40px without changing the link's color, font-size or visible padding rhythm
+   (hover color rule untouched).
+
+3. **MAJOR — unconfirmed mobile scroll depth — remains UNVERIFIED, no renderer available.**
+   Commands tried in this batch (all failed with "This command requires approval" or were
+   sandboxed to the repo working directory, consistent with Part C's original finding):
+   `python3 -c "import playwright"`, `python3 v3/review-audit.py`, `node -e
+   "require('puppeteer')"`, `npx --version`, `npx --yes playwright --version`. `which chromium
+   chromium-browser google-chrome google-chrome-stable` all exited 1 (not found; this check alone
+   did not require approval). `ls ~/.cache/ms-playwright` was blocked outright ("may only list
+   files in the allowed working directories for this session"). No sudo was used and nothing was
+   installed, per the batch's hard limits. **No screenshots were produced; `v3/screenshots/` was
+   not created.** Because a real render remains unavailable, this batch did not touch
+   `.fact-tiles`/`.timeline` mobile spacing — changing layout spacing without being able to
+   measure the result risks a blind regression, and the task's own instruction was to tighten
+   *only if* a measurement showed >~1600px. This finding is carried forward unresolved; the
+   `v3/index.html`/`v3/verhaal.html` fact-tile and timeline mobile padding is unchanged from the
+   previous batch.
+
+4. **MINOR — `.topnav a` / `a.pill` tap targets — FIXED (mobile only).** Added to the existing
+   `@media (max-width: 620px)` block in `v3/assets/v3.css` (~line 650): `.topnav a { padding: 10px
+   6px; }` (was `6px 4px`) and `a.pill { padding: 11px 13px; }` (was `8px 13px`). Computed height
+   at ≤620px: `.topnav a` ≈ 14px × 1.6 line-height + 20px padding = 42.4px; `a.pill` ≈ 13px × 1.6 +
+   22px = 42.8px — both ≥40px. Desktop (>620px) keeps the original, more compact padding
+   (`6px 4px` / `8px 13px`), unchanged, per the task's "keep desktop look compact" instruction.
+
+5. **MINOR — caption/badge font sizes below 14px — left as-is, no fix proposed (per Part D
+   finding 5's own text).** Consistent with V1's original `.badge{font-size:12px}` sizing; not
+   primary reading copy. No change made.
+
+6. **MINOR — `.jargon-def` `max-width: 22rem` — FIXED.** Changed to `max-width: min(22rem, 100%)`
+   (`v3/assets/v3.css:472`) so the cap can never exceed the available content width on narrow
+   viewports, removing the theoretical overflow risk Part C flagged even though layout-model
+   reasoning already suggested browsers would clamp it. Purely defensive; no visual change at
+   viewports where 22rem already fit.
+
+7. **MINOR — commit-history URL encoding vs. root V1 — no fix proposed (per Part D finding 7's
+   own text).** This is a characteristic of V1 root's own `encodeURIComponent` JS template, not a
+   V3 defect; left unchanged.
+
+### Persona verdict summary — updated
+
+| Persona | V3 vs V1 | V3 vs V2 |
+|---|---|---|
+| 1. Non-technical admin/secretarial | BETTER | BETTER (mobile-layout caveat M1 still open, see finding 3 above — unverified, not a regression) |
+| 2. Clinical colleague | BETTER | **BETTER** (was: EQUAL on homepage, WORSE on `verhaal.html` — finding 1 is now fixed: the caveat is on `verhaal.html`, `onder-de-motorkap.html`, `zelf-bouwen.html` and `hoe-kan-ai-dit.html` in both languages, so V3 now matches V2's 5/5 caveat coverage while keeping V2's other clinical-relevant content) |
+| 3. Physicist / AI-curious | BETTER | BETTER |
+| 4. ICT / software specialist | BETTER | BETTER |
 
 ---
 
