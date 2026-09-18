@@ -7,6 +7,12 @@
   "published_at": "2026-09-16T21:54:50Z",
   "commits": [
     {
+      "sha": "d34ca9fd37e0af1750787dab383586ae0e6f2ef2",
+      "author": "gert66",
+      "date": "2026-09-18T09:07:27Z",
+      "message": "Make mobile game layout thumb-playable"
+    },
+    {
       "sha": "3270fdf49f6d54436c65c6c76cdd532df50697f7",
       "author": "gert66",
       "date": "2026-09-18T08:14:46Z",
