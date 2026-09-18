@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>I want to build this myself · What AI built in one night</title>
+<meta name="description" content="Explained step by step: what you need, roughly what it costs, and how to build a small autonomous AI build environment yourself.">
+<link rel="stylesheet" href="../assets/v2.css">
+<link rel="alternate" hreflang="nl" href="../zelf-bouwen.html">
+<link rel="alternate" hreflang="en" href="build-it-yourself.html">
+</head>
+<body>
+<a class="lang-switch" href="../zelf-bouwen.html" aria-label="Switch to Dutch" title="Switch to Dutch"><span aria-hidden="true">🌐</span><span>NL</span></a>
+<main>
+
+<p class="muted"><a href="index.html">← Back to the overview</a></p>
+
+<section class="hero">
+<h1>I want to build this myself</h1>
+<p class="lead">For anyone who wants to set this up themselves, at home or in the department. You don't need to be an experienced programmer, but you do need to be willing to work with a terminal. You'll need a computer, an account with a <details class="jargon"><summary>model provider</summary><span class="jargon-def">The model provider is the company that supplies the AI model that does the reasoning and writing.</span></details> and some time. This is a condensed route; the full commands are on the existing site.</p>
+</section>
+
+<details class="tech-details" open>
+<summary>What do you need and roughly what does it cost?</summary>
+<p>For a first personal setup, the fixed costs are modest. You don't need a GPU server or a large cloud platform.</p>
+<div class="table-scroll">
+<table>
+<tr><th>Component</th><th>Order of magnitude</th><th>What for?</th></tr>
+<tr><td>Small Linux cloud <details class="jargon"><summary>VM</summary><span class="jargon-def">A VM (virtual machine) is a small computer that runs in a data centre.</span></details></td><td>roughly €6 to €7 per month</td><td>Where the <details class="jargon"><summary>orchestrator</summary><span class="jargon-def">The orchestrator is the traffic controller: the system that splits the work into small steps, has each step tested and checked, and only moves on once a step is genuinely good enough.</span></details>, <details class="jargon"><summary>Git</summary><span class="jargon-def">Git is the logbook: a system that saves every change to the code, so you can always read back exactly what was changed and when.</span></details>, Python, Node/npm, tests, monitoring and watchdog run.</td></tr>
+<tr><td>AI subscription</td><td>roughly €20 per month</td><td>For example ChatGPT or Claude as your personal AI environment. For specific <details class="jargon"><summary>API</summary><span class="jargon-def">An API is an agreement that lets two programs talk to each other, for example between the orchestrator and an AI model.</span></details> or agent workflows, usage costs may apply depending on the setup you choose.</td></tr>
+<tr><td>GitHub + simple hosting</td><td>often free</td><td>Repositories, commits, audit trail and, for example, GitHub Pages for a dashboard or demo.</td></tr>
+</table>
+</div>
+<p class="muted">These are order-of-magnitude amounts from the challenge itself; always check the current prices with the provider before you order.</p>
+</details>
+
+<details class="tech-details">
+<summary>Steps 1–3: accounts, an SSH key and your first VM</summary>
+<p>Start with three accounts: GitHub (for code and version control), a cloud provider such as Hetzner (for the VM) and an AI account (for example Claude Code as a coding agent on the VM, and ChatGPT or Claude for the human conversation). On your own computer, create an SSH key, and use it to create a small Ubuntu VM, on the order of 2 vCPU and 4 GB RAM.</p>
+<p><a href="../../install-howto.html#accounts">Full explanation: creating accounts</a> · <a href="../../install-howto.html#sshkey">Creating an SSH key</a> · <a href="../../install-howto.html#hetzner">Creating the VM</a> · <a href="../../install-howto.html#connect">The first connection</a></p>
+</details>
+
+<details class="tech-details">
+<summary>Steps 4–5: installing software and connecting GitHub</summary>
+<p>Install the basic software on the VM: Git, Python, Node/npm and the usual build tools. Then connect the VM to GitHub with its own SSH key, so the VM can later commit and push by itself.</p>
+<p><a href="../../install-howto.html#software">Full explanation: installing software</a> · <a href="../../install-howto.html#github">Connecting GitHub</a></p>
+</details>
+
+<details class="tech-details">
+<summary>Step 6: the coding agent and a tool bridge</summary>
+<p>Install a coding agent on the VM, for example Claude Code, and let it first do one simple task interactively before anything runs autonomously. Optionally, you can also add Desktop Commander: a tool bridge that lets a chat AI, separate from the autonomous orchestrator, directly view and change files, processes and logs on the VM when you explicitly ask for it.</p>
+<p><a href="../../install-howto.html#agent">Full explanation: installing the coding agent</a> · <a href="../../install-howto.html#desktopcommander">Desktop Commander (optional)</a></p>
+</details>
+
+<details class="tech-details">
+<summary>Steps 7–9: secrets, a first test and the orchestrator</summary>
+<p>Never put API keys and tokens directly in code or Git; use a file that isn't committed, with strict permissions. Then do one manual end-to-end test first: VM → agent → test → Git commit → GitHub push. Only once that works reliably should you add the orchestrator. A first version only needs to know six phases: plan, build, test, review, commit and repeat.</p>
+<p><a href="../../install-howto.html#env">Full explanation: setting up secrets</a> · <a href="../../install-howto.html#firstjob">The first manual test</a> · <a href="../../install-howto.html#orchestrator">Adding the orchestrator</a></p>
+</details>
+
+<details class="tech-details">
+<summary>Steps 10–12: monitoring, watchdog and a final check</summary>
+<p>Have active jobs write a heartbeat, and set up a separate watchdog that intervenes if a job demonstrably gets stuck, with a maximum number of attempts. Before you let the environment work on its own, run through a final check: does SSH work, can it push to GitHub, do the tests run with a clear result, and is every accepted step a separate Git commit?</p>
+<p><a href="../../install-howto.html#watchdog">Full explanation: monitoring and watchdog</a> · <a href="../../install-howto.html#checklist">The full final check</a></p>
+</details>
+
+<details class="tech-details">
+<summary>Start deliberately small</summary>
+<p>Don't build everything at once. Start with one VM, one GitHub repository and one AI environment. Only add reviews, retries, multiple model providers and a dashboard once the simple chain already works reliably. Choose a first trial task that can demonstrably succeed or fail within a few hours, and write five to ten concrete acceptance criteria before you start.</p>
+<p><a href="../../build-your-own.html">Full overview: requirements, costs and build-up</a></p>
+</details>
+
+<details class="tech-details">
+<summary>Start from the story, not from the technology</summary>
+<p>The way this experiment came about is itself a method you can reuse: start with an idea in plain language, and let AI work that idea out itself into a <details class="jargon"><summary>prompt</summary><span class="jargon-def">A prompt is an instruction in plain language, written or spoken, that you give to AI, for example a task or question that should produce a result.</span></details>, with a challenge brief, acceptance criteria and an executable assignment. Only then does the orchestrator need to build, test, review and repair it autonomously.</p>
+<p><a href="../../prompt-chain.html">View the full prompt chain</a>, including the original prompts as they were actually used.</p>
+</details>
+
+<details class="tech-details">
+<summary>Five ready-made examples</summary>
+<p>Use these repositories as an example of what comes out of this approach:</p>
+<ul>
+<li><a href="https://github.com/gert66/ai-agent-challenge-01-mosse-tracker" target="_blank" rel="noopener">01 MOSSE Tracker</a> <span class="muted">— tracks a designated object through a video.</span></li>
+<li><a href="https://github.com/gert66/ai-agent-challenge-02-rubik-2x2" target="_blank" rel="noopener">02 Rubik 2x2</a> <span class="muted">— solves a 2x2 cube and animates every move in 3D.</span></li>
+<li><a href="https://github.com/gert66/ai-agent-challenge-03-monte-carlo" target="_blank" rel="noopener">03 Electron Dose Lab</a> <span class="muted">— physics Monte Carlo research demo with public NIST data.</span></li>
+<li><a href="https://github.com/gert66/ai-agent-challenge-04-path-planner" target="_blank" rel="noopener">04 3D Path Planner</a> <span class="muted">— finds and shows a safe route through a 3D obstacle world.</span></li>
+<li><a href="https://github.com/gert66/ai-agent-challenge-05-maze-chase" target="_blank" rel="noopener">05 Maze Chase</a> <span class="muted">— an original maze chase game in the browser.</span></li>
+</ul>
+</details>
+
+<details class="tech-details">
+<summary>Honest expectations</summary>
+<p>The value isn't in expensive hardware, but in the orchestrator that reliably ties all the steps together: so start deliberately small and only expand once the basic loop runs reliably. Provider flexibility today concretely exists for the Worker role (Brain, Worker and Reviewer are the three AI roles; see <a href="under-the-hood.html">Show me under the hood</a>); Brain and Reviewer run fixed via Claude in this implementation. And not every result suits every purpose: the Electron Dose Lab demo, for example, is a physics research demo based on public NIST data, not a clinical device and not a clinically validated dosing system.</p>
+</details>
+
+<h2>Choose your next step</h2>
+<div class="route-grid">
+<a class="route-card" href="under-the-hood.html"><strong>Show me under the hood</strong><span>For ICT and software: the technical architecture, machine and models.</span></a>
+<a class="route-card" href="how-ai-did-it.html"><strong>How could AI do this itself?</strong><span>The approach in outline, no code.</span></a>
+<a class="route-card" href="what-happened.html"><strong>Just tell me what happened</strong><span>The complete story in plain language, without jargon.</span></a>
+<a class="route-card" href="index.html"><strong>Back to the overview</strong><span>See all five demos and choose your own route.</span></a>
+</div>
+
+<footer class="site-footer">
+<p><a href="../zelf-bouwen.html">Nederlands</a></p>
+<p class="preview-note">This is version 2 (preview); the current site is at <a href="../../index-en.html">the current site</a></p>
+</footer>
+
+</main>
+<script src="../assets/v2.js"></script>
+</body>
+</html>

@@ -21,8 +21,8 @@ in later batches.
 | `v2/index.html` | `v2/en/index.html` | Entry page: hero, human timeline, five playable demos, plain-language explanation, four depth-route cards | NL and EN both built |
 | `v2/wat-is-er-gebeurd.html` ("Vertel me gewoon wat er gebeurd is") | `v2/en/what-happened.html` ("Just tell me what happened") | Depth route 1: narrative-only retelling of the story for the least technical readers, no jargon at all | NL and EN both built |
 | `v2/hoe-kan-ai-dit.html` ("Hoe kan AI dit zelf?") | `v2/en/how-ai-did-it.html` ("How could AI do this itself?") | Depth route 2: conceptual explanation of planning/building/testing/reviewing loop, jargon optional via inline disclosures | NL and EN both built |
-| `v2/onder-de-motorkap.html` ("Kijk onder de motorkap") | `v2/en/under-the-hood.html` ("Show me under the hood") | Depth route 3: technical architecture, reusing diagrams/tables from `how-we-built.html` and `how-we-built-en.html` | NL built; EN mirror is a later batch (linked now, will 404 until then) |
-| `v2/zelf-bouwen.html` ("Ik wil dit zelf bouwen") | `v2/en/build-it-yourself.html` ("I want to build this myself") | Depth route 4: self-build guide, reusing content from `build-your-own.html`/`install-howto.html` and their `-en` mirrors | NL built; EN mirror is a later batch (linked now, will 404 until then) |
+| `v2/onder-de-motorkap.html` ("Kijk onder de motorkap") | `v2/en/under-the-hood.html` ("Show me under the hood") | Depth route 3: technical architecture, reusing diagrams/tables from `how-we-built.html` and `how-we-built-en.html` | NL and EN both built |
+| `v2/zelf-bouwen.html` ("Ik wil dit zelf bouwen") | `v2/en/build-it-yourself.html` ("I want to build this myself") | Depth route 4: self-build guide, reusing content from `build-your-own.html`/`install-howto.html` and their `-en` mirrors | NL and EN both built |
 
 Route labels are an improved (friendlier, non-technical) phrasing of the four required depth
 levels; the four levels themselves are unchanged:
@@ -102,14 +102,20 @@ levels; the four levels themselves are unchanged:
 No new metrics, capabilities or claims are introduced beyond what already appears on the
 existing site or in the challenge repositories.
 
-## Links pending future batches (intentionally present on V2 pages now)
+## Links pending future batches
 
-`v2/en/index.html`, `v2/en/what-happened.html` and `v2/en/how-ai-did-it.html` are now built
-(this batch), each with `lang="en"`, a language switch back to its Dutch counterpart, and
-`hreflang` alternate links paired with `v2/index.html`, `v2/wat-is-er-gebeurd.html` and
-`v2/hoe-kan-ai-dit.html` respectively.
+All six NL pages and all six EN pages now exist. `v2/en/under-the-hood.html` and
+`v2/en/build-it-yourself.html` are built as faithful translations of
+`v2/onder-de-motorkap.html` and `v2/zelf-bouwen.html`: same section order and
+`<details class="tech-details">` progressive-disclosure structure (first section open by
+default), same numbers/versions/costs/commit-name sequence/external URLs/SVG references
+(`../../assets/workflow-polished-nl.svg`, `../../assets/review-loop-polished-nl.svg`, kept as
+in the Dutch source) and the same `../../install-howto.html#...` anchors, with only the prose
+translated. Every English page and every Dutch page now carries reciprocal `hreflang`
+alternates, a `.lang-switch` pill and a footer counterpart link; `v2/onder-de-motorkap.html`
+and `v2/zelf-bouwen.html` gained their missing `hreflang`/`.lang-switch` pill in this batch
+(their footer already linked to the correct English filenames). No CSS changes were needed;
+`v2/assets/v2.css` is unchanged.
 
-These relative links still point to pages that do not exist yet and will 404 until a later
-batch builds them: `v2/en/under-the-hood.html` (linked from `v2/en/index.html`,
-`v2/en/how-ai-did-it.html` and `v2/onder-de-motorkap.html`) and `v2/en/build-it-yourself.html`
-(linked from `v2/en/index.html`, `v2/en/how-ai-did-it.html` and `v2/zelf-bouwen.html`).
+The pending-links list is now empty: there are no more relative V2 links pointing at pages
+that don't exist yet.

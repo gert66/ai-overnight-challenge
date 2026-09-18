@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Show me under the hood · What AI built in one night</title>
+<meta name="description" content="The technical architecture behind the five demos: the VM, the orchestrator with Brain, Worker and Reviewer, the prompt chain and the Git audit trail.">
+<link rel="stylesheet" href="../assets/v2.css">
+<link rel="alternate" hreflang="nl" href="../onder-de-motorkap.html">
+<link rel="alternate" hreflang="en" href="under-the-hood.html">
+</head>
+<body>
+<a class="lang-switch" href="../onder-de-motorkap.html" aria-label="Switch to Dutch" title="Switch to Dutch"><span aria-hidden="true">🌐</span><span>NL</span></a>
+<main>
+
+<p class="muted"><a href="index.html">← Back to the overview</a></p>
+
+<section class="hero">
+<h1>Show me under the hood</h1>
+<p class="lead">For ICT and software colleagues, and anyone curious about the technology. This is the layer with architecture, machine and models. You don't need this page for the story itself: <a href="what-happened.html">"Just tell me what happened"</a> and <a href="how-ai-did-it.html">"How could AI do this itself?"</a> are complete on their own.</p>
+</section>
+
+<details class="tech-details" open>
+<summary>The architecture in brief</summary>
+<p>All of this ran on one ordinary <details class="jargon"><summary>VM</summary><span class="jargon-def">A VM (virtual machine) is a small computer that runs in a data centre.</span></details>, with an <details class="jargon"><summary>orchestrator</summary><span class="jargon-def">The orchestrator is the traffic controller: the system that splits the work into small steps, has each step tested and checked, and only moves on once a step is genuinely good enough.</span></details> that owns the state machine and the control flow. Three bounded AI roles supplied the reasoning within that:</p>
+<h3>One human entry point</h3>
+<p>The assignment and the boundary conditions came from natural language. After that, execution was split into small, testable batches.</p>
+<h3>Brain, Worker, Reviewer</h3>
+<p>The orchestrator kept the roles separate. The Brain chose one bounded next batch, the Worker carried it out, and the Reviewer independently checked the real result against the acceptance criteria.</p>
+<h3>Version history as memory</h3>
+<p>Every accepted batch got a <details class="jargon"><summary>Git</summary><span class="jargon-def">Git is the logbook: a system that saves every change to the code, so you can always read back exactly what was changed and when.</span></details> commit. That kept development reproducible, visible and recoverable.</p>
+<h3>Tests as the gatekeeper</h3>
+<p>Unit tests, typechecks, builds and, where possible, Playwright end-to-end tests decided whether a step could move on to the next phase.</p>
+<p>For the connection to tools and models there was a <details class="jargon"><summary>Hermes</summary><span class="jargon-def">Hermes is the toolbox here: a connection that lets the AI reach tools and models, like a bridge between the orchestrator and the programs that do the actual work.</span></details> bridge to tools and <details class="jargon"><summary>API</summary><span class="jargon-def">An API is an agreement that lets two programs talk to each other, for example between the orchestrator and an AI model.</span></details>s to a <details class="jargon"><summary>model provider</summary><span class="jargon-def">The model provider is the company that supplies the AI model that does the reasoning and writing.</span></details>.</p>
+<p class="muted">Numbers across the five jobs together: all five challenges reached <code>DONE</code>, spread over 37 autonomous build batches and 155 Claude calls, running on one VM with 2 vCPU and 3.7 GiB RAM.</p>
+<figure class="tech-figure">
+<img src="../../assets/workflow-polished-nl.svg" alt="Autonomous development workflow of the AI Challenge">
+<figcaption>The controlled autonomous development loop.</figcaption>
+</figure>
+</details>
+
+<details class="tech-details">
+<summary>The machine and the tools</summary>
+<p>The real environment during the challenge, for anyone who wants the details:</p>
+<div class="table-scroll">
+<table>
+<tr><th>Component</th><th>Actual environment during the challenge</th></tr>
+<tr><td>Compute</td><td>2 vCPU, 3.7 GiB RAM, 2 GiB swap</td></tr>
+<tr><td>Disk</td><td>38 GB root volume, roughly 28 GB used during documentation</td></tr>
+<tr><td>OS/kernel</td><td>Linux 7.0.0-29-generic x86_64</td></tr>
+<tr><td>Python</td><td>3.14.4</td></tr>
+<tr><td>Node / npm</td><td>Node v24.21.0, npm 11.19.0</td></tr>
+<tr><td>Git</td><td>Git 2.53.0</td></tr>
+<tr><td>Browser testing</td><td>Playwright + headless Chromium, including software WebGL for 3D tests</td></tr>
+<tr><td>AI tooling</td><td>Claude for Brain/Reviewer; Worker routable to Claude, Gemini 3.8 Flash or Codex; ChatGPT as the entry point</td></tr>
+</table>
+</div>
+<h3>Models: role and provider kept separate</h3>
+<p>Brain and Reviewer run via Claude. Only the Worker is provider-selectable with auto, Claude, Gemini or Codex. In auto mode, LOW/NORMAL work can go to Gemini 3.8 Flash; higher complexity and certain escalations go to Claude Sonnet. Git safety, evidence, review and commits stay with the orchestrator.</p>
+<h3>Desktop Commander: a separate tool bridge</h3>
+<p>Alongside the autonomous orchestrator, Desktop Commander Remote ran on the same VM. That let ChatGPT, when explicitly asked, directly view and change files, start or follow processes, read logs and run terminal actions. That was mainly useful for management, diagnosis and quick changes during the challenge, separate from the orchestrator's own autonomous state-machine loop.</p>
+</details>
+
+<details class="tech-details">
+<summary>The prompt chain: from idea to executable assignment</summary>
+<p>The human <details class="jargon"><summary>prompt</summary><span class="jargon-def">A prompt is an instruction in plain language, written or spoken, that you give to AI, for example a task or question that should produce a result.</span></details> during the walk was really only the start. AI then helped come up with the five challenges itself, worked them out into full challenge descriptions and made the more extensive prompts the orchestrator could work from. Those longer prompts were therefore also an AI product, in four steps:</p>
+<ol class="timeline">
+<li><strong>Idea</strong><div class="muted">Show colleagues what AI can do beyond prompt-in/prompt-out.</div></li>
+<li><strong>Short conversation</strong><div class="muted">Human + AI choose five suitable software challenges.</div></li>
+<li><strong>AI works it out</strong><div class="muted">Challenge briefs, acceptance criteria and execution prompts.</div></li>
+<li><strong>Orchestrator</strong><div class="muted">Autonomous building, testing, reviewing and repairing.</div></li>
+</ol>
+<p><a href="../../prompt-chain.html">View the full prompt chain</a>, including the original prompts as they were actually used.</p>
+</details>
+
+<details class="tech-details">
+<summary>The autonomous cycle: plan, build, test, check, fix, record</summary>
+<p>Part of the system is deliberately deterministic, another part is AI reasoning within bounded roles:</p>
+<div class="table-scroll">
+<table>
+<tr><th>Deterministic control plane</th><th>AI reasoning</th></tr>
+<tr><td>workflow phases, locks and state transitions</td><td>choosing the next bounded batch</td></tr>
+<tr><td>Git safety, scope checks and commits</td><td>writing or changing code</td></tr>
+<tr><td>running tests, collecting evidence, retries and caps</td><td>reviewing the real result and reasoning about repairs</td></tr>
+</table>
+</div>
+<figure class="tech-figure">
+<img src="../../assets/review-loop-polished-nl.svg" alt="Decision and repair cycle after review">
+<figcaption>The review, repair, wait and completion cycle.</figcaption>
+</figure>
+<h3>A concrete example in GitHub</h3>
+<p>You don't have to take our word for the architecture. For the 3D Path Planner, the build history is simply there to read back: the sequence <code>01-core-planner-and-scenes</code> → <code>02-threejs-viewer-and-controls</code> → <code>03-exploration-playback-and-drone-animation</code> → <code>04-playwright-e2e-tests</code> → <code>05-visual-polish-and-demo-readiness</code> → <code>06-pwa-mobile-readiness</code> → final audit and acceptance. That's the Brain–Worker–Evidence–Reviewer–Commit loop visible as Git history.</p>
+<p><a href="https://github.com/gert66/ai-agent-challenge-04-path-planner/commits/overnight/path-planner-2026-09-17" target="_blank" rel="noopener">View the 3D Path Planner challenge commits</a></p>
+</details>
+
+<details class="tech-details">
+<summary>Source code and repositories</summary>
+<p>The full source code, tests and commits for all five challenges are public on GitHub:</p>
+<ul>
+<li><a href="https://github.com/gert66/ai-agent-challenge-01-mosse-tracker" target="_blank" rel="noopener">01 MOSSE Tracker</a> <span class="muted">— source code + tests</span></li>
+<li><a href="https://github.com/gert66/ai-agent-challenge-02-rubik-2x2" target="_blank" rel="noopener">02 Rubik 2x2</a> <span class="muted">— solver + 3D</span></li>
+<li><a href="https://github.com/gert66/ai-agent-challenge-03-monte-carlo" target="_blank" rel="noopener">03 Electron Dose Lab</a> <span class="muted">— Monte Carlo demo</span></li>
+<li><a href="https://github.com/gert66/ai-agent-challenge-04-path-planner" target="_blank" rel="noopener">04 3D Path Planner</a> <span class="muted">— A* + Three.js</span></li>
+<li><a href="https://github.com/gert66/ai-agent-challenge-05-maze-chase" target="_blank" rel="noopener">05 Maze Chase</a> <span class="muted">— game AI + polish</span></li>
+</ul>
+<p><a href="../../how-we-built.html">Read the full technical story on the current site</a> for all architecture details, diagrams and examples.</p>
+</details>
+
+<details class="tech-details">
+<summary>Limitations</summary>
+<p>Not every result suits every purpose. The Electron Dose Lab demo, for example, is a physics research demo based on public NIST data: not a clinical device and not a clinically validated dosing system.</p>
+<p>Provider flexibility also doesn't go equally far everywhere: switching between model providers today applies to the Worker role, not to every role. Brain and Reviewer currently run fixed via Claude.</p>
+</details>
+
+<h2>Choose your next step</h2>
+<div class="route-grid">
+<a class="route-card" href="build-it-yourself.html"><strong>I want to build this myself</strong><span>For anyone who wants to set this up themselves: what do you need and how do you start?</span></a>
+<a class="route-card" href="how-ai-did-it.html"><strong>How could AI do this itself?</strong><span>The approach in outline, no code.</span></a>
+<a class="route-card" href="what-happened.html"><strong>Just tell me what happened</strong><span>The complete story in plain language, without jargon.</span></a>
+<a class="route-card" href="index.html"><strong>Back to the overview</strong><span>See all five demos and choose your own route.</span></a>
+</div>
+
+<footer class="site-footer">
+<p><a href="../onder-de-motorkap.html">Nederlands</a></p>
+<p class="preview-note">This is version 2 (preview); the current site is at <a href="../../index-en.html">the current site</a></p>
+</footer>
+
+</main>
+<script src="../assets/v2.js"></script>
+</body>
+</html>
