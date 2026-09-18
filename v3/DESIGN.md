@@ -145,9 +145,11 @@ What V2 got wrong (the reason this V3 batch exists, per the job goal, and cross-
 
 This batch (`v3-01-foundation-nl-home`) built `v3/DESIGN.md`, `v3/assets/v3.css`,
 `v3/assets/v3.js` (if needed) and `v3/index.html`. Batch `v3-02-nl-depth-story-concept` built
-`v3/verhaal.html` and `v3/hoe-kan-ai-dit.html` (NL). The filenames below are the **planned**
-target filenames for pages not yet built; existing NL pages link to the not-yet-built ones as
-planned/placeholder hrefs, documented here so the link-check step can treat them as valid.
+`v3/verhaal.html` and `v3/hoe-kan-ai-dit.html` (NL). Batch `v3-03-nl-depth-underhood-selfbuild`
+built `v3/onder-de-motorkap.html` and `v3/zelf-bouwen.html` (NL), completing the NL depth
+chooser. The filenames below are the **planned** target filenames for pages not yet built;
+existing NL pages link to the not-yet-built EN ones as planned/placeholder hrefs, documented
+here so the link-check step can treat them as valid.
 
 Note: the EN filenames for rows 2 and 3 were changed from the originally sketched
 `story.html`/`how-ai-did-it.html` to `verhaal.html`/`hoe-kan-ai-dit.html` (i.e. the EN mirror
@@ -163,8 +165,8 @@ later batch has a reason to deviate — if so, update this table then.
 | 1 | `v3/index.html` | `v3/en/index.html` | Home: hero, timeline, 5 demo cards, depth chooser, bonus slot | NL done (batch 01) | — |
 | 2 | `v3/verhaal.html` | `v3/en/verhaal.html` | Depth (a): the human story only, ~2 min, no jargon | NL done (batch 02) | Six-step timeline markup/classes copied verbatim from `v3/index.html`; five demo cards (play-btn only) with exact demo URLs from `v3/index.html`; wording adapted from `v2/wat-is-er-gebeurd.html` and V1 hero prose (`index.html`, `prompt-chain.html`) |
 | 3 | `v3/hoe-kan-ai-dit.html` | `v3/en/hoe-kan-ai-dit.html` | Depth (b): conceptual plan/build/test/review/repair loop | NL done (batch 02) | Compact inline CSS/HTML loop diagram (`.loop-diagram`/`.loop-node` in `v3.css`, V1 accent colors) built instead of embedding `assets/development-loop-nl.svg` directly — that SVG's labels (Brain/Worker/Orchestrator, PASS/FAIL/NEEDS_HUMAN, state-machine outcomes) are "under the hood" detail, not conceptual-layer language, so it is reserved for `onder-de-motorkap.html` (row 4) instead; orchestrator/worker/reviewer/Hermes/Git/model introduced only as optional `<details class="jargon">` asides in a `.tech-aside` box, grounded in `how-we-built.html`'s Brain/Worker/Reviewer/Git description and `index.html`/`prompt-chain.html`'s Hermes mention |
-| 4 | `v3/onder-de-motorkap.html` | `v3/en/onder-de-motorkap.html` | Depth (c): orchestrator, Hermes, models, Git, workflows, architecture | Planned, not yet built | `assets/architecture-nl.svg`/`-en.svg`, `assets/workflow-polished-nl.svg`/`-en.svg` (+ mobile variants), `assets/review-loop-polished-nl.svg`/`-en.svg` (+ mobile variants), `assets/development-loop-nl.svg`/`-en.svg` (moved here from row 3, see above); V1 `how-we-built.html` stats/tables/3D-Path-Planner Git-history example |
-| 5 | `v3/zelf-bouwen.html` | `v3/en/zelf-bouwen.html` | Depth (d): VM, cost, install, prompts, repos, step-by-step | Planned, not yet built | V1 `build-your-own.html` cost table + `install-howto.html`'s 12-step numbered guide (reused via anchors, as V2 already validated all 13 `#id` anchors resolve) |
+| 4 | `v3/onder-de-motorkap.html` | `v3/en/onder-de-motorkap.html` | Depth (c): orchestrator, Hermes, models, Git, workflows, architecture | NL done (batch 03) | `assets/architecture-nl.svg` (new `<img>` embed — root pages reference this diagram conceptually but never embed it; this is its first `<img>` use), `assets/workflow-polished-nl.svg` + `assets/workflow-polished-mobile-nl.svg` via `<picture>`/`source[max-width:620px]` (same pattern as `how-we-built.html`), `assets/review-loop-polished-nl.svg` + `assets/review-loop-mobile-nl.svg` via the same `<picture>` pattern, `assets/development-loop-nl.svg` as a single summary image (moved here from row 3 per that row's note); prose and the deterministic-vs-AI table grounded in `how-we-built.html`'s architecture/stats/machine sections and the 3D Path Planner Git-history example; model-routing paragraph grounded in `how-we-built.html`'s "Modellen: rol en provider uit elkaar" section; Hermes sentence quoted from `index.html` |
+| 5 | `v3/zelf-bouwen.html` | `v3/en/zelf-bouwen.html` | Depth (d): VM, cost, install, prompts, repos, step-by-step | NL done (batch 03) | V1 `build-your-own.html` cost stat-tiles (`&euro;6-7`/`&plusmn; &euro;20`/`&euro;0`/`klein`, copied verbatim) and its "Een goede eerste proef" + "Begin bewust klein" callouts; `install-howto.html`'s 12-step guide summarised into a 12-item `.step-list`, each step linking to its exact `#id` anchor (`#accounts`, `#sshkey`, `#hetzner`, `#connect`, `#software`, `#github`, `#agent`, `#desktopcommander`, `#env`, `#firstjob`, `#orchestrator`, `#watchdog`, `#checklist` — all 13 anchors verified present in `install-howto.html`, `#agent`/`#desktopcommander` both linked from step 7) rather than duplicating its code blocks |
 
 Bonus/follow-on: no dedicated page planned yet — the bonus block lives inline on `v3/index.html`
 (and its EN mirror) as a clearly separated section, per the batch spec. If a future batch adds a
@@ -183,3 +185,16 @@ paragraph and breaks its typography/spacing in real browsers (python3 `html.pars
 catch this). `.lead-text > p, .lead-text > div` and `.hero .lead` / `.hero .lead + .lead-text` in
 `v3.css` already use class selectors so they match both `<p>` and `<div>`; keep it that way for
 any future page reusing this pattern (`onder-de-motorkap.html`, `zelf-bouwen.html`, EN mirrors).
+Batch `v3-03-nl-depth-underhood-selfbuild` applied this rule to `onder-de-motorkap.html`'s two
+jargon-bearing prose blocks (architecture roles, Hermes/model routing), wrapping each in
+`<div class="lead-text"><div>...</div></div>` instead of `<p>`.
+
+CSS additions in this batch (`v3.css`, append-only, after the `prefers-reduced-motion` block):
+`.diagram-figure` (a white, V1-style frame for the SVG diagrams, since all reused diagrams have a
+white background — `max-width:100%; height:auto` on the `img` inside), `.tech-table` (dark
+bordered data table, reused for the deterministic-vs-AI table, the machine-spec table and the
+per-challenge demo/repo/commits table), `.step-list`/`.step-item` (numbered steps for
+`zelf-bouwen.html`), `.checklist` (the "Wat heb je nodig?" list) and `.callout`/`.callout.good`
+(V1-style left-border callouts for "Let op" and "Een goede eerste proef"). No existing rule was
+edited; `!important` was not used; the `:focus-visible` and `prefers-reduced-motion` blocks were
+not touched.

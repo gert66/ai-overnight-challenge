@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0d1117">
+<title>Onder de motorkap · AI Overnight Challenge · V3</title>
+<meta name="description" content="Orchestrator, Brain, Worker, Reviewer, Hermes, modellen en Git: de volledige technische architectuur van de AI Overnight Challenge, met de originele diagrammen.">
+<link rel="stylesheet" href="assets/v3.css">
+<link rel="alternate" hreflang="nl" href="onder-de-motorkap.html">
+<link rel="alternate" hreflang="en" href="en/onder-de-motorkap.html">
+</head>
+<body>
+
+<div class="topbar">
+<a class="brand" href="index.html">AI Overnight Challenge · V3</a>
+<nav class="topnav" aria-label="Dieptelagen">
+<a href="verhaal.html">Het verhaal</a>
+<a href="hoe-kan-ai-dit.html">Hoe kan AI dit?</a>
+<a href="onder-de-motorkap.html">Onder de motorkap</a>
+<a href="zelf-bouwen.html">Zelf bouwen</a>
+<a class="pill" href="en/onder-de-motorkap.html" aria-label="Switch to English" title="Switch to English"><span aria-hidden="true">🌐</span> EN</a>
+<a class="pill v1-link" href="../index.html" title="Ga naar de oorspronkelijke technische site">oorspronkelijke technische site</a>
+</nav>
+</div>
+
+<main>
+
+<p class="muted"><a href="index.html">&larr; Terug naar het overzicht</a> &middot; <a href="hoe-kan-ai-dit.html">&larr; Hoe kan AI dit zelf?</a> (het concept, zonder techniek)</p>
+
+<section class="hero">
+<span class="eyebrow">Onder de motorkap &middot; &plusmn; 10 min &middot; technische diepgang</span>
+<h1>Onder de motorkap: orchestrator, Hermes, modellen en Git</h1>
+<div class="lead">Deze pagina is zelfstandig te lezen, ook als je nog niet bij <a href="hoe-kan-ai-dit.html">Hoe kan AI dit zelf?</a> bent geweest. Ze gaat over de exacte technische invulling: de <details class="jargon"><summary>orchestrator</summary><span class="jargon-def">De orchestrator is de verkeersleider: het programma dat het werk verdeelt over kleine, toetsbare stapjes, elke stap laat testen en onafhankelijk laat controleren, en pas verdergaat als een stap echt goed is.</span></details>, de rolverdeling tussen Brain, Worker en Reviewer, <details class="jargon"><summary>Hermes</summary><span class="jargon-def">Hermes is de gereedschapskist: de verbinding waarmee de AI bij tools en modellen kan, een brug tussen de orchestrator en de programma's die het echte werk doen.</span></details>, de gebruikte modellen, <details class="jargon"><summary>Git</summary><span class="jargon-def">Git is het logboek: een systeem dat elke wijziging aan de code bewaart, zodat je altijd kunt teruglezen wat er precies is aangepast en wanneer.</span></details> en de originele diagrammen van de oorspronkelijke technische site.</div>
+</section>
+
+<section class="section" aria-labelledby="architectuur-h">
+<h2 id="architectuur-h">De architectuur: van gesprek tot commit</h2>
+<p class="intro muted">Van een globale opdracht in ChatGPT naar code, objectief bewijs, onafhankelijke review en een commit. De orchestrator bezit de <em>state machine</em> en de control flow; Brain, Worker en Reviewer leveren de AI-redenering binnen begrensde rollen.</p>
+<div class="lead-text"><div>De <details class="jargon"><summary>Brain</summary><span class="jargon-def">De Brain is de AI-rol die telkens één klein, begrensd stukje werk (een "batch") kiest uit de opdracht &mdash; de planningsrol in de lus.</span></details> kiest telkens één begrensde volgende batch werk. De <details class="jargon"><summary>Worker</summary><span class="jargon-def">De worker is de AI die één klein stukje werk daadwerkelijk uitvoert: code schrijven, aanpassen of testen opzetten.</span></details> voert die batch uit binnen de afgesproken scope. Daarna verzamelt de orchestrator objectief bewijs (diff, gewijzigde bestanden, testresultaten). Pas dan controleert de <details class="jargon"><summary>Reviewer</summary><span class="jargon-def">De reviewer is de tweede, onafhankelijke AI die het resultaat controleert tegen de acceptance criteria, los van de AI die het bouwde.</span></details> &mdash; onafhankelijk van de Worker &mdash; of het echte resultaat voldoet aan de <details class="jargon"><summary>acceptance criteria</summary><span class="jargon-def">De concrete, meetbare eisen waaraan een oplossing moet voldoen voordat hij als 'klaar' telt.</span></details>. Alleen bij een PASS volgt een commit en gaat de lus verder met de volgende batch; bij een FAIL gaat het terug naar de Brain voor reparatie; bij NEEDS_HUMAN pauzeert het systeem voor een echte menselijke beslissing.</div></div>
+
+<figure class="diagram-figure">
+<img src="../assets/architecture-nl.svg" alt="De eenvoudige architectuur: van een globale opdracht in ChatGPT, via de orchestrator, Brain, Worker en Evidence/Tests, naar een onafhankelijke Reviewer die PASS, FAIL of NEEDS_HUMAN teruggeeft, met een commit alleen na PASS.">
+<figcaption>De architectuur zoals gebruikt tijdens de AI Overnight Challenge. De orchestrator blijft de vaste, deterministische regisseur; modellen zijn verwisselbare uitvoerders.</figcaption>
+</figure>
+
+<table class="tech-table">
+<tr><th>Deterministische control plane (orchestrator)</th><th>AI-redenering (Brain / Worker / Reviewer)</th></tr>
+<tr><td>Workflowfases, locks en state transitions</td><td>De volgende begrensde batch kiezen</td></tr>
+<tr><td>Git safety, scopechecks en commits</td><td>Code schrijven of wijzigen</td></tr>
+<tr><td>Tests uitvoeren, evidence verzamelen, retries en caps</td><td>Het echte resultaat reviewen en over reparaties redeneren</td></tr>
+</table>
+</section>
+
+<section class="section" aria-labelledby="workflow-h">
+<h2 id="workflow-h">De workflow: plan, bouw, test, review, repareer, leg vast</h2>
+<p class="intro muted">Dit is dezelfde lus als op <a href="hoe-kan-ai-dit.html">Hoe kan AI dit zelf?</a>, maar hier met de exacte rollen: de Brain koos één begrensde volgende batch, de Worker voerde die uit, de orchestrator verzamelde objectief bewijs, en de Reviewer controleerde dat bewijs onafhankelijk tegen de acceptance criteria. Alleen na een PASS volgde een commit &mdash; nooit op basis van een belofte van de Worker zelf.</p>
+
+<figure class="diagram-figure">
+<picture>
+<source media="(max-width: 620px)" srcset="../assets/workflow-polished-mobile-nl.svg">
+<img src="../assets/workflow-polished-nl.svg" alt="De autonome ontwikkelloop: van een globale opdracht in ChatGPT via de orchestrator, Brain, Worker en Evidence/Tests naar een onafhankelijke Reviewer, die pas na een PASS een commit toestaat.">
+</picture>
+<figcaption>De gecontroleerde autonome ontwikkelloop, apart geoptimaliseerd voor desktop en mobiel.</figcaption>
+</figure>
+</section>
+
+<section class="section" aria-labelledby="review-h">
+<h2 id="review-h">Review, repareren en afronden</h2>
+<p class="intro muted">Tests, typechecks, builds en waar mogelijk Playwright end-to-end tests bepaalden of een stap door mocht naar de volgende fase. Een AI die haar eigen werk beoordeelt, mist net zo makkelijk iets als een mens die zijn eigen tekst nakijkt &mdash; daarom controleerde de Reviewer altijd het echte resultaat, onafhankelijk van de Worker die het bouwde.</p>
+
+<figure class="diagram-figure">
+<picture>
+<source media="(max-width: 620px)" srcset="../assets/review-loop-mobile-nl.svg">
+<img src="../assets/review-loop-polished-nl.svg" alt="Wat gebeurt er na de review? Bij PASS volgt een commit naar de volgende batch, bij FAIL een reparatie via de Brain, en bij NEEDS_HUMAN een pauze voor een menselijke beslissing.">
+</picture>
+<figcaption>De review-, repair-, wacht- en afrondingscyclus.</figcaption>
+</figure>
+
+<figure class="diagram-figure">
+<img src="../assets/development-loop-nl.svg" alt="De autonome ontwikkelloop in één overzicht: wat er in elke cyclus werkelijk gebeurt, van de globale opdracht in ChatGPT tot een afgeronde, gecommitte batch.">
+<figcaption>Dezelfde lus, samengevat in één overzicht &mdash; inclusief welk deel deterministisch is en welk deel AI-redenering.</figcaption>
+</figure>
+</section>
+
+<section class="section" aria-labelledby="hermes-h">
+<h2 id="hermes-h">Hermes, de modellen en Git</h2>
+<div class="lead-text"><div>Hermes en andere toolkoppelingen maakten modellen en gereedschappen beschikbaar wanneer dat nodig was: de brug waarmee de orchestrator bij de juiste AI-modellen en tools kon. Brain en Reviewer draaiden via <details class="jargon"><summary>Claude</summary><span class="jargon-def">Claude is de AI-modelfamilie die in deze challenge het redeneerwerk deed voor de Brain- en Reviewer-rol, en als een van de mogelijke providers voor de Worker-rol.</span></details>. Alleen de Worker was provider-selecteerbaar: automatisch, Claude, Gemini 3.8 Flash of Codex. In automatische modus kon eenvoudiger (LOW/NORMAL) werk naar Gemini 3.8 Flash gaan; hogere complexiteit en bepaalde escalaties gingen naar Claude Sonnet. Git safety, evidence, review en commits bleven altijd bij de orchestrator, ongeacht welk model de Worker die keer gebruikte.</div></div>
+<p>Elke geaccepteerde batch kreeg een eigen commit. Daardoor bleef de ontwikkeling reproduceerbaar, zichtbaar en herstelbaar: je kunt achteraf precies teruglezen wat er is veranderd en wanneer. Naast de autonome orchestrator draaide ook Desktop Commander op dezelfde VM: een losse gereedschapsbrug waarmee ChatGPT, alleen wanneer daar expliciet om werd gevraagd, rechtstreeks bestanden kon bekijken en aanpassen, processen kon starten of volgen en logs kon uitlezen &mdash; nuttig voor beheer en diagnose, maar geen onderdeel van de autonome state-machine-lus zelf.</p>
+</section>
+
+<section class="section" aria-labelledby="voorbeeld-h">
+<h2 id="voorbeeld-h">Een concreet voorbeeld in Git: de 3D Path Planner</h2>
+<p class="intro muted">Je hoeft de architectuur niet op ons woord te geloven. Bij de 3D Path Planner is de bouwgeschiedenis gewoon terug te lezen. Elke geaccepteerde stap werd als aparte commit vastgelegd:</p>
+<p><code>01-core-planner-and-scenes</code> &rarr; <code>02-threejs-viewer-and-controls</code> &rarr; <code>03-exploration-playback-and-drone-animation</code> &rarr; <code>04-playwright-e2e-tests</code> &rarr; <code>05-visual-polish-and-demo-readiness</code> &rarr; <code>06-pwa-mobile-readiness</code> &rarr; finale audit en acceptance.</p>
+<div class="demo-links">
+<a href="https://github.com/gert66/ai-agent-challenge-04-path-planner" target="_blank" rel="noopener">Open repository</a>
+<a href="https://github.com/gert66/ai-agent-challenge-04-path-planner/commits/overnight/path-planner-2026-09-17" target="_blank" rel="noopener">Bekijk de challenge-commits</a>
+<a href="https://gert66.github.io/ai-overnight-challenge/path-planner/" target="_blank" rel="noopener">Open de live demo</a>
+</div>
+</section>
+
+<section class="section" aria-labelledby="cijfers-h">
+<h2 id="cijfers-h">De cijfers en de machine</h2>
+<p class="intro muted">Dit draaide niet op een groot cluster, maar op een gewone kleine VM.</p>
+<div class="fact-tiles">
+<div class="fact-tile"><strong>5/5</strong><span>challenges DONE</span></div>
+<div class="fact-tile"><strong>37</strong><span>autonome bouwbatches</span></div>
+<div class="fact-tile"><strong>155</strong><span>Claude-calls in de vijf jobs</span></div>
+<div class="fact-tile"><strong>2 vCPU</strong><span>3,7 GiB RAM, gewone VM</span></div>
+</div>
+<table class="tech-table">
+<tr><th>Onderdeel</th><th>Werkelijke omgeving tijdens de challenge</th></tr>
+<tr><td>Compute</td><td>2 vCPU, 3,7 GiB RAM, 2 GiB swap</td></tr>
+<tr><td>Disk</td><td>38 GB root volume, tijdens documentatie circa 28 GB gebruikt</td></tr>
+<tr><td>OS/kernel</td><td>Linux 7.0.0-29-generic x86_64</td></tr>
+<tr><td>Python</td><td>3.14.4</td></tr>
+<tr><td>Node / npm</td><td>Node v24.21.0, npm 11.19.0</td></tr>
+<tr><td>Git</td><td>Git 2.53.0</td></tr>
+<tr><td>Browser testing</td><td>Playwright + headless Chromium, inclusief software WebGL voor 3D tests</td></tr>
+<tr><td>AI tooling</td><td>Claude voor Brain/Reviewer; Worker routeerbaar naar Claude, Gemini 3.8 Flash of Codex; ChatGPT als ingang</td></tr>
+</table>
+</section>
+
+<section class="section" aria-labelledby="bronnen-h">
+<h2 id="bronnen-h">Bronnen en verder lezen</h2>
+<p class="intro muted">Deze pagina vat de architectuur samen. De volledige, oorspronkelijke technische uitleg staat op de originele site:</p>
+<div class="demo-links">
+<a href="../how-we-built.html">Hoe we dit bouwden (volledige technische pagina)</a>
+<a href="../prompt-chain.html">Van idee naar prompt (de volledige promptketen)</a>
+</div>
+<table class="tech-table">
+<tr><th>Challenge</th><th>Demo</th><th>Repository</th><th>Commits</th></tr>
+<tr><td>Glimmerdash (doolhofspel)</td><td><a href="https://gert66.github.io/ai-agent-challenge-05-maze-chase/" target="_blank" rel="noopener">Speel</a></td><td><a href="https://github.com/gert66/ai-agent-challenge-05-maze-chase" target="_blank" rel="noopener">Repo</a></td><td><a href="https://github.com/gert66/ai-agent-challenge-05-maze-chase/commits/overnight/maze-chase-2026-09-16" target="_blank" rel="noopener">Commits</a></td></tr>
+<tr><td>MOSSE Object Tracker</td><td><a href="https://gert66.github.io/ai-overnight-challenge/mosse-tracker/" target="_blank" rel="noopener">Open</a></td><td><a href="https://github.com/gert66/ai-agent-challenge-01-mosse-tracker" target="_blank" rel="noopener">Repo</a></td><td><a href="https://github.com/gert66/ai-agent-challenge-01-mosse-tracker/commits/overnight/mosse-tracker-2026-09-17" target="_blank" rel="noopener">Commits</a></td></tr>
+<tr><td>2x2 Rubik Solver</td><td><a href="https://gert66.github.io/ai-overnight-challenge/rubik-2x2/" target="_blank" rel="noopener">Open</a></td><td><a href="https://github.com/gert66/ai-agent-challenge-02-rubik-2x2" target="_blank" rel="noopener">Repo</a></td><td><a href="https://github.com/gert66/ai-agent-challenge-02-rubik-2x2/commits/overnight/rubik-2x2-2026-09-17" target="_blank" rel="noopener">Commits</a></td></tr>
+<tr><td>Electron Dose Lab</td><td><a href="https://gert66.github.io/ai-overnight-challenge/electron-dose-lab/" target="_blank" rel="noopener">Open</a></td><td><a href="https://github.com/gert66/ai-agent-challenge-03-monte-carlo" target="_blank" rel="noopener">Repo</a></td><td><a href="https://github.com/gert66/ai-agent-challenge-03-monte-carlo/commits/overnight/electron-dose-lab-2026-09-17" target="_blank" rel="noopener">Commits</a></td></tr>
+<tr><td>3D Path Planner</td><td><a href="https://gert66.github.io/ai-overnight-challenge/path-planner/" target="_blank" rel="noopener">Open</a></td><td><a href="https://github.com/gert66/ai-agent-challenge-04-path-planner" target="_blank" rel="noopener">Repo</a></td><td><a href="https://github.com/gert66/ai-agent-challenge-04-path-planner/commits/overnight/path-planner-2026-09-17" target="_blank" rel="noopener">Commits</a></td></tr>
+</table>
+</section>
+
+<section class="section" aria-labelledby="verder-h">
+<h2 id="verder-h">Zelf aan de slag?</h2>
+<p class="intro muted">Deze pagina legt uit hoe het werkte. De volgende stap laat zien wat het kost en hoe je zoiets zelf opzet.</p>
+<div class="depth-grid">
+
+<a class="depth-card yellow" href="zelf-bouwen.html">
+<span class="tag">&plusmn; 15 min &middot; stap voor stap</span>
+<strong>Zelf bouwen</strong>
+<span class="desc">VM, kosten, installatie, prompts, repositories &mdash; de complete beginner-tot-eind handleiding om dit zelf op te zetten.</span>
+<span class="meta">Voor: ICT/software-specialisten die het zelf willen proberen</span>
+</a>
+
+<a class="depth-card purple" href="hoe-kan-ai-dit.html">
+<span class="tag">&plusmn; 5 min</span>
+<strong>Hoe kan AI dit zelf?</strong>
+<span class="desc">Dezelfde lus, conceptueel uitgelegd zonder technische voorkennis.</span>
+</a>
+
+</div>
+</section>
+
+<footer class="site-footer">
+<div class="footer-links">
+<a href="../how-we-built.html">Hoe we dit bouwden (technisch)</a>
+<a href="../prompt-chain.html">Van idee naar prompt</a>
+<a href="../build-your-own.html">Dit wil ik ook</a>
+<a href="../install-howto.html">Stap voor stap bouwen</a>
+</div>
+<p class="muted">Verdiepend materiaal van de oorspronkelijke technische site. AI Agent Overnight Challenge &middot; V3 &middot; publieke demonstrator voor UMC Utrecht.</p>
+<p><a href="en/onder-de-motorkap.html">English version</a></p>
+</footer>
+
+</main>
+</body>
+</html>

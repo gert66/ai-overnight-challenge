@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0d1117">
+<title>Zelf bouwen · AI Overnight Challenge · V3</title>
+<meta name="description" content="VM, kosten, installatie, prompts en repositories: de stap-voor-stap route om je eigen autonome AI-buildomgeving op te zetten, gebaseerd op de oorspronkelijke beginner-handleiding.">
+<link rel="stylesheet" href="assets/v3.css">
+<link rel="alternate" hreflang="nl" href="zelf-bouwen.html">
+<link rel="alternate" hreflang="en" href="en/zelf-bouwen.html">
+</head>
+<body>
+
+<div class="topbar">
+<a class="brand" href="index.html">AI Overnight Challenge · V3</a>
+<nav class="topnav" aria-label="Dieptelagen">
+<a href="verhaal.html">Het verhaal</a>
+<a href="hoe-kan-ai-dit.html">Hoe kan AI dit?</a>
+<a href="onder-de-motorkap.html">Onder de motorkap</a>
+<a href="zelf-bouwen.html">Zelf bouwen</a>
+<a class="pill" href="en/zelf-bouwen.html" aria-label="Switch to English" title="Switch to English"><span aria-hidden="true">🌐</span> EN</a>
+<a class="pill v1-link" href="../index.html" title="Ga naar de oorspronkelijke technische site">oorspronkelijke technische site</a>
+</nav>
+</div>
+
+<main>
+
+<p class="muted"><a href="index.html">&larr; Terug naar het overzicht</a> &middot; <a href="onder-de-motorkap.html">&larr; Onder de motorkap</a> (eerst de architectuur begrijpen)</p>
+
+<section class="hero">
+<span class="eyebrow">Zelf bouwen &middot; &plusmn; 15 min &middot; stap voor stap</span>
+<h1>Zelf bouwen: van niets naar je eigen AI-buildomgeving</h1>
+<div class="lead">Je hoeft niet te beginnen met een groot cluster. Deze challenge draaide op een kleine <details class="jargon"><summary>VM</summary><span class="jargon-def">Een VM (virtuele machine) is een op afstand gehuurde computer in de cloud waarop je zelf software installeert &mdash; hier de plek waar de orchestrator, Git, Python en Node draaiden.</span></details> met 2 vCPU en 3,7 GiB RAM. De kern is een Linux-machine, Git, een AI die code kan schrijven, een <details class="jargon"><summary>orchestrator</summary><span class="jargon-def">De orchestrator is de verkeersleider: het programma dat het werk verdeelt over kleine, toetsbare stapjes, elke stap laat testen en onafhankelijk laat controleren, en pas verdergaat als een stap echt goed is.</span></details> die het proces bewaakt, en tests die bepalen wanneer iets echt klaar is.</div>
+<p class="muted">Deze pagina vat de twee oorspronkelijke handleidingen samen in V3-stijl. Voor de volledige installatiecommando's, tabellen en code blijft de originele site leidend: <a href="../build-your-own.html">Dit wil ik ook</a> en <a href="../install-howto.html">Stap voor stap bouwen</a>.</p>
+</section>
+
+<section class="section" aria-labelledby="nodig-h">
+<h2 id="nodig-h">Wat heb je nodig?</h2>
+<p class="intro muted">Voor een eerste persoonlijke opzet is dit voldoende.</p>
+<ul class="checklist">
+<li>Een GitHub-account (repositories, commits, audit trail)</li>
+<li>Een kleine Linux cloud-VM, bijvoorbeeld bij Hetzner Cloud (rond 2 vCPU / 4 GB RAM)</li>
+<li>Een AI-account, bijvoorbeeld ChatGPT of Claude, plus een coding agent op de VM (in deze handleiding: Claude Code)</li>
+<li>Een SSH-key op je eigen computer</li>
+<li>Basissoftware op de VM: Git, Python, Node/npm</li>
+<li>Optioneel: Desktop Commander, voor directe, begrensde VM-toegang via ChatGPT</li>
+</ul>
+</section>
+
+<section class="section" aria-labelledby="kosten-h">
+<h2 id="kosten-h">Wat kost het ongeveer?</h2>
+<p class="intro muted">De vaste kosten zijn overzichtelijk. Je hebt geen GPU-server of groot cloudplatform nodig. Controleer actuele prijzen bij de provider vóór je bestelt.</p>
+<div class="fact-tiles">
+<div class="fact-tile"><strong>&euro;6-7</strong><span>kleine VM per maand</span></div>
+<div class="fact-tile"><strong>&plusmn; &euro;20</strong><span>ChatGPT of Claude abonnement</span></div>
+<div class="fact-tile"><strong>&euro;0</strong><span>GitHub Pages kan gratis</span></div>
+<div class="fact-tile"><strong>klein</strong><span>begin eenvoudig en breid later uit</span></div>
+</div>
+</section>
+
+<section class="section" aria-labelledby="stappen-h">
+<h2 id="stappen-h">De route, stap voor stap</h2>
+<p class="intro muted">Twaalf stappen, dezelfde volgorde als de originele beginner-handleiding. Elke stap linkt naar het volledige commando-voor-commando recept.</p>
+<ol class="step-list">
+
+<li class="step-item"><span class="step-num">1</span>
+<h3>Maak de drie accounts</h3>
+<p>GitHub (voor code en audit trail), Hetzner Cloud (voor de VM) en een AI-account. Voor de coding agent op de VM gebruikt de originele handleiding Claude Code; voor de menselijke chatlaag kun je ChatGPT of Claude gebruiken.</p>
+<p class="muted"><a href="../install-howto.html#accounts">Volledige uitleg &rarr;</a></p>
+</li>
+
+<li class="step-item"><span class="step-num">2</span>
+<h3>Maak een SSH-key op je eigen computer</h3>
+<p>SSH is de veilige verbinding tussen jouw laptop en de Linux-VM. Deel nooit je privésleutel, alleen het publieke <code>.pub</code>-bestand.</p>
+<p class="muted"><a href="../install-howto.html#sshkey">Volledige uitleg &rarr;</a></p>
+</li>
+
+<li class="step-item"><span class="step-num">3</span>
+<h3>Maak de VM</h3>
+<p>Een kleine Ubuntu-server met rond 2 vCPU en 4 GB RAM is voldoende, voor ongeveer &euro;6&ndash;7 per maand als orde van grootte.</p>
+<p class="muted"><a href="../install-howto.html#hetzner">Volledige uitleg &rarr;</a></p>
+</li>
+
+<li class="step-item"><span class="step-num">4</span>
+<h3>Verbind met de VM en maak een gewone beheerder</h3>
+<p>Log de eerste keer in als root, maak daarna een gewone beheerdersaccount aan en gebruik die voor het dagelijkse werk.</p>
+<p class="muted"><a href="../install-howto.html#connect">Volledige uitleg &rarr;</a></p>
+</li>
+
+<li class="step-item"><span class="step-num">5</span>
+<h3>Installeer de basissoftware</h3>
+<p>Git, Python, en Node/npm (via nvm) zijn de minimale ontwikkelomgeving.</p>
+<p class="muted"><a href="../install-howto.html#software">Volledige uitleg &rarr;</a></p>
+</li>
+
+<li class="step-item"><span class="step-num">6</span>
+<h3>Koppel de VM aan GitHub</h3>
+<p>Een eigen SSH-key voor de VM, je Git-identiteit instellen en je eerste repository clonen.</p>
+<p class="muted"><a href="../install-howto.html#github">Volledige uitleg &rarr;</a></p>
+</li>
+
+<li class="step-item"><span class="step-num">7</span>
+<h3>Installeer en activeer de coding agent</h3>
+<p>Begin interactief en laat de agent eerst één simpele taak doen. Optioneel: Desktop Commander als gereedschapsbrug, los van de autonome state machine.</p>
+<p class="muted"><a href="../install-howto.html#agent">Coding agent &rarr;</a> &middot; <a href="../install-howto.html#desktopcommander">Desktop Commander (optioneel) &rarr;</a></p>
+</li>
+
+<li class="step-item"><span class="step-num">8</span>
+<h3>Zet environment variables en secrets veilig</h3>
+<p>Tokens en API-keys horen nooit rechtstreeks in code of Git. Gebruik een lokaal <code>.env</code>-bestand met strikte rechten, buiten Git.</p>
+<p class="muted"><a href="../install-howto.html#env">Volledige uitleg &rarr;</a></p>
+</li>
+
+<li class="step-item"><span class="step-num">9</span>
+<h3>Doe eerst één handmatige end-to-end test</h3>
+<p>Bewijs dat agent, Git en tests werken vóórdat je automatiseert: een kleine test schrijven, laten committen en pushen naar een aparte branch.</p>
+<p class="muted"><a href="../install-howto.html#firstjob">Volledige uitleg &rarr;</a></p>
+</li>
+
+<li class="step-item"><span class="step-num">10</span>
+<h3>Voeg daarna de orchestrator toe</h3>
+<p>Een eerste versie hoeft maar zes dingen te kunnen: PLAN (één concrete bouwstap met acceptance criteria), BUILD (de coding agent laten werken), TEST (vaste testcommando's draaien), REVIEW (een aparte, onafhankelijke controle), COMMIT (alleen na groen licht) en REPEAT.</p>
+<p class="muted"><a href="../install-howto.html#orchestrator">Volledige uitleg &rarr;</a> &middot; <a href="onder-de-motorkap.html">De volledige architectuur &rarr;</a></p>
+</li>
+
+<li class="step-item"><span class="step-num">11</span>
+<h3>Voeg monitoring en een watchdog toe</h3>
+<p>Laat actieve jobs periodiek een heartbeat schrijven en laat een aparte watchdog ingrijpen als een job aantoonbaar stilvalt. Geef retries altijd een maximum.</p>
+<p class="muted"><a href="../install-howto.html#watchdog">Volledige uitleg &rarr;</a></p>
+</li>
+
+<li class="step-item"><span class="step-num">12</span>
+<h3>Eindcheck, dan je eerste run &mdash; en de volgende ochtend beoordelen</h3>
+<p>Loop de eindcheckpunten langs (SSH, GitHub, agent, secrets, tests, state, retries, Git, watchdog). Kies daarna een taak die in een paar uur aantoonbaar kan slagen of falen, schrijf vooraf een paar concrete acceptance criteria en laat de orchestrator autonoom bouwen tot de tests groen zijn of een echte menselijke beslissing nodig is. Beoordeel de volgende ochtend het resultaat: werkt de demo, is er testbewijs, en zijn de commits logisch te volgen?</p>
+<p class="muted"><a href="../install-howto.html#checklist">Volledige eindcheck &rarr;</a></p>
+</li>
+
+</ol>
+
+<div class="callout">
+<strong>Let op:</strong> zet nooit API-keys of tokens rechtstreeks in code of Git. Gebruik een lokaal <code>.env</code>-bestand met strikte rechten en houd het buiten Git.
+</div>
+
+<div class="callout good">
+<strong>Een goede eerste proef:</strong> &ldquo;Bouw een browserapp die X doet, schrijf de tests v&oacute;&oacute;r de implementatie, werk op een aparte Git-branch, commit alleen na onafhankelijke review en geef NEEDS_HUMAN terug als een productbeslissing nodig is.&rdquo;
+</div>
+</section>
+
+<section class="section" aria-labelledby="repos-h">
+<h2 id="repos-h">Begin met een van deze repositories</h2>
+<p class="intro muted">Vijf verschillende soorten software liepen door dezelfde fabriek &mdash; goed startmateriaal om de architectuur in het echt te bekijken.</p>
+<table class="tech-table">
+<tr><th>Challenge</th><th>Repository</th></tr>
+<tr><td>Glimmerdash (doolhofspel)</td><td><a href="https://github.com/gert66/ai-agent-challenge-05-maze-chase" target="_blank" rel="noopener">github.com/gert66/ai-agent-challenge-05-maze-chase</a></td></tr>
+<tr><td>MOSSE Object Tracker</td><td><a href="https://github.com/gert66/ai-agent-challenge-01-mosse-tracker" target="_blank" rel="noopener">github.com/gert66/ai-agent-challenge-01-mosse-tracker</a></td></tr>
+<tr><td>2x2 Rubik Solver</td><td><a href="https://github.com/gert66/ai-agent-challenge-02-rubik-2x2" target="_blank" rel="noopener">github.com/gert66/ai-agent-challenge-02-rubik-2x2</a></td></tr>
+<tr><td>Electron Dose Lab</td><td><a href="https://github.com/gert66/ai-agent-challenge-03-monte-carlo" target="_blank" rel="noopener">github.com/gert66/ai-agent-challenge-03-monte-carlo</a></td></tr>
+<tr><td>3D Path Planner</td><td><a href="https://github.com/gert66/ai-agent-challenge-04-path-planner" target="_blank" rel="noopener">github.com/gert66/ai-agent-challenge-04-path-planner</a></td></tr>
+</table>
+</section>
+
+<section class="section" aria-labelledby="verder-h">
+<h2 id="verder-h">Verder lezen</h2>
+<div class="depth-grid">
+
+<a class="depth-card green" href="onder-de-motorkap.html">
+<span class="tag">&plusmn; 10 min</span>
+<strong>Onder de motorkap</strong>
+<span class="desc">Orchestrator, Hermes, modellen, Git en de originele diagrammen.</span>
+</a>
+
+<a class="depth-card blue" href="../build-your-own.html">
+<span class="tag">Oorspronkelijke technische site</span>
+<strong>Dit wil ik ook</strong>
+<span class="desc">De volledige kostenraming en beginvolgorde.</span>
+</a>
+
+<a class="depth-card yellow" href="../install-howto.html">
+<span class="tag">Oorspronkelijke technische site</span>
+<strong>Stap voor stap bouwen</strong>
+<span class="desc">Alle twaalf stappen met exacte commando's en code.</span>
+</a>
+
+</div>
+</section>
+
+<footer class="site-footer">
+<div class="footer-links">
+<a href="../how-we-built.html">Hoe we dit bouwden (technisch)</a>
+<a href="../prompt-chain.html">Van idee naar prompt</a>
+<a href="../build-your-own.html">Dit wil ik ook</a>
+<a href="../install-howto.html">Stap voor stap bouwen</a>
+</div>
+<p class="muted">Verdiepend materiaal van de oorspronkelijke technische site. AI Agent Overnight Challenge &middot; V3 &middot; publieke demonstrator voor UMC Utrecht.</p>
+<p><a href="en/zelf-bouwen.html">English version</a></p>
+</footer>
+
+</main>
+</body>
+</html>

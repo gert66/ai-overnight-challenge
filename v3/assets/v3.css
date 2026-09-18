@@ -662,3 +662,161 @@ details.jargon .jargon-def {
     transform: none;
   }
 }
+
+/* ---------- Diagram figures (onder-de-motorkap.html) ---------- */
+
+.diagram-figure {
+  margin: 22px 0 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 14px;
+  background: #fff;
+}
+
+.diagram-figure img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.diagram-figure figcaption {
+  padding: 10px 6px 0;
+  color: #3a4658;
+  font-size: 13.5px;
+  text-align: center;
+}
+
+/* ---------- Technical tables (onder-de-motorkap.html, zelf-bouwen.html) ---------- */
+
+.tech-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 18px;
+  background: rgba(11, 23, 38, 0.92);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  font-size: 14.5px;
+}
+
+.tech-table th,
+.tech-table td {
+  text-align: left;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+
+.tech-table th {
+  color: #fff;
+  background: #102238;
+}
+
+.tech-table td {
+  color: #cbd7e2;
+}
+
+.tech-table tr:last-child td {
+  border-bottom: none;
+}
+
+.tech-table a { color: var(--blue); }
+
+@media (max-width: 700px) {
+  .tech-table { display: block; overflow-x: auto; }
+}
+
+/* ---------- Numbered steps (zelf-bouwen.html) ---------- */
+
+.step-list {
+  list-style: none;
+  margin: 22px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+
+.step-item {
+  position: relative;
+  border: 1px solid var(--line);
+  background: rgba(14, 27, 43, 0.92);
+  border-radius: var(--radius);
+  padding: 18px 18px 18px 58px;
+}
+
+.step-item .step-num {
+  position: absolute;
+  left: 16px;
+  top: 18px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--blue);
+  color: #04101b;
+  font-weight: 900;
+  font-size: 14px;
+  display: grid;
+  place-items: center;
+}
+
+.step-item h3 {
+  margin: 0 0 6px;
+  font-size: 17px;
+}
+
+.step-item p {
+  color: #c8d5e1;
+  font-size: 14.5px;
+  margin: 0 0 8px;
+}
+
+.step-item p:last-child { margin-bottom: 0; }
+
+/* ---------- Checklist (zelf-bouwen.html) ---------- */
+
+.checklist {
+  list-style: none;
+  margin: 18px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+.checklist li {
+  border: 1px solid var(--line);
+  background: rgba(14, 27, 43, 0.92);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 14.5px;
+  color: #c8d5e1;
+}
+
+@media (min-width: 700px) {
+  .checklist { grid-template-columns: 1fr 1fr; }
+}
+
+/* ---------- Callout (zelf-bouwen.html "Let op") ---------- */
+
+.callout {
+  margin: 18px 0;
+  padding: 16px 18px;
+  border-left: 4px solid var(--yellow);
+  background: rgba(38, 33, 13, 0.55);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  font-size: 14.5px;
+  color: #e8dfc2;
+}
+
+.callout strong { color: var(--yellow); }
+
+.callout.good {
+  border-left-color: var(--green);
+  background: rgba(16, 37, 27, 0.6);
+  color: #d3ecd9;
+}
+
+.callout.good strong { color: var(--green-bright); }
