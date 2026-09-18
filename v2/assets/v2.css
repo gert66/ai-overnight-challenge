@@ -1,0 +1,301 @@
+/* AI Overnight Challenge — V2 shared stylesheet. Mobile-first, no external dependencies. */
+
+:root {
+  --bg: #f7f9fc;
+  --panel: #ffffff;
+  --ink: #10202f;
+  --muted: #4d5f70;
+  --line: #dbe3ec;
+  --accent: #0b6bb3;
+  --accent-ink: #ffffff;
+  --green: #1a7f4e;
+  --green-bg: #e9f7ef;
+  --purple: #5b3ea6;
+  --purple-bg: #f1ecfb;
+  --amber: #8a5a00;
+  --amber-bg: #fbf1de;
+  --max: 44rem;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+main {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 20px 16px 64px;
+}
+
+h1, h2, h3 {
+  line-height: 1.2;
+  margin: 0 0 12px;
+}
+
+h1 {
+  font-size: clamp(28px, 7vw, 38px);
+}
+
+h2 {
+  font-size: clamp(21px, 5vw, 26px);
+  margin-top: 8px;
+}
+
+p {
+  margin: 0 0 14px;
+}
+
+a {
+  color: var(--accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.lead-text {
+  margin: 0 0 14px;
+}
+
+.timeline .muted {
+  margin: 0;
+}
+
+/* Language switch */
+.lang-switch {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 20;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--panel);
+  color: var(--ink) !important;
+  text-decoration: none !important;
+  font-weight: 700;
+  font-size: 14px;
+  box-shadow: 0 4px 14px rgba(16, 32, 47, 0.12);
+}
+
+/* Hero */
+.hero {
+  margin: 52px 0 28px;
+}
+
+.hero p.lead {
+  font-size: 19px;
+  color: var(--ink);
+}
+
+/* Timeline */
+.timeline {
+  list-style: none;
+  margin: 20px 0 32px;
+  padding: 0 0 0 20px;
+  border-left: 3px solid var(--accent);
+}
+
+.timeline li {
+  position: relative;
+  margin: 0 0 20px;
+  padding-left: 14px;
+}
+
+.timeline li::before {
+  content: "";
+  position: absolute;
+  left: -26px;
+  top: 4px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--bg);
+}
+
+.timeline strong {
+  display: block;
+  margin-bottom: 2px;
+}
+
+/* Demo cards */
+.demo-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  margin: 18px 0 30px;
+}
+
+.demo-card {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--panel);
+  padding: 18px;
+}
+
+.demo-card h3 {
+  margin: 0 0 6px;
+  font-size: 19px;
+}
+
+.demo-card .play-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  width: 100%;
+  margin-top: 12px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: var(--accent);
+  color: var(--accent-ink) !important;
+  text-decoration: none !important;
+  font-weight: 800;
+  font-size: 16px;
+}
+
+.demo-card .repo-link {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 14px;
+  min-height: 44px;
+  line-height: 44px;
+}
+
+/* Depth route cards */
+.route-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  margin: 18px 0 30px;
+}
+
+.route-card {
+  display: block;
+  min-height: 44px;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--panel);
+  text-decoration: none;
+}
+
+.route-card strong {
+  display: block;
+  color: var(--ink);
+  font-size: 17px;
+  margin-bottom: 4px;
+}
+
+.route-card span {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* Plain-language section */
+.plain-language {
+  margin: 24px 0 32px;
+  padding: 18px 20px;
+  border: 1px solid var(--green);
+  border-radius: 14px;
+  background: var(--green-bg);
+}
+
+/* Jargon disclosures — native <details>/<summary>, no JS required */
+details.jargon {
+  display: inline-block;
+  margin: 0 2px;
+  vertical-align: baseline;
+}
+
+details.jargon > summary {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  list-style: none;
+  min-height: 28px;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: var(--purple-bg);
+  color: var(--purple);
+  font-weight: 700;
+  border-bottom: 1px dotted var(--purple);
+}
+
+details.jargon > summary::before {
+  content: "";
+  position: absolute;
+  inset: -8px 0;
+  min-height: 44px;
+}
+
+details.jargon > summary::-webkit-details-marker {
+  display: none;
+}
+
+details.jargon > summary::after {
+  content: " \24D8";
+}
+
+details.jargon[open] > summary {
+  border-radius: 6px 6px 0 0;
+}
+
+details.jargon .jargon-def {
+  display: block;
+  max-width: 22rem;
+  margin-top: 4px;
+  padding: 10px 12px;
+  border: 1px solid var(--purple);
+  border-radius: 0 10px 10px 10px;
+  background: var(--panel);
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 400;
+}
+
+/* Footer */
+.site-footer {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.site-footer .preview-note {
+  margin-top: 8px;
+  padding: 10px 14px;
+  border: 1px solid var(--amber);
+  border-radius: 10px;
+  background: var(--amber-bg);
+  color: var(--amber);
+}
+
+@media (min-width: 640px) {
+  .demo-grid,
+  .route-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
