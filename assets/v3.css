@@ -861,3 +861,11 @@ details.jargon .jargon-def {
 .wietse-build-card .build-sticker{position:absolute!important;left:1rem;top:0;transform:translateY(-58%) rotate(-1.5deg)!important;margin:0!important;width:auto!important;max-width:calc(100% - 2rem)!important;padding:.55rem .85rem!important;border-radius:7px!important;line-height:1.28!important;white-space:normal!important;z-index:10!important}
 .wietse-build-card .tag{margin-top:1.05rem}
 @media(max-width:600px){.wietse-build-card{margin-top:2rem!important}.wietse-build-card .build-sticker{left:.65rem;max-width:calc(100% - 1.3rem)!important;font-size:.68rem!important}.wietse-build-card .tag{margin-top:1.35rem}}
+
+/* Align all four depth cards: Wietse sticker floats above without shrinking its card */
+.depth-grid{align-items:stretch!important}
+.depth-card{margin-top:0!important;height:auto!important;box-sizing:border-box}
+.wietse-build-card{margin-top:0!important;position:relative!important;overflow:visible!important;padding-top:inherit!important}
+.wietse-build-card .build-sticker{top:0!important;transform:translateY(-72%) rotate(-1.5deg)!important}
+.wietse-build-card .tag{margin-top:0!important}
+@media(max-width:600px){.wietse-build-card{margin-top:1.5rem!important}.wietse-build-card .build-sticker{transform:translateY(-68%) rotate(-1.5deg)!important}}
