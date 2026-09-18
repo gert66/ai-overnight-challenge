@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How could AI do this itself? · What AI built in one night</title>
+<meta name="description" content="An explanation without code: how AI can plan, build, test, have its work checked and fix things independently, and what role the human played in it.">
+<link rel="stylesheet" href="../assets/v2.css">
+<link rel="alternate" hreflang="nl" href="../hoe-kan-ai-dit.html">
+<link rel="alternate" hreflang="en" href="how-ai-did-it.html">
+</head>
+<body>
+<a class="lang-switch" href="../hoe-kan-ai-dit.html" aria-label="Switch to Dutch" title="Switch to Dutch"><span aria-hidden="true">🌐</span><span>NL</span></a>
+<main>
+
+<p class="muted"><a href="index.html">← Back to the overview</a></p>
+
+<section class="hero">
+<h1>How could AI do this itself?</h1>
+<p class="lead">For anyone curious how AI can work independently for a whole night. This is the approach in outline, no code, but with the key terms briefly explained if you're interested.</p>
+</section>
+
+<h2>The idea in short</h2>
+<p>Picture a building project with three roles: a project lead who splits the work into small, manageable pieces, a builder who actually carries out each piece, and an independent inspector who checks every result before the project moves on. In this experiment, AI filled all three roles itself, all night long, without anyone needing to be present.</p>
+
+<h2>The cycle: plan, build, test, check, fix, record</h2>
+<ol class="timeline">
+<li><strong>Plan</strong><div class="muted">An <details class="jargon"><summary>orchestrator</summary><span class="jargon-def">The orchestrator is the traffic controller: the system that splits the work into small steps, has each step tested and checked, and only moves on once a step is genuinely good enough.</span></details> would pick one small, manageable piece of work from the assignment and hand it over as a clear <details class="jargon"><summary>prompt</summary><span class="jargon-def">A prompt is an instruction in plain language, written or spoken, that you give to AI, for example a task or question that should produce a result.</span></details>.</div></li>
+<li><strong>Build</strong><div class="muted">A building AI carried out that one piece of work: writing code, making changes, or setting up tests.</div></li>
+<li><strong>Test</strong><div class="muted">Every piece of work was tested automatically, so there was demonstrable proof that it actually worked, not just a promise.</div></li>
+<li><strong>Independent review</strong><div class="muted">A second AI, separate from the building AI, independently checked the result: does this really match what was asked for?</div></li>
+<li><strong>Fix</strong><div class="muted">If something wasn't good enough, it went back: build again, test again, check again, until it was right.</div></li>
+<li><strong>Record progress</strong><div class="muted">Every approved step was saved separately in <details class="jargon"><summary>Git</summary><span class="jargon-def">Git is the logbook: a system that saves every change to the code, so you can always read back exactly what was changed and when.</span></details>, so the whole night can be read back afterwards.</div></li>
+</ol>
+
+<p class="muted">All of this ran on an ordinary <details class="jargon"><summary>VM</summary><span class="jargon-def">A VM (virtual machine) is a small computer that runs in a data centre.</span></details>, with a <details class="jargon"><summary>Hermes</summary><span class="jargon-def">Hermes is the toolbox here: a connection that lets the AI reach tools and models, like a bridge between the orchestrator and the programs that do the actual work.</span></details> bridge to tools and <details class="jargon"><summary>API</summary><span class="jargon-def">An API is an agreement that lets two programs talk to each other, for example between the orchestrator and an AI model.</span></details>s to a <details class="jargon"><summary>model provider</summary><span class="jargon-def">The model provider is the company that supplies the AI model that does the reasoning and writing.</span></details>.</p>
+
+<h2>The human's role</h2>
+<p>Gert provided the five ideas by talking about them during a walk, using the voice feature on his phone. He set the boundaries and what a good result would look like. He didn't write a single line of code himself that night: his work shifted from writing code to formulating the assignment, the boundaries and what the result needed to meet.</p>
+
+<h2>What it couldn't do, and caveats</h2>
+<p>Not every result suits every purpose. The Electron Dose Lab demo, for example, is a physics research demo based on public NIST data: not a clinical device and not a clinically validated dosing system.</p>
+
+<h2>Choose your next step</h2>
+<div class="route-grid">
+<a class="route-card" href="under-the-hood.html"><strong>Show me under the hood</strong><span>For ICT and software: the technical architecture, machine and models.</span></a>
+<a class="route-card" href="build-it-yourself.html"><strong>I want to build this myself</strong><span>For anyone who wants to set this up themselves: what do you need and how do you start?</span></a>
+<a class="route-card" href="what-happened.html"><strong>Just tell me what happened</strong><span>The complete story in plain language, without jargon.</span></a>
+<a class="route-card" href="index.html"><strong>Back to the overview</strong><span>See all five demos and choose your own route.</span></a>
+</div>
+
+<footer class="site-footer">
+<p><a href="../hoe-kan-ai-dit.html">Nederlands</a></p>
+<p class="preview-note">This is version 2 (preview); the current site is at <a href="../../index-en.html">the current site</a></p>
+</footer>
+
+</main>
+<script src="../assets/v2.js"></script>
+</body>
+</html>

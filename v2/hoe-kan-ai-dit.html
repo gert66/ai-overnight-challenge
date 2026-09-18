@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hoe kan AI dit zelf? · Wat AI in één nacht bouwde</title>
+<meta name="description" content="Een uitleg zonder code: hoe AI zelfstandig kan plannen, bouwen, testen, laten controleren en repareren, en welke rol de mens daarin had.">
+<link rel="stylesheet" href="assets/v2.css">
+<link rel="alternate" hreflang="nl" href="hoe-kan-ai-dit.html">
+<link rel="alternate" hreflang="en" href="en/how-ai-did-it.html">
+</head>
+<body>
+<a class="lang-switch" href="en/how-ai-did-it.html" aria-label="Switch to English" title="Switch to English"><span aria-hidden="true">🌐</span><span>EN</span></a>
+<main>
+
+<p class="muted"><a href="index.html">← Terug naar het overzicht</a></p>
+
+<section class="hero">
+<h1>Hoe kan AI dit zelf?</h1>
+<p class="lead">Voor wie nieuwsgierig is hoe AI een hele nacht zelfstandig kan werken. Dit is de aanpak op hoofdlijnen, geen code, wel de belangrijkste vaktermen kort uitgelegd als je erin geïnteresseerd bent.</p>
+</section>
+
+<h2>Het idee in het kort</h2>
+<p>Stel je een bouwproject voor met drie rollen: een projectleider die het werk in kleine, behapbare stukken verdeelt, een bouwer die elk stukje daadwerkelijk uitvoert, en een onafhankelijke keurmeester die elk resultaat controleert voordat het project verdergaat. Bij dit experiment vervulde AI alle drie de rollen zelf, de hele nacht door, zonder dat er iemand bij hoefde te zijn.</p>
+
+<h2>De cyclus: plannen, bouwen, testen, controleren, repareren, vastleggen</h2>
+<ol class="timeline">
+<li><strong>Plannen</strong><div class="muted">Een <details class="jargon"><summary>orchestrator</summary><span class="jargon-def">De orchestrator is de verkeersleider: het systeem dat het werk verdeelt over kleine stapjes, elke stap laat testen en controleren, en pas verdergaat als een stap echt goed is.</span></details> koos steeds één klein, behapbaar stukje werk uit de opdracht en gaf dat door als een duidelijke <details class="jargon"><summary>prompt</summary><span class="jargon-def">Een prompt is een instructie in gewone taal, geschreven of gesproken, die je aan AI geeft, bijvoorbeeld een opdracht of vraag waar een resultaat uit moet komen.</span></details>.</div></li>
+<li><strong>Bouwen</strong><div class="muted">Een bouwende AI voerde dat ene stukje werk uit: code schrijven, aanpassen of testen opzetten.</div></li>
+<li><strong>Testen</strong><div class="muted">Elk stukje werk werd automatisch getest, zodat er aantoonbaar bewijs was dat het echt werkte, en niet alleen een belofte.</div></li>
+<li><strong>Onafhankelijk laten controleren</strong><div class="muted">Een tweede AI, los van de bouwende AI, controleerde het resultaat onafhankelijk: klopt dit echt met wat er gevraagd was?</div></li>
+<li><strong>Repareren</strong><div class="muted">Als iets niet goed genoeg was, ging het terug: opnieuw bouwen, opnieuw testen, opnieuw controleren, tot het wel klopte.</div></li>
+<li><strong>Voortgang vastleggen</strong><div class="muted">Elke goedgekeurde stap werd apart bewaard in <details class="jargon"><summary>Git</summary><span class="jargon-def">Git is het logboek: een systeem dat elke wijziging aan de code bewaart, zodat je altijd kunt teruglezen wat er precies is aangepast en wanneer.</span></details>, zodat de hele nacht achteraf terug te lezen is.</div></li>
+</ol>
+
+<p class="muted">Dit alles draaide op een gewone <details class="jargon"><summary>VM</summary><span class="jargon-def">Een VM (virtuele machine) is een kleine computer die in een datacentrum draait.</span></details>, met een <details class="jargon"><summary>Hermes</summary><span class="jargon-def">Hermes is hier de gereedschapskist: een verbinding waarmee de AI bij tools en modellen kan, zoals een brug tussen de orchestrator en de programma's die het echte werk doen.</span></details>-brug naar tools en <details class="jargon"><summary>API</summary><span class="jargon-def">Een API is een afspraak waarmee twee programma's met elkaar kunnen praten, bijvoorbeeld tussen de orchestrator en een AI-model.</span></details>'s naar een <details class="jargon"><summary>modelaanbieder</summary><span class="jargon-def">De modelaanbieder is het bedrijf dat het AI-model levert dat het redeneren en schrijven doet.</span></details>.</p>
+
+<h2>De rol van de mens</h2>
+<p>Gert gaf de vijf ideeën door erover te praten tijdens een wandeling, met de spraakfunctie op zijn telefoon. Hij bepaalde de grenzen en wat een goed resultaat zou zijn. Hij schreef die nacht zelf geen regels code: zijn werk verschoof van code schrijven naar het formuleren van de opdracht, de grenzen en waaraan het resultaat moest voldoen.</p>
+
+<h2>Wat kon het niet, en kanttekeningen</h2>
+<p>Niet elk resultaat is voor elk doel geschikt. De Electron Dose Lab-demo bijvoorbeeld is een natuurkundig onderzoeksdemo op basis van publieke NIST-data: geen klinisch apparaat en geen klinisch gevalideerd doseersysteem.</p>
+
+<h2>Kies je volgende stap</h2>
+<div class="route-grid">
+<a class="route-card" href="onder-de-motorkap.html"><strong>Kijk onder de motorkap</strong><span>Voor ICT en software: de technische architectuur, machine en modellen.</span></a>
+<a class="route-card" href="zelf-bouwen.html"><strong>Ik wil dit zelf bouwen</strong><span>Voor wie het zelf wil opzetten: wat heb je nodig en hoe begin je?</span></a>
+<a class="route-card" href="wat-is-er-gebeurd.html"><strong>Vertel me gewoon wat er gebeurd is</strong><span>Het complete verhaal in gewone taal, zonder vaktermen.</span></a>
+<a class="route-card" href="index.html"><strong>Terug naar het overzicht</strong><span>Bekijk alle vijf demo's en kies zelf je eigen route.</span></a>
+</div>
+
+<footer class="site-footer">
+<p><a href="en/how-ai-did-it.html">English version</a></p>
+<p class="preview-note">Dit is versie 2 (preview); de huidige site staat op <a href="../index.html">de huidige site</a></p>
+</footer>
+
+</main>
+<script src="assets/v2.js"></script>
+</body>
+</html>
