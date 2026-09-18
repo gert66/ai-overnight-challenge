@@ -19,8 +19,8 @@ in later batches.
 | Page (NL) | Page (EN) | Purpose | Status |
 |---|---|---|---|
 | `v2/index.html` | `v2/en/index.html` | Entry page: hero, human timeline, five playable demos, plain-language explanation, four depth-route cards | NL built this batch; EN mirror is a later batch (linked now, will 404 until then) |
-| `v2/wat-is-er-gebeurd.html` ("Vertel me gewoon wat er gebeurd is") | `v2/en/what-happened.html` ("Just tell me what happened") | Depth route 1: narrative-only retelling of the story for the least technical readers, no jargon at all | Later batch (linked now) |
-| `v2/hoe-kan-ai-dit.html` ("Hoe kan AI dit zelf?") | `v2/en/how-ai-did-it.html` ("How could AI do this itself?") | Depth route 2: conceptual explanation of planning/building/testing/reviewing loop, jargon optional via inline disclosures | Later batch (linked now) |
+| `v2/wat-is-er-gebeurd.html` ("Vertel me gewoon wat er gebeurd is") | `v2/en/what-happened.html` ("Just tell me what happened") | Depth route 1: narrative-only retelling of the story for the least technical readers, no jargon at all | NL built this batch; EN mirror is a later batch (linked now, will 404 until then) |
+| `v2/hoe-kan-ai-dit.html` ("Hoe kan AI dit zelf?") | `v2/en/how-ai-did-it.html` ("How could AI do this itself?") | Depth route 2: conceptual explanation of planning/building/testing/reviewing loop, jargon optional via inline disclosures | NL built this batch; EN mirror is a later batch (linked now, will 404 until then) |
 | `v2/onder-de-motorkap.html` ("Kijk onder de motorkap") | `v2/en/under-the-hood.html` ("Show me under the hood") | Depth route 3: technical architecture, reusing diagrams/tables from `how-we-built.html` and `how-we-built-en.html` | Later batch (linked now) |
 | `v2/zelf-bouwen.html` ("Ik wil dit zelf bouwen") | `v2/en/build-it-yourself.html` ("I want to build this myself") | Depth route 4: self-build guide, reusing content from `build-your-own.html`/`install-howto.html` and their `-en` mirrors | Later batch (linked now) |
 
@@ -77,5 +77,4 @@ existing site or in the challenge repositories.
 ## Links pending future batches (intentionally present on `v2/index.html` now)
 
 These relative links point to pages that do not exist yet and will 404 until later batches
-build them: `v2/en/index.html`, `v2/wat-is-er-gebeurd.html`, `v2/hoe-kan-ai-dit.html`,
-`v2/onder-de-motorkap.html`, `v2/zelf-bouwen.html`.
+build them: `v2/en/index.html`, `v2/onder-de-motorkap.html`, `v2/zelf-bouwen.html`.
