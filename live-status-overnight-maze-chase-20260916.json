@@ -7,6 +7,12 @@
   "published_at": "2026-09-16T21:54:50Z",
   "commits": [
     {
+      "sha": "3270fdf49f6d54436c65c6c76cdd532df50697f7",
+      "author": "gert66",
+      "date": "2026-09-18T08:14:46Z",
+      "message": "Optimize Glimmerdash for mobile touch controls"
+    },
+    {
       "sha": "52addf06097dea450b8a9542df72fe633d5d19c6",
       "author": "gert66",
       "date": "2026-09-16T21:54:33Z",
