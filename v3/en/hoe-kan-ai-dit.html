@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0d1117">
+<title>How can AI do this itself? · AI Overnight Challenge · V3</title>
+<meta name="description" content="The conceptual plan-build-test-review-fix-record loop: how could an AI environment work independently for a whole night, without anyone needing to step in?">
+<link rel="stylesheet" href="../assets/v3.css">
+<link rel="alternate" hreflang="nl" href="../hoe-kan-ai-dit.html">
+<link rel="alternate" hreflang="en" href="hoe-kan-ai-dit.html">
+</head>
+<body>
+
+<div class="topbar">
+<a class="brand" href="index.html">AI Overnight Challenge · V3</a>
+<nav class="topnav" aria-label="Depth layers">
+<a href="verhaal.html">The story</a>
+<a href="hoe-kan-ai-dit.html">How can AI do this?</a>
+<a href="onder-de-motorkap.html">Under the hood</a>
+<a href="zelf-bouwen.html">Build it yourself</a>
+<a class="pill" href="../hoe-kan-ai-dit.html" aria-label="Switch to Dutch" title="Switch to Dutch"><span aria-hidden="true">🌐</span> NL</a>
+<a class="pill v1-link" href="../../index-en.html" title="Go to the original technical site">original technical site</a>
+</nav>
+</div>
+
+<main>
+
+<p class="muted"><a href="index.html">&larr; Back to the overview</a></p>
+
+<section class="hero">
+<span class="eyebrow">How can AI do this itself? · &plusmn; 5 min · basic concepts explained</span>
+<h1>How can AI work independently for a whole night?</h1>
+<div class="lead">No prior knowledge of a VM, orchestrator, Hermes, Git or APIs needed. The starting point is simple: give a system a task with clear <details class="jargon"><summary>acceptance criteria</summary><span class="jargon-def">Acceptance criteria are the concrete, measurable requirements a solution must meet before it counts as &lsquo;done&rsquo; &mdash; for example: &ldquo;the demo loads without errors&rdquo; or &ldquo;the test passes&rdquo;.</span></details>, and let the system plan, build, test and improve on its own until those requirements are met.</div>
+</section>
+
+<section class="section" aria-labelledby="lus-h">
+<h2 id="lus-h">The loop: plan, build, test, review, fix, record</h2>
+<p class="intro muted">Instead of estimating one big task, each challenge was cut into small pieces. For every piece, the same fixed loop repeated itself:</p>
+<ol class="loop-diagram" aria-label="The plan-build-test-review-fix-record loop">
+<li class="loop-node c-blue"><span class="loop-num">1</span><strong>Plan</strong><span>Choosing one small, manageable piece of work from the assignment.</span></li>
+<li class="loop-node c-purple"><span class="loop-num">2</span><strong>Build</strong><span>Actually carrying out that one piece: writing or changing code.</span></li>
+<li class="loop-node c-green"><span class="loop-num">3</span><strong>Test</strong><span>Automatically checking whether the result actually works, with objective proof instead of a promise.</span></li>
+<li class="loop-node c-yellow"><span class="loop-num">4</span><strong>Independent review</strong><span>A second, separate AI assesses the actual result against the acceptance criteria.</span></li>
+<li class="loop-node c-orange"><span class="loop-num">5</span><strong>Fix</strong><span>Not good enough? Back to step 2, until it's right.</span></li>
+<li class="loop-node c-blue"><span class="loop-num">6</span><strong>Record</strong><span>An approved step is saved and the loop starts again, with a new piece of work.</span></li>
+</ol>
+<p class="loop-back muted">&#8617; Not good enough at step 4? Then back to step 2 &mdash; until the acceptance criteria are met. After that: the next piece of work, starting again from step 1.</p>
+<p class="intro muted">These six steps repeated, piece by piece, until all five challenges were done. One of the five, Electron Dose Lab, is not a clinical device, but a genuine simulation based on public NIST data. Want to see the full technical version of this loop, with the exact roles and state transitions? That's on <a href="onder-de-motorkap.html">Under the hood</a>.</p>
+</section>
+
+<section class="section" aria-labelledby="review-h">
+<h2 id="review-h">Why an independent check matters</h2>
+<p class="intro muted">An AI that judges its own work misses things just as easily as a person proofreading their own text: you mostly see what you meant to make, not necessarily what's actually there. That's why a second, separate AI independently checked every result: not based on what the building AI claimed, but based on the actual result &mdash; the actual code, the actual test evidence &mdash; measured against the acceptance criteria agreed in advance. Only once that check passed could the next step begin. If not, the piece went back to the build step.</p>
+</section>
+
+<section class="section" aria-labelledby="autonoom-h">
+<h2 id="autonoom-h">What exactly did &lsquo;the whole night&rsquo; and &lsquo;autonomous&rsquo; mean here?</h2>
+<p class="intro muted">Autonomous here doesn't mean nobody set the boundaries. Gert defined in advance what the challenges were about and when a result was good enough. After that, the system repeated the loop above independently, hour after hour, for each of the five challenges: planning, building, testing, having it checked, repairing where needed, and recording what was good. A human didn't need to be present at every step or give approval &mdash; only for setting the goal and the boundaries in advance, and for judging the end result the next morning. That's the core of &lsquo;autonomous&rsquo; in this project: the work shifted from writing code to formulating the assignment, the boundaries and what the result needed to meet.</p>
+</section>
+
+<section class="tech-aside" aria-labelledby="tech-aside-h">
+<p id="tech-aside-h">This is what it's technically called <span class="muted">(optional &mdash; not needed to understand the rest of this story)</span>:</p>
+<div class="jargon-row">
+<details class="jargon"><summary>orchestrator</summary><span class="jargon-def">The orchestrator is the traffic controller: the program that splits the work into small steps, has each step tested and checked, and only moves on once a step is genuinely good.</span></details>
+<details class="jargon"><summary>worker</summary><span class="jargon-def">The worker is the AI that actually carries out one small piece of work: writing code, making changes, or setting up tests.</span></details>
+<details class="jargon"><summary>reviewer</summary><span class="jargon-def">The reviewer is the second, independent AI that checks the result against the acceptance criteria, separate from the AI that built it.</span></details>
+<details class="jargon"><summary>Hermes</summary><span class="jargon-def">Hermes is the toolbox: the connection that lets the AI reach tools and models, a bridge between the orchestrator and the programs that do the actual work.</span></details>
+<details class="jargon"><summary>Git</summary><span class="jargon-def">Git is the logbook: a system that saves every change to the code, so you can always read back exactly what was changed and when.</span></details>
+<details class="jargon"><summary>model</summary><span class="jargon-def">The model is the underlying AI system that reasons and writes text or code &mdash; here mainly Claude models, driven from the orchestrator.</span></details>
+</div>
+</section>
+
+<section class="section" aria-labelledby="verder-h">
+<h2 id="verder-h">Want to know more?</h2>
+<p class="intro muted">This page explains the concept. For the full technical depth, with the original diagrams and Git history:</p>
+<div class="depth-grid">
+
+<a class="depth-card green" href="onder-de-motorkap.html">
+<span class="tag">&plusmn; 10 min · technical depth</span>
+<strong>Under the hood</strong>
+<span class="desc">Orchestrator, Hermes, models, Git, workflows and architecture &mdash; with the original diagrams.</span>
+<span class="meta">For: physicists, AI-curious and ICT colleagues</span>
+</a>
+
+<a class="depth-card blue" href="../../how-we-built-en.html">
+<span class="tag">Original technical site</span>
+<strong>How we built this</strong>
+<span class="desc">The full architecture, the machine specifications and a concrete Git example for the 3D Path Planner.</span>
+<span class="meta">For: anyone who wants to see the technology in full detail</span>
+</a>
+
+<a class="depth-card purple" href="../../prompt-chain-en.html">
+<span class="tag">Original technical site</span>
+<strong>From idea to prompt</strong>
+<span class="desc">How AI itself expanded the short starting question into executable assignments and acceptance criteria.</span>
+<span class="meta">For: anyone who wants to know exactly how the assignments came about</span>
+</a>
+
+</div>
+</section>
+
+<footer class="site-footer">
+<div class="footer-links">
+<a href="../../how-we-built-en.html">How we built this (technical)</a>
+<a href="../../prompt-chain-en.html">From idea to prompt</a>
+<a href="../../build-your-own-en.html">I want this too</a>
+<a href="../../install-howto-en.html">Build it step by step</a>
+</div>
+<p class="muted">Deeper material from the original technical site. AI Agent Overnight Challenge &middot; V3 &middot; public demonstrator for UMC Utrecht.</p>
+<p><a href="../hoe-kan-ai-dit.html">Nederlandse versie</a></p>
+</footer>
+
+</main>
+</body>
+</html>
