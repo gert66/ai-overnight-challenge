@@ -182,6 +182,17 @@ a.pill.v1-link {
   margin: 0 0 14px;
 }
 
+.lead-text > p,
+.lead-text > div {
+  margin: 0 0 14px;
+  line-height: 1.55;
+}
+
+.lead-text > p:last-child,
+.lead-text > div:last-child {
+  margin-bottom: 0;
+}
+
 .fact-tiles {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -461,6 +472,93 @@ details.jargon .jargon-def {
   color: var(--ink);
   font-size: 14.5px;
   font-weight: 400;
+}
+
+/* ---------- Conceptual loop diagram (hoe-kan-ai-dit.html) ---------- */
+
+.loop-diagram {
+  list-style: none;
+  margin: 22px 0 10px;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.loop-node {
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--line);
+  background: rgba(14, 27, 43, 0.92);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+}
+
+.loop-node .loop-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #21262d;
+  color: #fff;
+  font-weight: 900;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.loop-node strong {
+  display: block;
+  color: #fff;
+  font-size: 15.5px;
+  margin-bottom: 4px;
+}
+
+.loop-node span:not(.loop-num) {
+  color: var(--muted);
+  font-size: 13.5px;
+}
+
+.loop-node.c-blue   { border-top-color: var(--blue); }
+.loop-node.c-purple { border-top-color: var(--purple); }
+.loop-node.c-green  { border-top-color: var(--green); }
+.loop-node.c-yellow { border-top-color: var(--yellow); }
+.loop-node.c-orange { border-top-color: var(--orange); }
+
+@media (min-width: 900px) {
+  .loop-diagram {
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+  }
+}
+
+.loop-back {
+  margin: 0 0 10px;
+  padding: 8px 12px;
+  border-left: 3px solid var(--orange);
+  background: var(--yellow-bg);
+  font-size: 13.5px;
+}
+
+/* ---------- Technical aside ("Zo heet dit technisch") ---------- */
+
+.tech-aside {
+  margin: 20px 0;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(9, 18, 31, 0.7);
+}
+
+.tech-aside > p:first-child {
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.tech-aside .jargon-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 10px;
 }
 
 /* ---------- Bonus section ---------- */

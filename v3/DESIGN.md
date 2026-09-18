@@ -143,19 +143,28 @@ What V2 got wrong (the reason this V3 batch exists, per the job goal, and cross-
 
 ## d) V3 page map (NL + EN) and diagram/section reuse plan
 
-This batch (`v3-01-foundation-nl-home`) builds `v3/DESIGN.md`, `v3/assets/v3.css`,
-`v3/assets/v3.js` (if needed) and `v3/index.html` only. The filenames below are the **planned**
-target filenames for later batches; `v3/index.html` links to them today as planned/placeholder
-hrefs, documented here so the link-check step can treat them as valid.
+This batch (`v3-01-foundation-nl-home`) built `v3/DESIGN.md`, `v3/assets/v3.css`,
+`v3/assets/v3.js` (if needed) and `v3/index.html`. Batch `v3-02-nl-depth-story-concept` built
+`v3/verhaal.html` and `v3/hoe-kan-ai-dit.html` (NL). The filenames below are the **planned**
+target filenames for pages not yet built; existing NL pages link to the not-yet-built ones as
+planned/placeholder hrefs, documented here so the link-check step can treat them as valid.
 
-| # | NL file (planned) | EN file (planned) | Purpose | Diagrams/sections it will reuse |
-|---|---|---|---|---|
-| 1 | `v3/index.html` | `v3/en/index.html` | Home: hero, timeline, 5 demo cards, depth chooser, bonus slot | Built this batch (NL) / next batch (EN) |
-| 2 | `v3/verhaal.html` | `v3/en/story.html` | Depth (a): the human story only, ~2 min, no jargon | Adapts `v2/wat-is-er-gebeurd.html` wording; V1 hero prose from `index.html` |
-| 3 | `v3/hoe-kan-ai-dit.html` | `v3/en/how-ai-did-it.html` | Depth (b): conceptual plan/build/test/review/repair loop | `assets/development-loop-nl.svg`/`-en.svg`; V2's project-lead/builder/inspector analogy |
-| 4 | `v3/onder-de-motorkap.html` | `v3/en/under-the-hood.html` | Depth (c): orchestrator, Hermes, models, Git, workflows, architecture | `assets/architecture-nl.svg`/`-en.svg`, `assets/workflow-polished-nl.svg`/`-en.svg` (+ mobile variants), `assets/review-loop-polished-nl.svg`/`-en.svg` (+ mobile variants); V1 `how-we-built.html` stats/tables/3D-Path-Planner Git-history example |
-| 5 | `v3/zelf-bouwen.html` | `v3/en/build-it-yourself.html` | Depth (d): VM, cost, install, prompts, repos, step-by-step | V1 `build-your-own.html` cost table + `install-howto.html`'s 12-step numbered guide (reused via anchors, as V2 already validated all 13 `#id` anchors resolve) |
-| — | `v3/en/index.html` | (EN mirror of #1) | Complete English mirror | Built in the EN batch |
+Note: the EN filenames for rows 2 and 3 were changed from the originally sketched
+`story.html`/`how-ai-did-it.html` to `verhaal.html`/`hoe-kan-ai-dit.html` (i.e. the EN mirror
+keeps the same filename as the NL page, under `v3/en/`) — this is what batch
+`v3-02-nl-depth-story-concept`'s spec required and what the NL pages' language-switch links
+now point to. Rows 4–5 keep their originally sketched EN filenames since no page links to them
+by a specific EN filename yet; a future EN batch should follow the same same-filename-under-`en/`
+convention for consistency (`v3/en/onder-de-motorkap.html`, `v3/en/zelf-bouwen.html`) unless a
+later batch has a reason to deviate — if so, update this table then.
+
+| # | NL file | EN file (planned) | Purpose | Status | Diagrams/sections it reuses |
+|---|---|---|---|---|---|
+| 1 | `v3/index.html` | `v3/en/index.html` | Home: hero, timeline, 5 demo cards, depth chooser, bonus slot | NL done (batch 01) | — |
+| 2 | `v3/verhaal.html` | `v3/en/verhaal.html` | Depth (a): the human story only, ~2 min, no jargon | NL done (batch 02) | Six-step timeline markup/classes copied verbatim from `v3/index.html`; five demo cards (play-btn only) with exact demo URLs from `v3/index.html`; wording adapted from `v2/wat-is-er-gebeurd.html` and V1 hero prose (`index.html`, `prompt-chain.html`) |
+| 3 | `v3/hoe-kan-ai-dit.html` | `v3/en/hoe-kan-ai-dit.html` | Depth (b): conceptual plan/build/test/review/repair loop | NL done (batch 02) | Compact inline CSS/HTML loop diagram (`.loop-diagram`/`.loop-node` in `v3.css`, V1 accent colors) built instead of embedding `assets/development-loop-nl.svg` directly — that SVG's labels (Brain/Worker/Orchestrator, PASS/FAIL/NEEDS_HUMAN, state-machine outcomes) are "under the hood" detail, not conceptual-layer language, so it is reserved for `onder-de-motorkap.html` (row 4) instead; orchestrator/worker/reviewer/Hermes/Git/model introduced only as optional `<details class="jargon">` asides in a `.tech-aside` box, grounded in `how-we-built.html`'s Brain/Worker/Reviewer/Git description and `index.html`/`prompt-chain.html`'s Hermes mention |
+| 4 | `v3/onder-de-motorkap.html` | `v3/en/onder-de-motorkap.html` | Depth (c): orchestrator, Hermes, models, Git, workflows, architecture | Planned, not yet built | `assets/architecture-nl.svg`/`-en.svg`, `assets/workflow-polished-nl.svg`/`-en.svg` (+ mobile variants), `assets/review-loop-polished-nl.svg`/`-en.svg` (+ mobile variants), `assets/development-loop-nl.svg`/`-en.svg` (moved here from row 3, see above); V1 `how-we-built.html` stats/tables/3D-Path-Planner Git-history example |
+| 5 | `v3/zelf-bouwen.html` | `v3/en/zelf-bouwen.html` | Depth (d): VM, cost, install, prompts, repos, step-by-step | Planned, not yet built | V1 `build-your-own.html` cost table + `install-howto.html`'s 12-step numbered guide (reused via anchors, as V2 already validated all 13 `#id` anchors resolve) |
 
 Bonus/follow-on: no dedicated page planned yet — the bonus block lives inline on `v3/index.html`
 (and its EN mirror) as a clearly separated section, per the batch spec. If a future batch adds a
@@ -165,3 +174,12 @@ one, so there is no dangling planned-page reference to track for it.
 All five demo URLs and five repository URLs used throughout the pages above are copied verbatim
 from `index.html`'s `demoLinks` object and `challenges` array (lines 21–35), the same source V2
 used — no new URLs are introduced anywhere in V3.
+
+Markup rule (added during batch `v3-02-nl-depth-story-concept` repair): any paragraph-level text
+block that contains a `<details class="jargon">` disclosure must be a `<div>` (e.g.
+`<div class="lead">`, plain `<div>` children of `.lead-text`), never a `<p>`. A `<details>` start
+tag implicitly closes an open `<p>` per the HTML parsing algorithm, which silently truncates the
+paragraph and breaks its typography/spacing in real browsers (python3 `html.parser` does not
+catch this). `.lead-text > p, .lead-text > div` and `.hero .lead` / `.hero .lead + .lead-text` in
+`v3.css` already use class selectors so they match both `<p>` and `<div>`; keep it that way for
+any future page reusing this pattern (`onder-de-motorkap.html`, `zelf-bouwen.html`, EN mirrors).
