@@ -834,3 +834,7 @@ details.jargon .jargon-def {
 }
 
 .callout.good strong { color: var(--green-bright); }
+
+/* Final hand-tuned navigation and Wietse bonus */
+.home-return{display:inline-flex;align-items:center;gap:.45rem;margin:.35rem 0 1rem;padding:.65rem 1rem;border:1px solid rgba(88,166,255,.55);border-radius:10px;background:rgba(31,111,235,.12);font-weight:700;text-decoration:none}.home-return:hover{background:rgba(31,111,235,.22)}
+.bonus.wietse-bonus{position:relative;overflow:hidden;border:2px solid #f0b429;box-shadow:0 0 0 1px rgba(240,180,41,.2),0 12px 36px rgba(240,180,41,.12);background:linear-gradient(135deg,rgba(240,180,41,.16),rgba(248,81,73,.08) 55%,rgba(88,166,255,.08))}.wietse-bonus:before{content:'BONUS VOOR WIETSE';display:inline-block;margin-bottom:1rem;padding:.45rem .8rem;border-radius:7px;background:#f0b429;color:#0d1117;font-weight:900;letter-spacing:.08em;font-size:.82rem}.wietse-bonus .bonus-kicker{font-size:1.08rem;font-weight:800}.wietse-bonus .bonus-cta{display:inline-flex;align-items:center;gap:.55rem;margin-top:.6rem;padding:.8rem 1.15rem;border-radius:10px;background:#f0b429;color:#0d1117!important;font-weight:900;text-decoration:none}.wietse-bonus .bonus-cta:hover{filter:brightness(1.08)}
