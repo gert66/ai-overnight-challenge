@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ik wil dit zelf bouwen · Wat AI in één nacht bouwde</title>
+<meta name="description" content="Stap voor stap uitgelegd: wat heb je nodig, wat kost het ongeveer, en hoe bouw je zelf een kleine autonome AI-buildomgeving.">
+<link rel="stylesheet" href="assets/v2.css">
+</head>
+<body>
+<main>
+
+<p class="muted"><a href="index.html">← Terug naar het overzicht</a></p>
+
+<section class="hero">
+<h1>Ik wil dit zelf bouwen</h1>
+<p class="lead">Voor wie het zelf wil opzetten, thuis of op de afdeling. Je hoeft geen ervaren programmeur te zijn, maar wel bereid om met een terminal te werken. Je hebt een computer, een account bij een <details class="jargon"><summary>modelaanbieder</summary><span class="jargon-def">De modelaanbieder is het bedrijf dat het AI-model levert dat het redeneren en schrijven doet.</span></details> en wat tijd nodig. Dit is een beknopte route; de volledige commando's staan op de bestaande site.</p>
+</section>
+
+<details class="tech-details" open>
+<summary>Wat heb je nodig en wat kost het ongeveer?</summary>
+<p>Voor een eerste persoonlijke opzet zijn de vaste kosten overzichtelijk. Je hebt geen GPU-server of groot cloudplatform nodig.</p>
+<div class="table-scroll">
+<table>
+<tr><th>Onderdeel</th><th>Orde van grootte</th><th>Waarvoor?</th></tr>
+<tr><td>Kleine Linux cloud-<details class="jargon"><summary>VM</summary><span class="jargon-def">Een VM (virtuele machine) is een kleine computer die in een datacentrum draait.</span></details></td><td>ongeveer €6 tot €7 per maand</td><td>De plek waar de <details class="jargon"><summary>orchestrator</summary><span class="jargon-def">De orchestrator is de verkeersleider: het systeem dat het werk verdeelt over kleine stapjes, elke stap laat testen en controleren, en pas verdergaat als een stap echt goed is.</span></details>, <details class="jargon"><summary>Git</summary><span class="jargon-def">Git is het logboek: een systeem dat elke wijziging aan de code bewaart, zodat je altijd kunt teruglezen wat er precies is aangepast en wanneer.</span></details>, Python, Node/npm, tests, monitoring en watchdog draaien.</td></tr>
+<tr><td>AI-abonnement</td><td>ongeveer €20 per maand</td><td>Bijvoorbeeld ChatGPT of Claude als je persoonlijke AI-omgeving. Voor specifieke <details class="jargon"><summary>API</summary><span class="jargon-def">Een API is een afspraak waarmee twee programma's met elkaar kunnen praten, bijvoorbeeld tussen de orchestrator en een AI-model.</span></details>- of agent-workflows kunnen afhankelijk van de gekozen setup nog gebruikskosten gelden.</td></tr>
+<tr><td>GitHub + eenvoudige hosting</td><td>vaak gratis</td><td>Repositories, commits, audit trail en bijvoorbeeld GitHub Pages voor een dashboard of demo.</td></tr>
+</table>
+</div>
+<p class="muted">Dit zijn orde-van-grootte bedragen uit de challenge zelf; controleer altijd de actuele prijzen bij de provider voordat je bestelt.</p>
+</details>
+
+<details class="tech-details">
+<summary>Stap 1–3: accounts, SSH-key en je eerste VM</summary>
+<p>Begin met drie accounts: GitHub (voor code en versiebeheer), een cloud-provider zoals Hetzner (voor de VM) en een AI-account (bijvoorbeeld Claude Code als coding agent op de VM, en ChatGPT of Claude voor het menselijke gesprek). Maak op je eigen computer een SSH-sleutel, en gebruik die om een kleine Ubuntu-VM aan te maken, orde van grootte 2 vCPU en 4 GB RAM.</p>
+<p><a href="../install-howto.html#accounts">Volledige uitleg: accounts aanmaken</a> · <a href="../install-howto.html#sshkey">SSH-key maken</a> · <a href="../install-howto.html#hetzner">De VM aanmaken</a> · <a href="../install-howto.html#connect">De eerste verbinding</a></p>
+</details>
+
+<details class="tech-details">
+<summary>Stap 4–5: software installeren en GitHub koppelen</summary>
+<p>Installeer op de VM de basissoftware: Git, Python, Node/npm en de gebruikelijke bouwtools. Koppel daarna de VM aan GitHub met een eigen SSH-sleutel, zodat de VM later zelf kan committen en pushen.</p>
+<p><a href="../install-howto.html#software">Volledige uitleg: software installeren</a> · <a href="../install-howto.html#github">GitHub koppelen</a></p>
+</details>
+
+<details class="tech-details">
+<summary>Stap 6: de coding agent en een gereedschapsbrug</summary>
+<p>Installeer een coding agent op de VM, bijvoorbeeld Claude Code, en laat die eerst interactief één simpele taak doen voordat er iets autonoom draait. Optioneel kun je daarnaast Desktop Commander toevoegen: een gereedschapsbrug waarmee een chat-AI, los van de autonome orchestrator, rechtstreeks bestanden, processen en logs op de VM kan bekijken en aanpassen wanneer jij daar expliciet om vraagt.</p>
+<p><a href="../install-howto.html#agent">Volledige uitleg: coding agent installeren</a> · <a href="../install-howto.html#desktopcommander">Desktop Commander (optioneel)</a></p>
+</details>
+
+<details class="tech-details">
+<summary>Stap 7–9: secrets, een eerste test en de orchestrator</summary>
+<p>Zet API-keys en tokens nooit rechtstreeks in code of Git; gebruik een niet-gecommit bestand met strikte rechten. Doe daarna eerst één handmatige end-to-end-test: VM → agent → test → Git-commit → GitHub-push. Pas als dat betrouwbaar werkt, voeg je de orchestrator toe. Een eerste versie hoeft maar zes fasen te kennen: plannen, bouwen, testen, reviewen, committen en herhalen.</p>
+<p><a href="../install-howto.html#env">Volledige uitleg: secrets instellen</a> · <a href="../install-howto.html#firstjob">De eerste handmatige test</a> · <a href="../install-howto.html#orchestrator">De orchestrator toevoegen</a></p>
+</details>
+
+<details class="tech-details">
+<summary>Stap 10–12: monitoring, watchdog en eindcheck</summary>
+<p>Laat actieve jobs een heartbeat wegschrijven en zet een aparte watchdog neer die ingrijpt als een job aantoonbaar vastloopt, met een maximum aantal pogingen. Loop voor je de omgeving alleen laat werken een eindcheck af: werkt SSH, kan er naar GitHub gepusht worden, draaien de tests met een duidelijke uitslag, en is elke geaccepteerde stap een aparte Git-commit?</p>
+<p><a href="../install-howto.html#watchdog">Volledige uitleg: monitoring en watchdog</a> · <a href="../install-howto.html#checklist">De volledige eindcheck</a></p>
+</details>
+
+<details class="tech-details">
+<summary>Begin bewust klein</summary>
+<p>Bouw niet meteen alles tegelijk. Begin met één VM, één GitHub-repository en één AI-omgeving. Voeg pas daarna reviews, retries, meerdere modelaanbieders en een dashboard toe, zodra de eenvoudige keten al betrouwbaar werkt. Kies als eerste proef een taak die in een paar uur aantoonbaar kan slagen of falen, en schrijf vóór de start vijf tot tien concrete acceptance criteria.</p>
+<p><a href="../build-your-own.html">Volledig overzicht: benodigdheden, kosten en opbouw</a></p>
+</details>
+
+<details class="tech-details">
+<summary>Start vanuit het verhaal, niet vanuit de techniek</summary>
+<p>De manier waarop dit experiment ontstond, kun je zelf hergebruiken als methode: begin met een idee in gewone taal, en laat AI dat idee zelf uitwerken tot een <details class="jargon"><summary>prompt</summary><span class="jargon-def">Een prompt is een instructie in gewone taal, geschreven of gesproken, die je aan AI geeft, bijvoorbeeld een opdracht of vraag waar een resultaat uit moet komen.</span></details>, met een challenge brief, acceptance criteria en een uitvoerbare opdracht. Pas daarna hoeft de orchestrator het autonoom te bouwen, testen, reviewen en herstellen.</p>
+<p><a href="../prompt-chain.html">Bekijk de volledige promptketen</a>, inclusief de originele prompts zoals ze echt gebruikt zijn.</p>
+</details>
+
+<details class="tech-details">
+<summary>Vijf kant-en-klare voorbeelden</summary>
+<p>Gebruik deze repositories als voorbeeld van wat er met deze aanpak uitkomt:</p>
+<ul>
+<li><a href="https://github.com/gert66/ai-agent-challenge-01-mosse-tracker" target="_blank" rel="noopener">01 MOSSE Tracker</a> <span class="muted">— volgt een aangewezen object door een video.</span></li>
+<li><a href="https://github.com/gert66/ai-agent-challenge-02-rubik-2x2" target="_blank" rel="noopener">02 Rubik 2x2</a> <span class="muted">— lost een 2x2-kubus op en animeert elke zet in 3D.</span></li>
+<li><a href="https://github.com/gert66/ai-agent-challenge-03-monte-carlo" target="_blank" rel="noopener">03 Electron Dose Lab</a> <span class="muted">— natuurkundige Monte Carlo-onderzoeksdemo met publieke NIST-data.</span></li>
+<li><a href="https://github.com/gert66/ai-agent-challenge-04-path-planner" target="_blank" rel="noopener">04 3D Path Planner</a> <span class="muted">— zoekt en toont een veilige route door een 3D-obstakelwereld.</span></li>
+<li><a href="https://github.com/gert66/ai-agent-challenge-05-maze-chase" target="_blank" rel="noopener">05 Maze Chase</a> <span class="muted">— een origineel doolhof-jaagspel in de browser.</span></li>
+</ul>
+</details>
+
+<details class="tech-details">
+<summary>Eerlijke verwachtingen</summary>
+<p>De waarde zit niet in dure hardware, maar in de orchestrator die alle stappen betrouwbaar aan elkaar knoopt: begin daarom bewust klein en breid pas uit als de basisloop betrouwbaar draait. Provider-flexibiliteit bestaat vandaag concreet voor de Worker-rol (Brain, Worker en Reviewer zijn de drie AI-rollen; zie <a href="onder-de-motorkap.html">Kijk onder de motorkap</a>); Brain en Reviewer draaien in deze implementatie vast via Claude. En niet elk resultaat is voor elk doel geschikt: de Electron Dose Lab-demo bijvoorbeeld is een natuurkundig onderzoeksdemo op basis van publieke NIST-data, geen klinisch apparaat en geen klinisch gevalideerd doseersysteem.</p>
+</details>
+
+<h2>Kies je volgende stap</h2>
+<div class="route-grid">
+<a class="route-card" href="onder-de-motorkap.html"><strong>Kijk onder de motorkap</strong><span>Voor ICT en software: de technische architectuur, machine en modellen.</span></a>
+<a class="route-card" href="hoe-kan-ai-dit.html"><strong>Hoe kan AI dit zelf?</strong><span>De aanpak op hoofdlijnen, zonder code.</span></a>
+<a class="route-card" href="wat-is-er-gebeurd.html"><strong>Vertel me gewoon wat er gebeurd is</strong><span>Het complete verhaal in gewone taal, zonder vaktermen.</span></a>
+<a class="route-card" href="index.html"><strong>Terug naar het overzicht</strong><span>Bekijk alle vijf demo's en kies zelf je eigen route.</span></a>
+</div>
+
+<footer class="site-footer">
+<p><a href="en/build-it-yourself.html">English version</a></p>
+<p class="preview-note">Dit is versie 2 (preview); de huidige site staat op <a href="../index.html">de huidige site</a></p>
+</footer>
+
+</main>
+<script src="assets/v2.js"></script>
+</body>
+</html>

@@ -299,3 +299,87 @@ details.jargon .jargon-def {
     grid-template-columns: 1fr 1fr;
   }
 }
+
+/* Technical detail sections (onder-de-motorkap.html, zelf-bouwen.html) */
+details.tech-details {
+  margin: 0 0 18px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--panel);
+  padding: 4px 18px;
+}
+
+details.tech-details > summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 14px 0;
+  font-weight: 800;
+  font-size: 19px;
+  min-height: 44px;
+}
+
+details.tech-details > summary::-webkit-details-marker {
+  display: none;
+}
+
+details.tech-details > summary::after {
+  content: " \25BE";
+  color: var(--accent);
+}
+
+details.tech-details[open] > summary::after {
+  content: " \25B4";
+}
+
+details.tech-details > *:last-child {
+  margin-bottom: 16px;
+}
+
+/* Tables inside technical sections, wrapped for horizontal scroll on mobile */
+.table-scroll {
+  overflow-x: auto;
+  margin: 12px 0;
+}
+
+.table-scroll table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 420px;
+}
+
+.table-scroll th,
+.table-scroll td {
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--line);
+  font-size: 15px;
+  vertical-align: top;
+}
+
+.table-scroll th {
+  background: var(--bg);
+  font-weight: 700;
+}
+
+/* Diagram figures reused from the root site */
+.tech-figure {
+  margin: 16px 0;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 10px;
+  background: var(--panel);
+}
+
+.tech-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.tech-figure figcaption {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 14px;
+  text-align: center;
+}

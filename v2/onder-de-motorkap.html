@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kijk onder de motorkap · Wat AI in één nacht bouwde</title>
+<meta name="description" content="De technische architectuur achter de vijf demo's: de VM, de orchestrator met Brain, Worker en Reviewer, de promptketen en de Git-audit trail.">
+<link rel="stylesheet" href="assets/v2.css">
+</head>
+<body>
+<main>
+
+<p class="muted"><a href="index.html">← Terug naar het overzicht</a></p>
+
+<section class="hero">
+<h1>Kijk onder de motorkap</h1>
+<p class="lead">Voor ICT- en softwarecollega's, en voor iedereen die nieuwsgierig is naar de techniek. Dit is de laag met architectuur, machine en modellen. Voor het verhaal zelf heb je deze pagina niet nodig: <a href="wat-is-er-gebeurd.html">"Vertel me gewoon wat er gebeurd is"</a> en <a href="hoe-kan-ai-dit.html">"Hoe kan AI dit zelf?"</a> zijn op zichzelf compleet genoeg.</p>
+</section>
+
+<details class="tech-details" open>
+<summary>De architectuur in het kort</summary>
+<p>Dit alles draaide op één gewone <details class="jargon"><summary>VM</summary><span class="jargon-def">Een VM (virtuele machine) is een kleine computer die in een datacentrum draait.</span></details>, met een <details class="jargon"><summary>orchestrator</summary><span class="jargon-def">De orchestrator is de verkeersleider: het systeem dat het werk verdeelt over kleine stapjes, elke stap laat testen en controleren, en pas verdergaat als een stap echt goed is.</span></details> die de state machine en de control flow bezit. Drie begrensde AI-rollen leverden het redeneerwerk daarbinnen:</p>
+<h3>Eén menselijke ingang</h3>
+<p>De opdracht en randvoorwaarden kwamen uit natuurlijke taal. Daarna werd de uitvoering opgesplitst in kleine, toetsbare batches.</p>
+<h3>Brain, Worker, Reviewer</h3>
+<p>De orchestrator hield de rollen uit elkaar. De Brain koos één begrensde volgende batch, de Worker voerde die uit en de Reviewer controleerde het echte resultaat onafhankelijk tegen de acceptance criteria.</p>
+<h3>Versiegeschiedenis als geheugen</h3>
+<p>Elke geaccepteerde batch kreeg een <details class="jargon"><summary>Git</summary><span class="jargon-def">Git is het logboek: een systeem dat elke wijziging aan de code bewaart, zodat je altijd kunt teruglezen wat er precies is aangepast en wanneer.</span></details>-commit. Daardoor bleef de ontwikkeling reproduceerbaar, zichtbaar en herstelbaar.</p>
+<h3>Tests als toegangspoort</h3>
+<p>Unit tests, typechecks, builds en waar mogelijk Playwright end-to-end tests bepaalden of een stap door mocht naar de volgende fase.</p>
+<p>Voor de verbinding met gereedschap en modellen was er een <details class="jargon"><summary>Hermes</summary><span class="jargon-def">Hermes is hier de gereedschapskist: een verbinding waarmee de AI bij tools en modellen kan, zoals een brug tussen de orchestrator en de programma's die het echte werk doen.</span></details>-brug naar tools en <details class="jargon"><summary>API</summary><span class="jargon-def">Een API is een afspraak waarmee twee programma's met elkaar kunnen praten, bijvoorbeeld tussen de orchestrator en een AI-model.</span></details>'s naar een <details class="jargon"><summary>modelaanbieder</summary><span class="jargon-def">De modelaanbieder is het bedrijf dat het AI-model levert dat het redeneren en schrijven doet.</span></details>.</p>
+<p class="muted">Cijfers uit de vijf jobs samen: alle vijf challenges bereikten <code>DONE</code>, verdeeld over 37 autonome bouwbatches en 155 Claude-calls, draaiend op één VM met 2 vCPU en 3,7 GiB RAM.</p>
+<figure class="tech-figure">
+<img src="../assets/workflow-polished-nl.svg" alt="Autonome ontwikkelworkflow van de AI Challenge">
+<figcaption>De gecontroleerde autonome ontwikkelloop.</figcaption>
+</figure>
+</details>
+
+<details class="tech-details">
+<summary>De machine en de tools</summary>
+<p>De echte omgeving tijdens de challenge, voor wie de details wil:</p>
+<div class="table-scroll">
+<table>
+<tr><th>Onderdeel</th><th>Werkelijke omgeving tijdens de challenge</th></tr>
+<tr><td>Compute</td><td>2 vCPU, 3,7 GiB RAM, 2 GiB swap</td></tr>
+<tr><td>Disk</td><td>38 GB root volume, tijdens documentatie circa 28 GB gebruikt</td></tr>
+<tr><td>OS/kernel</td><td>Linux 7.0.0-29-generic x86_64</td></tr>
+<tr><td>Python</td><td>3.14.4</td></tr>
+<tr><td>Node / npm</td><td>Node v24.21.0, npm 11.19.0</td></tr>
+<tr><td>Git</td><td>Git 2.53.0</td></tr>
+<tr><td>Browser testing</td><td>Playwright + headless Chromium, inclusief software WebGL voor 3D tests</td></tr>
+<tr><td>AI tooling</td><td>Claude voor Brain/Reviewer; Worker routeerbaar naar Claude, Gemini 3.8 Flash of Codex; ChatGPT als ingang</td></tr>
+</table>
+</div>
+<h3>Modellen: rol en provider uit elkaar</h3>
+<p>Brain en Reviewer draaien via Claude. Alleen de Worker is provider-selecteerbaar met auto, Claude, Gemini of Codex. In auto-modus kan LOW/NORMAL werk naar Gemini 3.8 Flash gaan; hogere complexiteit en bepaalde escalaties gaan naar Claude Sonnet. Git safety, evidence, review en commits blijven bij de orchestrator.</p>
+<h3>Desktop Commander: een aparte gereedschapsbrug</h3>
+<p>Naast de autonome orchestrator draaide Desktop Commander Remote op dezelfde VM. Daardoor kon ChatGPT, wanneer daar expliciet om werd gevraagd, rechtstreeks bestanden bekijken en aanpassen, processen starten of volgen, logs uitlezen en terminalacties uitvoeren. Dat was vooral nuttig voor beheer, diagnose en snelle wijzigingen tijdens de challenge, los van de autonome state-machine-loop van de orchestrator zelf.</p>
+</details>
+
+<details class="tech-details">
+<summary>De promptketen: van idee naar uitvoerbare opdracht</summary>
+<p>De menselijke <details class="jargon"><summary>prompt</summary><span class="jargon-def">Een prompt is een instructie in gewone taal, geschreven of gesproken, die je aan AI geeft, bijvoorbeeld een opdracht of vraag waar een resultaat uit moet komen.</span></details> tijdens de wandeling was eigenlijk maar het begin. AI hielp daarna zelf de vijf uitdagingen bedenken, werkte ze uit tot volledige challenge-beschrijvingen en maakte de uitgebreidere prompts waarmee de orchestrator kon werken. Die langere prompts waren dus óók een AI-product, in vier stappen:</p>
+<ol class="timeline">
+<li><strong>Idee</strong><div class="muted">Laat collega's zien wat AI kan voorbij prompt-in/prompt-out.</div></li>
+<li><strong>Kort gesprek</strong><div class="muted">Mens + AI kiezen vijf geschikte software-uitdagingen.</div></li>
+<li><strong>AI werkt uit</strong><div class="muted">Challenge briefs, acceptance criteria en uitvoerprompts.</div></li>
+<li><strong>Orchestrator</strong><div class="muted">Autonoom bouwen, testen, reviewen en herstellen.</div></li>
+</ol>
+<p><a href="../prompt-chain.html">Bekijk de volledige promptketen</a>, inclusief de oorspronkelijke prompts zoals ze echt zijn gebruikt.</p>
+</details>
+
+<details class="tech-details">
+<summary>De autonome cyclus: plannen, bouwen, testen, controleren, repareren, vastleggen</summary>
+<p>Een deel van het systeem is bewust deterministisch, een ander deel is AI-redenering binnen begrensde rollen:</p>
+<div class="table-scroll">
+<table>
+<tr><th>Deterministische control plane</th><th>AI-redenering</th></tr>
+<tr><td>workflowfases, locks en state transitions</td><td>de volgende begrensde batch kiezen</td></tr>
+<tr><td>Git safety, scopechecks en commits</td><td>code schrijven of wijzigen</td></tr>
+<tr><td>tests uitvoeren, evidence verzamelen, retries en caps</td><td>het echte resultaat reviewen en over repairs redeneren</td></tr>
+</table>
+</div>
+<figure class="tech-figure">
+<img src="../assets/review-loop-polished-nl.svg" alt="Beslis- en herstelcyclus na review">
+<figcaption>De review-, repair-, wacht- en afrondingscyclus.</figcaption>
+</figure>
+<h3>Een concreet voorbeeld in GitHub</h3>
+<p>Je hoeft de architectuur niet op ons woord te geloven. Bij de 3D Path Planner is de bouwgeschiedenis gewoon terug te lezen: de reeks <code>01-core-planner-and-scenes</code> → <code>02-threejs-viewer-and-controls</code> → <code>03-exploration-playback-and-drone-animation</code> → <code>04-playwright-e2e-tests</code> → <code>05-visual-polish-and-demo-readiness</code> → <code>06-pwa-mobile-readiness</code> → finale audit en acceptance. Dat is de Brain–Worker–Evidence–Reviewer–Commit-loop terug te zien als Git-historie.</p>
+<p><a href="https://github.com/gert66/ai-agent-challenge-04-path-planner/commits/overnight/path-planner-2026-09-17" target="_blank" rel="noopener">Bekijk de challenge-commits van de 3D Path Planner</a></p>
+</details>
+
+<details class="tech-details">
+<summary>Broncode en repositories</summary>
+<p>De volledige broncode, tests en commits van alle vijf challenges staan publiek op GitHub:</p>
+<ul>
+<li><a href="https://github.com/gert66/ai-agent-challenge-01-mosse-tracker" target="_blank" rel="noopener">01 MOSSE Tracker</a> <span class="muted">— broncode + tests</span></li>
+<li><a href="https://github.com/gert66/ai-agent-challenge-02-rubik-2x2" target="_blank" rel="noopener">02 Rubik 2x2</a> <span class="muted">— solver + 3D</span></li>
+<li><a href="https://github.com/gert66/ai-agent-challenge-03-monte-carlo" target="_blank" rel="noopener">03 Electron Dose Lab</a> <span class="muted">— Monte Carlo demo</span></li>
+<li><a href="https://github.com/gert66/ai-agent-challenge-04-path-planner" target="_blank" rel="noopener">04 3D Path Planner</a> <span class="muted">— A* + Three.js</span></li>
+<li><a href="https://github.com/gert66/ai-agent-challenge-05-maze-chase" target="_blank" rel="noopener">05 Maze Chase</a> <span class="muted">— game AI + polish</span></li>
+</ul>
+<p><a href="../how-we-built.html">Lees het volledige technische verhaal op de huidige site</a> voor alle architectuurdetails, diagrammen en voorbeelden.</p>
+</details>
+
+<details class="tech-details">
+<summary>Beperkingen</summary>
+<p>Niet elk resultaat is voor elk doel geschikt. De Electron Dose Lab-demo bijvoorbeeld is een natuurkundig onderzoeksdemo op basis van publieke NIST-data: geen klinisch apparaat en geen klinisch gevalideerd doseersysteem.</p>
+<p>Provider-flexibiliteit bestaat ook niet overal even ver: switchen tussen modelaanbieders geldt vandaag voor de Worker-rol, niet voor iedere rol. Brain en Reviewer draaien op dit moment vast via Claude.</p>
+</details>
+
+<h2>Kies je volgende stap</h2>
+<div class="route-grid">
+<a class="route-card" href="zelf-bouwen.html"><strong>Ik wil dit zelf bouwen</strong><span>Voor wie het zelf wil opzetten: wat heb je nodig en hoe begin je?</span></a>
+<a class="route-card" href="hoe-kan-ai-dit.html"><strong>Hoe kan AI dit zelf?</strong><span>De aanpak op hoofdlijnen, zonder code.</span></a>
+<a class="route-card" href="wat-is-er-gebeurd.html"><strong>Vertel me gewoon wat er gebeurd is</strong><span>Het complete verhaal in gewone taal, zonder vaktermen.</span></a>
+<a class="route-card" href="index.html"><strong>Terug naar het overzicht</strong><span>Bekijk alle vijf demo's en kies zelf je eigen route.</span></a>
+</div>
+
+<footer class="site-footer">
+<p><a href="en/under-the-hood.html">English version</a></p>
+<p class="preview-note">Dit is versie 2 (preview); de huidige site staat op <a href="../index.html">de huidige site</a></p>
+</footer>
+
+</main>
+<script src="assets/v2.js"></script>
+</body>
+</html>
