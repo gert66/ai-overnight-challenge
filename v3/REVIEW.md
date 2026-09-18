@@ -1128,8 +1128,13 @@ V2 (unchanged, for side-by-side comparison): `http://localhost:8080/v2/index.htm
 ## Remaining limitations of this review
 
 - No headless browser or working Python interpreter execution was available in this sandbox, so
-  Part C is a static analysis, not a rendered/measured one — findings 2 and 5 above are the two
-  items whose severity genuinely depends on a real render.
+  Part C is a static analysis, not a rendered/measured one. Findings 1, 2, 4, 5, 6 and 7 from
+  Part D were resolved (fixed, or deliberately left as-is per their own text) in the `v3-07`
+  rework batch above. **Finding 3 — unconfirmed mobile scroll depth to the demo grid on
+  `v3/index.html` and `v3/verhaal.html` — is the only item still genuinely dependent on a real
+  render**, and remains open: `v3-07` tried `playwright`, `puppeteer`, `npx` and a local Chromium
+  binary again and every route was unavailable in this sandbox (see the "Rework log (v3-07)"
+  entry for finding 3 above).
 - External URL liveness was not checked (no network access in this sandbox, per the batch's own
   hard limit) — only provenance (does the URL already exist, byte-identical, on the already-live
   root site) was verified.
