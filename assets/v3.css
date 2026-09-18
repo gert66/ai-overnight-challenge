@@ -854,3 +854,10 @@ details.jargon .jargon-def {
 .wietse-build-card{margin-top:1rem!important}
 .wietse-build-card .build-sticker{position:relative;z-index:5;align-self:flex-start;width:max-content;max-width:calc(100% + 2.2rem);margin:-1.45rem 0 .8rem -1.15rem;padding:.55rem .85rem;font-size:.78rem;line-height:1.25;transform:rotate(-2deg);box-shadow:0 5px 14px rgba(0,0,0,.28)}
 @media(max-width:600px){.wietse-demo-card .bonus-ribbon{right:-2.4rem;top:-.7rem;font-size:.68rem;padding:.45rem 2.5rem}.wietse-build-card .build-sticker{max-width:calc(100% + 1rem);margin-left:-.55rem;font-size:.7rem;white-space:normal}}
+
+/* Final Wietse sticker positioning */
+.wietse-demo-card .bonus-ribbon{border-radius:7px}
+.wietse-build-card{overflow:visible!important;position:relative!important;margin-top:1.65rem!important}
+.wietse-build-card .build-sticker{position:absolute!important;left:1rem;top:0;transform:translateY(-58%) rotate(-1.5deg)!important;margin:0!important;width:auto!important;max-width:calc(100% - 2rem)!important;padding:.55rem .85rem!important;border-radius:7px!important;line-height:1.28!important;white-space:normal!important;z-index:10!important}
+.wietse-build-card .tag{margin-top:1.05rem}
+@media(max-width:600px){.wietse-build-card{margin-top:2rem!important}.wietse-build-card .build-sticker{left:.65rem;max-width:calc(100% - 1.3rem)!important;font-size:.68rem!important}.wietse-build-card .tag{margin-top:1.35rem}}
