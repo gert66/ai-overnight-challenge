@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0d1117">
+<title>Hoe kan AI dit zelf? · AI Overnight Challenge</title>
+<meta name="description" content="De conceptuele plan-bouw-test-review-repareer-vastleg-lus: hoe kon een AI-omgeving een hele nacht zelfstandig werken, zonder dat iemand hoefde in te grijpen?">
+<link rel="stylesheet" href="assets/v3.css">
+<link rel="alternate" hreflang="nl" href="hoe-kan-ai-dit.html">
+<link rel="alternate" hreflang="en" href="en/hoe-kan-ai-dit.html">
+</head>
+<body>
+
+<div class="topbar">
+<a class="brand" href="index.html">AI Overnight Challenge</a>
+<nav class="topnav" aria-label="Dieptelagen">
+<a href="verhaal.html">Het verhaal</a>
+<a href="hoe-kan-ai-dit.html">Hoe kan AI dit?</a>
+<a href="onder-de-motorkap.html">Onder de motorkap</a>
+<a href="zelf-bouwen.html">Zelf bouwen</a>
+<a class="pill" href="en/hoe-kan-ai-dit.html" aria-label="Switch to English" title="Switch to English"><span aria-hidden="true">🌐</span> EN</a>
+<a class="pill v1-link" href="index.html" title="Ga naar de oorspronkelijke technische site">oorspronkelijke technische site</a>
+</nav>
+</div>
+
+<main>
+<a class="home-return" href="index.html">← Terug naar de landing page</a>
+
+<p class="muted"><a href="index.html">&larr; Terug naar het overzicht</a></p>
+
+<section class="hero">
+<span class="eyebrow">Hoe kan AI dit zelf? · &plusmn; 5 min · basisbegrippen worden uitgelegd</span>
+<h1>Hoe kan AI een hele nacht zelfstandig werken?</h1>
+<div class="lead">Geen voorkennis van een VM, orchestrator, Hermes, Git of API's nodig. Het uitgangspunt is simpel: geef een systeem een opdracht met duidelijke <details class="jargon"><summary>acceptance criteria</summary><span class="jargon-def">Acceptance criteria (acceptatiecriteria) zijn de concrete, meetbare eisen waaraan een oplossing moet voldoen voordat hij als &lsquo;klaar&rsquo; telt &mdash; bijvoorbeeld: &ldquo;de demo laadt zonder fouten&rdquo; of &ldquo;de test slaagt&rdquo;.</span></details>, en laat het systeem zelf net zo lang plannen, bouwen, testen en verbeteren tot aan die eisen is voldaan.</div>
+</section>
+
+<section class="section" aria-labelledby="lus-h">
+<h2 id="lus-h">De lus: plan, bouw, test, review, repareer, leg vast</h2>
+<p class="intro muted">In plaats van één grote taak in te schatten, werd elke challenge in kleine stukjes geknipt. Voor elk stukje herhaalde zich dezelfde vaste lus:</p>
+<ol class="loop-diagram" aria-label="De plan-bouw-test-review-repareer-vastleg-lus">
+<li class="loop-node c-blue"><span class="loop-num">1</span><strong>Plan</strong><span>Eén klein, behapbaar stukje werk kiezen uit de opdracht.</span></li>
+<li class="loop-node c-purple"><span class="loop-num">2</span><strong>Bouw</strong><span>Dat ene stukje daadwerkelijk uitvoeren: code schrijven of aanpassen.</span></li>
+<li class="loop-node c-green"><span class="loop-num">3</span><strong>Test</strong><span>Automatisch controleren of het resultaat echt werkt, met objectief bewijs in plaats van een belofte.</span></li>
+<li class="loop-node c-yellow"><span class="loop-num">4</span><strong>Onafhankelijke review</strong><span>Een tweede, losse AI beoordeelt het echte resultaat tegen de acceptance criteria.</span></li>
+<li class="loop-node c-orange"><span class="loop-num">5</span><strong>Repareer</strong><span>Niet goed genoeg? Terug naar stap 2, net zo lang tot het wel klopt.</span></li>
+<li class="loop-node c-blue"><span class="loop-num">6</span><strong>Leg vast</strong><span>Een goedgekeurde stap wordt bewaard en de lus begint weer, bij een nieuw stukje werk.</span></li>
+</ol>
+<p class="loop-back muted">&#8617; Niet goed genoeg bij stap 4? Dan terug naar stap 2 &mdash; net zo lang tot de acceptatiecriteria zijn gehaald. Daarna: volgend stukje werk, opnieuw vanaf stap 1.</p>
+<p class="intro muted">Deze zes stappen herhaalden zich, stukje voor stukje, tot alle vijf challenges klaar waren. Een van de vijf, Electron Dose Lab, is geen klinisch apparaat, wel een echte simulatie op basis van publieke NIST-data. Wil je de volledige technische versie van deze lus zien, met de exacte rollen en status-overgangen? Die staat op <a href="onder-de-motorkap.html">Onder de motorkap</a>.</p>
+</section>
+
+<section class="section" aria-labelledby="review-h">
+<h2 id="review-h">Waarom een onafhankelijke controle belangrijk is</h2>
+<p class="intro muted">Een AI die haar eigen werk beoordeelt, mist net zo makkelijk iets als een mens die zijn eigen tekst nakijkt: je ziet vooral wat je bedoelde te maken, niet per se wat er werkelijk staat. Daarom controleerde een tweede, losse AI elk resultaat onafhankelijk: niet op basis van wat de bouwende AI beweerde, maar op basis van het echte resultaat &mdash; de daadwerkelijke code, het daadwerkelijke testbewijs &mdash; getoetst aan de vooraf afgesproken acceptance criteria. Pas als die controle slaagde, mocht de volgende stap beginnen. Zo niet, dan ging het stukje terug naar de bouwstap.</p>
+</section>
+
+<section class="section" aria-labelledby="autonoom-h">
+<h2 id="autonoom-h">Wat betekenden &lsquo;de hele nacht&rsquo; en &lsquo;autonoom&rsquo; hier precies?</h2>
+<p class="intro muted">Autonoom betekent hier niet dat er niemand de kaders bepaalde. Ik legde vooraf vast waar de challenges over gingen en wanneer een resultaat goed genoeg was. Daarna herhaalde het systeem de lus hierboven zelfstandig, uur na uur, voor elk van de vijf challenges: plannen, bouwen, testen, laten controleren, herstellen waar nodig, en vastleggen wat goed was. Een mens hoefde niet bij elke stap aanwezig te zijn of goedkeuring te geven &mdash; alleen bij het vooraf bepalen van het doel en de grenzen, en bij het beoordelen van het eindresultaat de volgende ochtend. Dat is de kern van &lsquo;autonoom&rsquo; in dit project: het werk verschoof van code schrijven naar het formuleren van de opdracht, de grenzen en waaraan het resultaat moest voldoen.</p>
+</section>
+
+<section class="tech-aside" aria-labelledby="tech-aside-h">
+<p id="tech-aside-h">Zo heet dit technisch <span class="muted">(optioneel &mdash; niet nodig om de rest van dit verhaal te begrijpen)</span>:</p>
+<div class="jargon-row">
+<details class="jargon"><summary>orchestrator</summary><span class="jargon-def">De orchestrator is de verkeersleider: het programma dat het werk verdeelt over kleine stapjes, elke stap laat testen en controleren, en pas verdergaat als een stap echt goed is.</span></details>
+<details class="jargon"><summary>worker</summary><span class="jargon-def">De worker is de AI die één klein stukje werk daadwerkelijk uitvoert: code schrijven, aanpassen of testen opzetten.</span></details>
+<details class="jargon"><summary>reviewer</summary><span class="jargon-def">De reviewer is de tweede, onafhankelijke AI die het resultaat controleert tegen de acceptance criteria, los van de AI die het bouwde.</span></details>
+<details class="jargon"><summary>Hermes</summary><span class="jargon-def">Hermes is de gereedschapskist: de verbinding waarmee de AI bij tools en modellen kan, een brug tussen de orchestrator en de programma's die het echte werk doen.</span></details>
+<details class="jargon"><summary>Git</summary><span class="jargon-def">Git is het logboek: een systeem dat elke wijziging aan de code bewaart, zodat je altijd kunt teruglezen wat er precies is aangepast en wanneer.</span></details>
+<details class="jargon"><summary>model</summary><span class="jargon-def">Het model is het onderliggende AI-systeem dat redeneert en tekst of code schrijft &mdash; hier vooral Claude-modellen, aangestuurd vanuit de orchestrator.</span></details>
+</div>
+</section>
+
+<section class="section" aria-labelledby="verder-h">
+<h2 id="verder-h">Meer weten?</h2>
+<p class="intro muted">Deze pagina legt het concept uit. Voor de volledige technische diepte, met de originele diagrammen en Git-geschiedenis:</p>
+<div class="depth-grid">
+
+<a class="depth-card green" href="onder-de-motorkap.html">
+<span class="tag">&plusmn; 10 min · technische diepgang</span>
+<strong>Onder de motorkap</strong>
+<span class="desc">Orchestrator, Hermes, modellen, Git, workflows en architectuur &mdash; met de originele diagrammen.</span>
+<span class="meta">Voor: physicists, AI-nieuwsgierige en ICT-collega's</span>
+</a>
+
+<a class="depth-card blue" href="how-we-built.html">
+<span class="tag">Oorspronkelijke technische site</span>
+<strong>Hoe we dit bouwden</strong>
+<span class="desc">De volledige architectuur, de machine-specificaties en een concreet Git-voorbeeld bij de 3D Path Planner.</span>
+<span class="meta">Voor: wie de techniek tot in detail wil zien</span>
+</a>
+
+<a class="depth-card purple" href="prompt-chain.html">
+<span class="tag">Oorspronkelijke technische site</span>
+<strong>Van idee naar prompt</strong>
+<span class="desc">Hoe AI de korte startvraag zelf uitwerkte tot uitvoerbare opdrachten en acceptance criteria.</span>
+<span class="meta">Voor: wie precies wil weten hoe de opdrachten ontstonden</span>
+</a>
+
+</div>
+</section>
+
+<footer class="site-footer">
+<div class="footer-links">
+<a href="how-we-built.html">Hoe we dit bouwden (technisch)</a>
+<a href="prompt-chain.html">Van idee naar prompt</a>
+<a href="build-your-own.html">Dit wil ik ook</a>
+<a href="install-howto.html">Stap voor stap bouwen</a>
+</div>
+<p class="muted">Verdiepend materiaal van de oorspronkelijke technische site. AI Agent Overnight Challenge &middot; publieke demonstrator voor UMC Utrecht.</p>
+<p><a href="en/hoe-kan-ai-dit.html">English version</a></p>
+</footer>
+
+</main>
+</body>
+</html>
