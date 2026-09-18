@@ -9,6 +9,10 @@
 <link rel="stylesheet" href="assets/v3.css">
 <link rel="alternate" hreflang="nl" href="onder-de-motorkap.html">
 <link rel="alternate" hreflang="en" href="en/onder-de-motorkap.html">
+<style>
+.diagram-figure.diagram-dark{background:transparent;border:0;padding:0;box-shadow:none}
+.diagram-figure.diagram-dark img{display:block;width:100%;border-radius:20px}
+</style>
 </head>
 <body>
 
@@ -40,8 +44,8 @@
 <p class="intro muted">Van een globale opdracht in ChatGPT naar code, objectief bewijs, onafhankelijke review en een commit. De orchestrator bezit de <em>state machine</em> en de control flow; Brain, Worker en Reviewer leveren de AI-redenering binnen begrensde rollen.</p>
 <div class="lead-text"><div>De <details class="jargon"><summary>Brain</summary><span class="jargon-def">De Brain is de AI-rol die telkens één klein, begrensd stukje werk (een "batch") kiest uit de opdracht &mdash; de planningsrol in de lus.</span></details> kiest telkens één begrensde volgende batch werk. De <details class="jargon"><summary>Worker</summary><span class="jargon-def">De worker is de AI die één klein stukje werk daadwerkelijk uitvoert: code schrijven, aanpassen of testen opzetten.</span></details> voert die batch uit binnen de afgesproken scope. Daarna verzamelt de orchestrator objectief bewijs (diff, gewijzigde bestanden, testresultaten). Pas dan controleert de <details class="jargon"><summary>Reviewer</summary><span class="jargon-def">De reviewer is de tweede, onafhankelijke AI die het resultaat controleert tegen de acceptance criteria, los van de AI die het bouwde.</span></details> &mdash; onafhankelijk van de Worker &mdash; of het echte resultaat voldoet aan de <details class="jargon"><summary>acceptance criteria</summary><span class="jargon-def">De concrete, meetbare eisen waaraan een oplossing moet voldoen voordat hij als 'klaar' telt.</span></details>. Alleen bij een PASS volgt een commit en gaat de lus verder met de volgende batch; bij een FAIL gaat het terug naar de Brain voor reparatie; bij NEEDS_HUMAN pauzeert het systeem voor een echte menselijke beslissing.</div></div>
 
-<figure class="diagram-figure">
-<img src="../assets/architecture-ai-nl.svg?v=2" alt="De eenvoudige architectuur: van een globale opdracht in ChatGPT, via de orchestrator, Brain, Worker en Evidence/Tests, naar een onafhankelijke Reviewer die PASS, FAIL of NEEDS_HUMAN teruggeeft, met een commit alleen na PASS.">
+<figure class="diagram-figure diagram-dark">
+<img src="../assets/architecture-ai-nl.svg?v=3" alt="De eenvoudige architectuur: van een globale opdracht in ChatGPT, via de orchestrator, Brain, Worker en Evidence/Tests, naar een onafhankelijke Reviewer die PASS, FAIL of NEEDS_HUMAN teruggeeft, met een commit alleen na PASS.">
 <figcaption>De architectuur zoals gebruikt tijdens de AI Overnight Challenge. De orchestrator blijft de vaste, deterministische regisseur; modellen zijn verwisselbare uitvoerders.</figcaption>
 </figure>
 
@@ -59,8 +63,7 @@
 
 <figure class="diagram-figure">
 <picture>
-<source media="(max-width: 620px)" srcset="../assets/workflow-polished-mobile-nl.svg">
-<img src="../assets/development-loop-nl.svg" alt="De autonome ontwikkelloop: van een globale opdracht in ChatGPT via de orchestrator, Brain, Worker en Evidence/Tests naar een onafhankelijke Reviewer, die pas na een PASS een commit toestaat.">
+<img src="../assets/workflow-ai-nl.svg?v=3" alt="De autonome ontwikkelloop: van een globale opdracht in ChatGPT via de orchestrator, Brain, Worker en Evidence/Tests naar een onafhankelijke Reviewer, die pas na een PASS een commit toestaat.">
 </picture>
 <figcaption>De gecontroleerde autonome ontwikkelloop, apart geoptimaliseerd voor desktop en mobiel.</figcaption>
 </figure>
@@ -78,10 +81,6 @@
 <figcaption>De review-, repair-, wacht- en afrondingscyclus.</figcaption>
 </figure>
 
-<figure class="diagram-figure">
-<img src="../assets/development-loop-nl.svg" alt="De autonome ontwikkelloop in één overzicht: wat er in elke cyclus werkelijk gebeurt, van de globale opdracht in ChatGPT tot een afgeronde, gecommitte batch.">
-<figcaption>Dezelfde lus, samengevat in één overzicht &mdash; inclusief welk deel deterministisch is en welk deel AI-redenering.</figcaption>
-</figure>
 </section>
 
 <section class="section" aria-labelledby="hermes-h">
