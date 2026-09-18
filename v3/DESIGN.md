@@ -165,8 +165,8 @@ later batch has a reason to deviate — if so, update this table then.
 | 1 | `v3/index.html` | `v3/en/index.html` | Home: hero, timeline, 5 demo cards, depth chooser, bonus slot | NL+EN done (batch 01, EN batch 04) | — |
 | 2 | `v3/verhaal.html` | `v3/en/verhaal.html` | Depth (a): the human story only, ~2 min, no jargon | NL+EN done (batch 02, EN batch 04) | Six-step timeline markup/classes copied verbatim from `v3/index.html`; five demo cards (play-btn only) with exact demo URLs from `v3/index.html`; wording adapted from `v2/wat-is-er-gebeurd.html` and V1 hero prose (`index.html`, `prompt-chain.html`) |
 | 3 | `v3/hoe-kan-ai-dit.html` | `v3/en/hoe-kan-ai-dit.html` | Depth (b): conceptual plan/build/test/review/repair loop | NL+EN done (batch 02, EN batch 04) | Compact inline CSS/HTML loop diagram (`.loop-diagram`/`.loop-node` in `v3.css`, V1 accent colors) built instead of embedding `assets/development-loop-nl.svg` directly — that SVG's labels (Brain/Worker/Orchestrator, PASS/FAIL/NEEDS_HUMAN, state-machine outcomes) are "under the hood" detail, not conceptual-layer language, so it is reserved for `onder-de-motorkap.html` (row 4) instead; orchestrator/worker/reviewer/Hermes/Git/model introduced only as optional `<details class="jargon">` asides in a `.tech-aside` box, grounded in `how-we-built.html`'s Brain/Worker/Reviewer/Git description and `index.html`/`prompt-chain.html`'s Hermes mention |
-| 4 | `v3/onder-de-motorkap.html` | `v3/en/onder-de-motorkap.html` | Depth (c): orchestrator, Hermes, models, Git, workflows, architecture | NL done (batch 03); EN planned (next batch) | `assets/architecture-nl.svg` (new `<img>` embed — root pages reference this diagram conceptually but never embed it; this is its first `<img>` use), `assets/workflow-polished-nl.svg` + `assets/workflow-polished-mobile-nl.svg` via `<picture>`/`source[max-width:620px]` (same pattern as `how-we-built.html`), `assets/review-loop-polished-nl.svg` + `assets/review-loop-mobile-nl.svg` via the same `<picture>` pattern, `assets/development-loop-nl.svg` as a single summary image (moved here from row 3 per that row's note); prose and the deterministic-vs-AI table grounded in `how-we-built.html`'s architecture/stats/machine sections and the 3D Path Planner Git-history example; model-routing paragraph grounded in `how-we-built.html`'s "Modellen: rol en provider uit elkaar" section; Hermes sentence quoted from `index.html` |
-| 5 | `v3/zelf-bouwen.html` | `v3/en/zelf-bouwen.html` | Depth (d): VM, cost, install, prompts, repos, step-by-step | NL done (batch 03); EN planned (next batch) | V1 `build-your-own.html` cost stat-tiles (`&euro;6-7`/`&plusmn; &euro;20`/`&euro;0`/`klein`, copied verbatim) and its "Een goede eerste proef" + "Begin bewust klein" callouts; `install-howto.html`'s 12-step guide summarised into a 12-item `.step-list`, each step linking to its exact `#id` anchor (`#accounts`, `#sshkey`, `#hetzner`, `#connect`, `#software`, `#github`, `#agent`, `#desktopcommander`, `#env`, `#firstjob`, `#orchestrator`, `#watchdog`, `#checklist` — all 13 anchors verified present in `install-howto.html`, `#agent`/`#desktopcommander` both linked from step 7) rather than duplicating its code blocks |
+| 4 | `v3/onder-de-motorkap.html` | `v3/en/onder-de-motorkap.html` | Depth (c): orchestrator, Hermes, models, Git, workflows, architecture | NL+EN done (batch 03, EN batch 05) | `assets/architecture-nl.svg` (new `<img>` embed — root pages reference this diagram conceptually but never embed it; this is its first `<img>` use), `assets/workflow-polished-nl.svg` + `assets/workflow-polished-mobile-nl.svg` via `<picture>`/`source[max-width:620px]` (same pattern as `how-we-built.html`), `assets/review-loop-polished-nl.svg` + `assets/review-loop-mobile-nl.svg` via the same `<picture>` pattern, `assets/development-loop-nl.svg` as a single summary image (moved here from row 3 per that row's note); prose and the deterministic-vs-AI table grounded in `how-we-built.html`'s architecture/stats/machine sections and the 3D Path Planner Git-history example; model-routing paragraph grounded in `how-we-built.html`'s "Modellen: rol en provider uit elkaar" section; Hermes sentence quoted from `index.html` |
+| 5 | `v3/zelf-bouwen.html` | `v3/en/zelf-bouwen.html` | Depth (d): VM, cost, install, prompts, repos, step-by-step | NL+EN done (batch 03, EN batch 05) | V1 `build-your-own.html` cost stat-tiles (`&euro;6-7`/`&plusmn; &euro;20`/`&euro;0`/`klein`, copied verbatim) and its "Een goede eerste proef" + "Begin bewust klein" callouts; `install-howto.html`'s 12-step guide summarised into a 12-item `.step-list`, each step linking to its exact `#id` anchor (`#accounts`, `#sshkey`, `#hetzner`, `#connect`, `#software`, `#github`, `#agent`, `#desktopcommander`, `#env`, `#firstjob`, `#orchestrator`, `#watchdog`, `#checklist` — all 13 anchors verified present in `install-howto.html`, `#agent`/`#desktopcommander` both linked from step 7) rather than duplicating its code blocks |
 
 Batch `v3-04-en-mirror-home-story-concept` built `v3/en/index.html`, `v3/en/verhaal.html` and
 `v3/en/hoe-kan-ai-dit.html` as faithful English mirrors of rows 1–3 (same DOM structure, class
@@ -179,9 +179,25 @@ translations of the same underlying facts); jargon-term definitions translated f
 site" pill and footer links point to the existing root English pages (`index-en.html`,
 `how-we-built-en.html`, `prompt-chain-en.html`, `build-your-own-en.html`, `install-howto-en.html`,
 verified present at repo root) rather than falling back to the NL originals, since English
-versions already exist. Rows 4–5's EN files remain not yet built; their NL pages' language-switch
-links (`en/onder-de-motorkap.html`, `en/zelf-bouwen.html`) are still placeholder hrefs for a future
-batch, per the same convention.
+versions already exist.
+
+Batch `v3-05-en-mirror-underhood-selfbuild` built `v3/en/onder-de-motorkap.html` and
+`v3/en/zelf-bouwen.html` as faithful English mirrors of rows 4–5, closing the full NL/EN mirror.
+Same DOM structure, class names, section order and `<picture>`/`<source>` patterns as the NL
+originals; every `https://` URL byte-identical. No exceptions were needed: all six diagram SVGs
+referenced by the NL pages (`architecture`, `workflow-polished` + its mobile variant,
+`review-loop-polished` + its mobile variant under the name `review-loop-mobile`,
+`development-loop`) already have verified `-en` variants in `assets/` (`architecture-en.svg`,
+`workflow-polished-en.svg`, `workflow-polished-mobile-en.svg`, `review-loop-polished-en.svg`,
+`review-loop-mobile-en.svg`, `development-loop-en.svg`), so every embed switched cleanly to its
+`-en` counterpart with English alt text and captions. Likewise every `#id` anchor `zelf-bouwen.html`
+links against `install-howto.html` (`#accounts`, `#sshkey`, `#hetzner`, `#connect`, `#software`,
+`#github`, `#agent`, `#desktopcommander`, `#env`, `#firstjob`, `#orchestrator`, `#watchdog`,
+`#checklist`) exists verbatim in `install-howto-en.html` too (verified with `grep -oE
+'id="[a-zA-Z-]+"'` on both files, identical sets), so the EN page links straight to
+`install-howto-en.html#<id>` with no fallback needed. The "original technical site" pill and
+footer links point to the existing root English pages, matching the pattern already used in
+`v3/en/index.html` and `v3/en/hoe-kan-ai-dit.html`.
 
 Bonus/follow-on: no dedicated page planned yet — the bonus block lives inline on `v3/index.html`
 (and its EN mirror) as a clearly separated section, per the batch spec. If a future batch adds a
