@@ -40,8 +40,8 @@
 <p class="intro muted">From a high-level assignment in ChatGPT to code, objective proof, independent review and a commit. The orchestrator owns the <em>state machine</em> and the control flow; Brain, Worker and Reviewer supply the AI reasoning within bounded roles.</p>
 <div class="lead-text"><div>The <details class="jargon"><summary>Brain</summary><span class="jargon-def">The Brain is the AI role that picks one small, bounded piece of work (a "batch") from the assignment each time &mdash; the planning role in the loop.</span></details> picks one bounded next batch of work at a time. The <details class="jargon"><summary>Worker</summary><span class="jargon-def">The worker is the AI that actually carries out one small piece of work: writing code, making changes, or setting up tests.</span></details> carries out that batch within the agreed scope. The orchestrator then collects objective proof (diff, changed files, test results). Only then does the <details class="jargon"><summary>Reviewer</summary><span class="jargon-def">The reviewer is the second, independent AI that checks the result against the acceptance criteria, separate from the AI that built it.</span></details> &mdash; independent of the Worker &mdash; check whether the actual result meets the <details class="jargon"><summary>acceptance criteria</summary><span class="jargon-def">The concrete, measurable requirements a solution must meet before it counts as 'done'.</span></details>. Only a PASS is followed by a commit and the loop moving on to the next batch; a FAIL goes back to the Brain for repair; NEEDS_HUMAN pauses the system for a genuine human decision.</div></div>
 
-<figure class="diagram-figure">
-<img src="../assets/architecture-en.svg" alt="The simple architecture: from a high-level assignment in ChatGPT, via the orchestrator, Brain, Worker and Evidence/Tests, to an independent Reviewer that returns PASS, FAIL or NEEDS_HUMAN, with a commit only after PASS.">
+<figure class="diagram-figure diagram-dark">
+<img src="../assets/architecture-ai-en.svg?v=8" alt="The simple architecture: from a high-level assignment in ChatGPT, via the orchestrator, Brain, Worker and Evidence/Tests, to an independent Reviewer that returns PASS, FAIL or NEEDS_HUMAN, with a commit only after PASS.">
 <figcaption>The architecture used during the AI Overnight Challenge. The orchestrator remains the fixed, deterministic director; models are swappable executors.</figcaption>
 </figure>
 
@@ -57,11 +57,8 @@
 <h2 id="workflow-h">The workflow: plan, build, test, review, repair, record</h2>
 <p class="intro muted">This is the same loop as on <a href="hoe-kan-ai-dit.html">How can AI do this itself?</a>, but here with the exact roles: the Brain picked one bounded next batch, the Worker carried it out, the orchestrator collected objective evidence, and the Reviewer independently checked that evidence against the acceptance criteria. Only after a PASS did a commit follow &mdash; never based on a promise from the Worker itself.</p>
 
-<figure class="diagram-figure">
-<picture>
-<source media="(max-width: 620px)" srcset="../../assets/workflow-polished-mobile-en.svg">
-<img src="../assets/workflow-polished-en.svg" alt="The autonomous development loop: from a high-level assignment in ChatGPT via the orchestrator, Brain, Worker and Evidence/Tests to an independent Reviewer, which only allows a commit after a PASS.">
-</picture>
+<figure class="diagram-figure diagram-dark">
+<img src="../assets/workflow-ai-en.svg?v=8" alt="The autonomous development loop: from a high-level assignment in ChatGPT via the orchestrator, Brain, Worker and Evidence/Tests to an independent Reviewer, which only allows a commit after a PASS.">
 <figcaption>The controlled autonomous development loop, separately optimized for desktop and mobile.</figcaption>
 </figure>
 </section>
@@ -70,17 +67,9 @@
 <h2 id="review-h">Review, repair and completion</h2>
 <p class="intro muted">Tests, type checks, builds and, where possible, Playwright end-to-end tests determined whether a step could move on to the next phase. An AI that judges its own work misses things just as easily as a person proofreading their own text &mdash; that's why the Reviewer always checked the actual result, independent of the Worker that built it.</p>
 
-<figure class="diagram-figure">
-<picture>
-<source media="(max-width: 620px)" srcset="../../assets/review-loop-mobile-en.svg">
-<img src="../assets/review-loop-polished-en.svg" alt="What happens after the review? On PASS a commit follows and the loop moves to the next batch, on FAIL a repair via the Brain, and on NEEDS_HUMAN a pause for a human decision.">
-</picture>
+<figure class="diagram-figure diagram-dark">
+<img src="../assets/review-cycle-ai-en.svg?v=8" alt="What happens after the review? On PASS a commit follows and the loop moves to the next batch, on FAIL a repair via the Brain, and on NEEDS_HUMAN a pause for a human decision.">
 <figcaption>The review, repair, wait and completion cycle.</figcaption>
-</figure>
-
-<figure class="diagram-figure">
-<img src="../assets/development-loop-en.svg" alt="The autonomous development loop in one overview: what actually happens in each cycle, from the high-level assignment in ChatGPT to a completed, committed batch.">
-<figcaption>The same loop, summarized in one overview &mdash; including which part is deterministic and which part is AI reasoning.</figcaption>
 </figure>
 </section>
 

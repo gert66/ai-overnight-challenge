@@ -869,3 +869,14 @@ details.jargon .jargon-def {
 .wietse-build-card .build-sticker{top:0!important;transform:translateY(-72%) rotate(-1.5deg)!important}
 .wietse-build-card .tag{margin-top:0!important}
 @media(max-width:600px){.wietse-build-card{margin-top:1.5rem!important}.wietse-build-card .build-sticker{transform:translateY(-68%) rotate(-1.5deg)!important}}
+
+/* 2026-09-19 Fable audit fixes: dark captions and mobile overflow */
+.diagram-figure.diagram-dark figcaption{color:var(--muted)}
+@media(max-width:600px){
+  .wietse-demo-card{overflow:hidden!important}
+  .wietse-demo-card .bonus-ribbon{right:-1.2rem!important;top:.35rem!important}
+  .fact-tiles{grid-template-columns:1fr!important}
+  .fact-tiles .fact-tile{grid-column:auto!important;min-width:0}
+  .wietse-build-card{margin-top:2.6rem!important}
+  .wietse-build-card .build-sticker{transform:translateY(-105%) rotate(-1.5deg)!important}
+}
