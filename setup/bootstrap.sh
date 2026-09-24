@@ -78,7 +78,8 @@ runuser -u "$TARGET_USER" -- env HOME="$TARGET_HOME" DC_PACKAGE="$DC_PACKAGE" ba
   npm --version
   mkdir -p "$HOME/.npm-global"
   npm install -g --prefix "$HOME/.npm-global" --allow-scripts=@wonderwhy-er/desktop-commander,sharp,puppeteer "$DC_PACKAGE"
-  "$HOME/.npm-global/bin/desktop-commander" --version || true
+  test -x "$HOME/.npm-global/bin/desktop-commander" || { echo "Desktop Commander binary missing after install" >&2; exit 1; }
+  echo "Desktop Commander installed: $HOME/.npm-global/bin/desktop-commander"
 '
 
 say "AI Challenge handoff files"
