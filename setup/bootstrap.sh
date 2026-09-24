@@ -66,7 +66,7 @@ runuser -u "$TARGET_USER" -- env HOME="$TARGET_HOME" DC_PACKAGE="$DC_PACKAGE" ba
   set -e
   export NVM_DIR="$HOME/.nvm"
   if [ -f "$HOME/.npmrc" ]; then
-    sed -i -E '/^[[:space:]]*(prefix|globalconfig)[[:space:]]*=/d' "$HOME/.npmrc"
+    sed -i -E "/^[[:space:]]*(prefix|globalconfig)[[:space:]]*=/d" "$HOME/.npmrc"
   fi
   if [ ! -s "$NVM_DIR/nvm.sh" ]; then
     curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
