@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "bootstrap_version": "1.0.0",
+  "context_version": "1.0.0",
+  "desktop_commander": {
+    "package": "@wonderwhy-er/desktop-commander@latest",
+    "remote_mcp_url": "https://mcp.desktopcommander.app/mcp",
+    "minimum_node_major": 18
+  },
+  "orchestrator": {
+    "repository": "gert66/AI-Orchestrator-Starter",
+    "canonical_ref": "work/happy-path-v4",
+    "default_profile": "claude",
+    "install_path": "/opt/ai-orchestrator"
+  },
+  "supported_ubuntu": ["22.04", "24.04", "26.04"],
+  "bootstrap_source": {
+    "repository": "gert66/ai-overnight-challenge",
+    "path": "setup"
+  }
+}
