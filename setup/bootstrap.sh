@@ -66,6 +66,10 @@ runuser -u "$TARGET_USER" -- env HOME="$TARGET_HOME" bash -lc '
   nvm alias default "lts/*" >/dev/null
   node --version
   npm --version
+  mkdir -p "$HOME/.npm-global"
+  npm config set prefix "$HOME/.npm-global"
+  npm install -g @wonderwhy-er/desktop-commander@0.2.51
+  "$HOME/.npm-global/bin/desktop-commander" --version || true
 '
 
 say "AI Challenge handoff files"
@@ -134,7 +138,7 @@ export NVM_DIR="$HOME/.nvm"
 case "${1:-start}" in
   start)
     if ! tmux has-session -t "$SESSION" 2>/dev/null; then
-      tmux new-session -d -s "$SESSION" "exec npx -y @wonderwhy-er/desktop-commander@latest remote 2>&1 | tee -a '$HOME/desktop-commander-remote.log'"
+      tmux new-session -d -s "$SESSION" "exec '$HOME/.npm-global/bin/desktop-commander' remote 2>&1 | tee -a '$HOME/desktop-commander-remote.log'"
     fi
     echo "Remote Desktop Commander is running in tmux session '$SESSION'."
     echo "The next screen shows the pairing/login output. Complete the browser authorization."
