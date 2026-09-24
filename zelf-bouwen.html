@@ -5,13 +5,12 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#0d1117">
 <title>Zelf bouwen · AI Overnight Challenge</title>
-<meta name="description" content="VM, kosten, installatie en prompts: de stap-voor-stap route om je eigen autonome AI-buildomgeving op te zetten, gebaseerd op de oorspronkelijke beginner-handleiding.">
+<meta name="description" content="De eenvoudige AI Challenge route: minimale server-bootstrap, Desktop Commander koppelen en ChatGPT de rest laten installeren en testen.">
 <link rel="stylesheet" href="assets/v3.css">
 <link rel="alternate" hreflang="nl" href="zelf-bouwen.html">
 <link rel="alternate" hreflang="en" href="en/zelf-bouwen.html">
 </head>
 <body>
-
 <div class="topbar">
 <a class="brand" href="index.html">AI Overnight Challenge</a>
 <nav class="topnav" aria-label="Dieptelagen">
@@ -19,174 +18,65 @@
 <a href="hoe-kan-ai-dit.html">Hoe kan AI dit?</a>
 <a href="onder-de-motorkap.html">Onder de motorkap</a>
 <a href="zelf-bouwen.html">Zelf bouwen</a>
-<a class="pill" href="en/zelf-bouwen.html" aria-label="Switch to English" title="Switch to English"><span aria-hidden="true">🌐</span> EN</a>
+<a class="pill" href="en/zelf-bouwen.html">🌐 EN</a>
 </nav>
 </div>
-
 <main>
 <a class="home-return" href="index.html">← Terug naar de landing page</a>
-
-<p class="muted"><a href="index.html">&larr; Terug naar het overzicht</a> &middot; <a href="onder-de-motorkap.html">&larr; Onder de motorkap</a> (eerst de architectuur begrijpen)</p>
-
 <section class="hero">
-<span class="eyebrow">Zelf bouwen &middot; &plusmn; 15 min &middot; stap voor stap</span>
-<h1>Zelf bouwen: van niets naar je eigen AI-buildomgeving</h1>
-<div class="lead">Je hoeft niet te beginnen met een groot cluster. Deze challenge draaide op een kleine <details class="jargon"><summary>VM</summary><span class="jargon-def">Een VM (virtuele machine) is een op afstand gehuurde computer in de cloud waarop je zelf software installeert &mdash; hier de plek waar de orchestrator, Git, Python en Node draaiden.</span></details> met 2 vCPU en 3,7 GiB RAM. De kern is een Linux-machine, Git, een AI die code kan schrijven, een <details class="jargon"><summary>orchestrator</summary><span class="jargon-def">De orchestrator is de verkeersleider: het programma dat het werk verdeelt over kleine, toetsbare stapjes, elke stap laat testen en onafhankelijk laat controleren, en pas verdergaat als een stap echt goed is.</span></details> die het proces bewaakt, en tests die bepalen wanneer iets echt klaar is.</div>
-<p class="muted">Deze pagina vat de twee oorspronkelijke handleidingen samen. Voor de volledige installatiecommando's, tabellen en code blijft de originele site leidend: <a href="build-your-own.html">Dit wil ik ook</a> en <a href="install-howto.html">Stap voor stap bouwen</a>.</p>
-</section>
-<section class="wietse-selfbuild">
-<div class="wietse-arrow">↓</div><div><span class="wietse-label">SPECIAAL VOOR WIETSE</span><h2>Volgende keer zelf bouwen.</h2><p>De parkeerapp staat. Dus hier is de volgende uitdaging: gebruik de stappen hieronder om het volgende idee zélf te bouwen. Dan kun je de volgende keer pas echt je buurman de loef afsteken.</p></div>
+<span class="eyebrow">Zelf bouwen · eenvoudige route</span>
+<h1>Jij doet de eerste minuten. Daarna neemt ChatGPT het technische werk over.</h1>
+<div class="lead">Je hoeft geen Linux-beheerder te worden. Je maakt een kleine Ubuntu-server, draait één korte bootstrap en koppelt Remote Desktop Commander. Zodra ChatGPT echt een commando op de server kan uitvoeren, stopt het handmatige installatiegedeelte.</div>
+<p class="muted">De AI-modellen draaien op afstand, dus je hebt geen GPU-server nodig. Een kleine x86 Ubuntu VM is voldoende om te beginnen.</p>
 </section>
 
-<section class="section" aria-labelledby="nodig-h">
-<h2 id="nodig-h">Wat heb je nodig?</h2>
-<p class="intro muted">Voor een eerste persoonlijke opzet is dit voldoende.</p>
-<ul class="checklist">
-<li>Een GitHub-account (repositories, commits, audit trail)</li>
-<li>Een kleine Linux cloud-VM, bijvoorbeeld bij Hetzner Cloud (rond 2 vCPU / 4 GB RAM)</li>
-<li>Een AI-account, bijvoorbeeld ChatGPT of Claude, plus een coding agent op de VM (in deze handleiding: Claude Code)</li>
-<li>Een SSH-key op je eigen computer</li>
-<li>Basissoftware op de VM: Git, Python, Node/npm</li>
-<li>Optioneel: Desktop Commander, voor directe, begrensde VM-toegang via ChatGPT</li>
-</ul>
+<section class="section">
+<h2>Het hele idee in één regel</h2>
+<div class="callout good"><strong>Minimum manual bootstrap → Remote Desktop Commander → ChatGPT completes and validates the workspace.</strong></div>
+<p class="intro muted">De server is pas klaar nadat tests, reboot recovery en een echte orchestrator-job zijn geslaagd.</p>
 </section>
 
-<section class="section" aria-labelledby="kosten-h">
-<h2 id="kosten-h">Wat kost het ongeveer?</h2>
-<p class="intro muted">De vaste kosten zijn overzichtelijk. Je hebt geen GPU-server of groot cloudplatform nodig. Controleer actuele prijzen bij de provider vóór je bestelt.</p>
-<div class="fact-tiles">
-<div class="fact-tile"><strong>&euro;0</strong><span>GitHub</span></div>
-<div class="fact-tile"><strong>&euro;6-7</strong><span>kleine VM per maand<sup>*</sup></span></div>
-<div class="fact-tile"><strong>&plusmn; &euro;20</strong><span>ChatGPT of Claude abonnement</span></div>
-</div>
-<p class="muted" style="font-size:.9rem"><sup>*</sup> Strikt genomen is zo’n VM niet nodig. Maar hij maakt het wel heerlijk praktisch: vanaf het strand, de trein of waar ook ter wereld kun je met alleen je telefoon je autonome AI-omgeving aansturen.</p>
-</section>
-
-<section class="section" aria-labelledby="stappen-h">
-<h2 id="stappen-h">De route, stap voor stap</h2>
-<p class="intro muted">Twaalf stappen, dezelfde volgorde als de originele beginner-handleiding. Elke stap linkt naar het volledige commando-voor-commando recept.</p>
+<section class="section">
+<h2>De route</h2>
 <ol class="step-list">
-
-<li class="step-item"><span class="step-num">1</span>
-<h3>Maak de drie accounts</h3>
-<p>GitHub (voor code en audit trail), Hetzner Cloud (voor de VM) en een AI-account. Voor de coding agent op de VM gebruikt de originele handleiding Claude Code; voor de menselijke chatlaag kun je ChatGPT of Claude gebruiken.</p>
-<p class="muted"><a href="install-howto.html#accounts">Volledige uitleg &rarr;</a></p>
-</li>
-
-<li class="step-item"><span class="step-num">2</span>
-<h3>Maak een SSH-key op je eigen computer</h3>
-<p>SSH is de veilige verbinding tussen jouw laptop en de Linux-VM. Deel nooit je privésleutel, alleen het publieke <code>.pub</code>-bestand.</p>
-<p class="muted"><a href="install-howto.html#sshkey">Volledige uitleg &rarr;</a></p>
-</li>
-
-<li class="step-item"><span class="step-num">3</span>
-<h3>Maak de VM</h3>
-<p>Een kleine Ubuntu-server met rond 2 vCPU en 4 GB RAM is voldoende, voor ongeveer &euro;6&ndash;7 per maand als orde van grootte.</p>
-<p class="muted"><a href="install-howto.html#hetzner">Volledige uitleg &rarr;</a></p>
-</li>
-
-<li class="step-item"><span class="step-num">4</span>
-<h3>Verbind met de VM en maak een gewone beheerder</h3>
-<p>Log de eerste keer in als root, maak daarna een gewone beheerdersaccount aan en gebruik die voor het dagelijkse werk.</p>
-<p class="muted"><a href="install-howto.html#connect">Volledige uitleg &rarr;</a></p>
-</li>
-
-<li class="step-item"><span class="step-num">5</span>
-<h3>Installeer de basissoftware</h3>
-<p>Git, Python, en Node/npm (via nvm) zijn de minimale ontwikkelomgeving.</p>
-<p class="muted"><a href="install-howto.html#software">Volledige uitleg &rarr;</a></p>
-</li>
-
-<li class="step-item"><span class="step-num">6</span>
-<h3>Koppel de VM aan GitHub</h3>
-<p>Een eigen SSH-key voor de VM, je Git-identiteit instellen en je eerste repository clonen.</p>
-<p class="muted"><a href="install-howto.html#github">Volledige uitleg &rarr;</a></p>
-</li>
-
-<li class="step-item"><span class="step-num">7</span>
-<h3>Installeer en activeer de coding agent</h3>
-<p>Begin interactief en laat de agent eerst één simpele taak doen. Optioneel: Desktop Commander als gereedschapsbrug, los van de autonome state machine.</p>
-<p class="muted"><a href="install-howto.html#agent">Coding agent &rarr;</a> &middot; <a href="install-howto.html#desktopcommander">Desktop Commander (optioneel) &rarr;</a></p>
-</li>
-
-<li class="step-item"><span class="step-num">8</span>
-<h3>Zet environment variables en secrets veilig</h3>
-<p>Tokens en API-keys horen nooit rechtstreeks in code of Git. Gebruik een lokaal <code>.env</code>-bestand met strikte rechten, buiten Git.</p>
-<p class="muted"><a href="install-howto.html#env">Volledige uitleg &rarr;</a></p>
-</li>
-
-<li class="step-item"><span class="step-num">9</span>
-<h3>Doe eerst één handmatige end-to-end test</h3>
-<p>Bewijs dat agent, Git en tests werken vóórdat je automatiseert: een kleine test schrijven, laten committen en pushen naar een aparte branch.</p>
-<p class="muted"><a href="install-howto.html#firstjob">Volledige uitleg &rarr;</a></p>
-</li>
-
-<li class="step-item"><span class="step-num">10</span>
-<h3>Voeg daarna de orchestrator toe</h3>
-<p>Een eerste versie hoeft maar zes dingen te kunnen: PLAN (één concrete bouwstap met <details class="jargon"><summary>acceptance criteria</summary><span class="jargon-def">Concrete, meetbare eisen waaraan het resultaat moet voldoen voordat het als klaar telt.</span></details>), BUILD (de coding agent laten werken), TEST (vaste testcommando's draaien), REVIEW (een aparte, onafhankelijke controle), COMMIT (alleen na groen licht) en REPEAT.</p>
-<p class="muted"><a href="install-howto.html#orchestrator">Volledige uitleg &rarr;</a> &middot; <a href="onder-de-motorkap.html">De volledige architectuur &rarr;</a></p>
-</li>
-
-<li class="step-item"><span class="step-num">11</span>
-<h3>Voeg monitoring en een watchdog toe</h3>
-<p>Laat actieve jobs periodiek een heartbeat schrijven en laat een aparte watchdog ingrijpen als een job aantoonbaar stilvalt. Geef retries altijd een maximum.</p>
-<p class="muted"><a href="install-howto.html#watchdog">Volledige uitleg &rarr;</a></p>
-</li>
-
-<li class="step-item"><span class="step-num">12</span>
-<h3>Eindcheck, dan je eerste run &mdash; en de volgende ochtend beoordelen</h3>
-<p>Loop de eindcheckpunten langs (SSH, GitHub, agent, secrets, tests, state, retries, Git, remote push, watchdog). Kies daarna een taak die in een paar uur aantoonbaar kan slagen of falen, schrijf vooraf een paar concrete acceptance criteria en laat de orchestrator autonoom bouwen tot de tests groen zijn of een echte menselijke beslissing nodig is. Beoordeel de volgende ochtend het resultaat: werkt de demo, is er testbewijs, en zijn de commits logisch te volgen?</p>
-<p class="muted"><a href="install-howto.html#checklist">Volledige eindcheck &rarr;</a></p>
-</li>
-
+<li class="step-item"><span class="step-num">1</span><h3>Maak je accounts</h3><p>Je hebt een Hetzner Cloud-account, GitHub-account, ChatGPT en een Claude-account nodig. De browserlogins voor GitHub, Claude en Codex komen later wanneer ChatGPT ze nodig heeft.</p></li>
+<li class="step-item"><span class="step-num">2</span><h3>Maak een kleine Ubuntu-server</h3><p>Kies x86, Ubuntu en minimaal ongeveer 2 vCPU, 4 GB RAM en 40 GB disk. Aanbevolen voor comfortabel gebruik is ongeveer 4 vCPU, 8 GB RAM en 80 GB disk. Controleer de actuele Hetzner-prijs voordat je bestelt.</p><p class="muted"><a href="install-howto.html#server">Exacte keuzes en SSH-uitleg →</a></p></li>
+<li class="step-item"><span class="step-num">3</span><h3>Maak de eerste SSH-verbinding</h3><p>Je gebruikt SSH alleen om de bootstrap te starten. De handleiding geeft een kopieerbaar commando voor Windows en macOS/Linux.</p><p class="muted"><a href="install-howto.html#ssh">Verbindingsstappen →</a></p></li>
+<li class="step-item"><span class="step-num">4</span><h3>Run de AI Challenge bootstrap</h3><p>De korte bootstrap maakt de gebruiker <code>orchestrator</code>, zet veilige SSH-toegang klaar, installeert Node en Remote Desktop Commander en plaatst de context- en statusbestanden voor ChatGPT.</p><pre>curl -fsSL https://raw.githubusercontent.com/gert66/ai-overnight-challenge/main/setup/bootstrap.sh -o /tmp/ai-challenge-bootstrap.sh
+sudo bash /tmp/ai-challenge-bootstrap.sh</pre><p class="muted"><a href="setup/bootstrap.sh">Bekijk eerst de volledige bootstrap-broncode</a></p></li>
+<li class="step-item"><span class="step-num">5</span><h3>Koppel Remote Desktop Commander</h3><p>Na de bootstrap voer je uit:</p><pre>ai-challenge-remote</pre><p>Volg de browser-pairing. Laat de remote sessie draaien. Je kunt de tmux-weergave verlaten met <code>Ctrl+B</code> en daarna <code>D</code>.</p><div class="callout"><strong>Dit is het omslagpunt:</strong> tot hier heb jij de server voorbereid. Hierna kan ChatGPT rechtstreeks bestanden, processen en terminalcommando's op de server gebruiken.</div></li>
+<li class="step-item"><span class="step-num">6</span><h3>Bewijs dat ChatGPT echt binnen is</h3><p>Een groen “online” lampje telt niet. ChatGPT moet op de server daadwerkelijk <code>hostname</code> uitvoeren en <code>~/AI_CHALLENGE_CONTEXT.md</code> kunnen lezen.</p></li>
+<li class="step-item"><span class="step-num">7</span><h3>Geef ChatGPT de handoff-opdracht</h3><pre>I have completed the AI Challenge bootstrap. Connect to my server through Desktop Commander. Read ~/AI_CHALLENGE_CONTEXT.md, ~/AI_CHALLENGE_STATUS.json and ~/AI_CHALLENGE_MANIFEST.json. Continue the installation from there. Do as much as possible yourself. Ask me only when you need an authorization, password, browser login, payment action or another action I must personally approve.</pre><p>Vanaf dit moment inspecteert ChatGPT eerst de echte machinestatus en gaat daarna zelf verder.</p></li>
+<li class="step-item"><span class="step-num">8</span><h3>Wacht op de echte eindcheck</h3><p>ChatGPT installeert GitHub CLI, Claude Code, Codex en de AI Orchestrator, activeert health/watchdog, draait tests, reboot de machine voor recovery-testing en voert een echte testjob uit.</p><div class="callout good"><strong>Klaar betekent:</strong> pas wanneer de volledige acceptance geslaagd is verschijnt: <strong>Your AI workspace is ready.</strong></div></li>
 </ol>
-
-<div class="callout">
-<strong>Let op:</strong> zet nooit API-keys of tokens rechtstreeks in code of Git. Gebruik een lokaal <code>.env</code>-bestand met strikte rechten en houd het buiten Git.
-</div>
-
-<div class="callout good">
-<strong>Een goede eerste proef:</strong> &ldquo;Bouw een browserapp die X doet, schrijf de tests v&oacute;&oacute;r de implementatie, werk op een aparte Git-branch, commit alleen na onafhankelijke review en geef NEEDS_HUMAN terug als een productbeslissing nodig is.&rdquo;
-</div>
 </section>
 
+<section class="section">
+<h2>Waar moet jij nog terugkomen?</h2>
+<ul class="checklist">
+<li>OAuth of browserlogin goedkeuren</li>
+<li>2FA of wachtwoorden invoeren</li>
+<li>Een secret of API-key persoonlijk invoeren als een gekozen profiel dat nodig heeft</li>
+<li>Betaling of accountacties uitvoeren</li>
+<li>Expliciet toestemming geven voor destructieve cloudacties zoals een server verwijderen</li>
+</ul>
+<p>Voor normale Linux-commando's, installatie, configuratie, testen en diagnose hoort ChatGPT je niet terug naar SSH te sturen zodra Remote Desktop Commander werkt.</p>
+</section>
 
-<section class="section" aria-labelledby="verder-h">
-<h2 id="verder-h">Verder lezen</h2>
+<section class="section">
+<h2>Als iets onderweg stopt</h2>
 <div class="depth-grid">
-
-<a class="depth-card green" href="onder-de-motorkap.html">
-<span class="tag">&plusmn; 10 min</span>
-<strong>Onder de motorkap</strong>
-<span class="desc">Orchestrator, Hermes, modellen, Git en de technische diagrammen.</span>
-</a>
-
-<a class="depth-card blue" href="build-your-own.html">
-<span class="tag">Technische verdieping</span>
-<strong>Dit wil ik ook</strong>
-<span class="desc">De volledige kostenraming en beginvolgorde.</span>
-</a>
-
-<a class="depth-card yellow" href="install-howto.html">
-<span class="tag">Technische verdieping</span>
-<strong>Stap voor stap bouwen</strong>
-<span class="desc">Alle twaalf stappen met exacte commando's en code.</span>
-</a>
-
+<a class="depth-card blue" href="install-howto.html#recovery"><span class="tag">Recovery</span><strong>SSH kwijt of halverwege gestopt?</strong><span class="desc">De bootstrap is herhaalbaar en ChatGPT kan hervatten vanuit de context- en statusbestanden.</span></a>
+<a class="depth-card green" href="install-howto.html#desktopcommander"><span class="tag">Remote</span><strong>Desktop Commander offline?</strong><span class="desc">Start de remote sessie opnieuw. SSH blijft altijd je noodtoegang.</span></a>
+<a class="depth-card yellow" href="onder-de-motorkap.html"><span class="tag">Techniek</span><strong>Waarom werkt dit?</strong><span class="desc">Bekijk de orchestrator, modelrollen, Git-safety, tests en watchdogs.</span></a>
 </div>
 </section>
 
 <footer class="site-footer">
-<div class="footer-links">
-<a href="how-we-built.html">Hoe we dit bouwden (technisch)</a>
-<a href="prompt-chain.html">Van idee naar prompt</a>
-<a href="build-your-own.html">Dit wil ik ook</a>
-<a href="install-howto.html">Stap voor stap bouwen</a>
-</div>
-<p class="muted">Extra technisch materiaal en naslag. AI Agent Overnight Challenge &middot; publieke demonstrator voor UMC Utrecht.</p>
+<div class="footer-links"><a href="build-your-own.html">Benodigdheden & kosten</a><a href="install-howto.html">Bootstrap & recovery</a><a href="onder-de-motorkap.html">Onder de motorkap</a></div>
+<p class="muted">AI Overnight Challenge · DIY-route: minimale bootstrap, daarna ChatGPT-assisted completion.</p>
 <p><a href="en/zelf-bouwen.html">English version</a></p>
 </footer>
-
 </main>
 </body>
 </html>
