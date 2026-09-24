@@ -13,7 +13,7 @@
 
 <section class="section" id="server"><h2>1. Create the Hetzner server</h2>
 <ul class="checklist"><li>Image: Ubuntu</li><li>Architecture: x86</li><li>Minimum: about 2 vCPU / 4 GB RAM / 40 GB disk</li><li>Recommended: about 4 vCPU / 8 GB RAM / 80 GB disk</li><li>Add your public SSH key while creating the server</li></ul>
-<div class="callout">Server names and prices change. Choose the current Hetzner option closest to these specifications.</div>
+<div class="callout">Server names and prices change. Choose the current Hetzner option closest to these specifications.</div><p><a href="https://console.hetzner.cloud/" target="_blank" rel="noopener noreferrer">Open Hetzner Cloud Console ↗</a> · <a href="https://accounts.hetzner.com/login" target="_blank" rel="noopener noreferrer">Account/login ↗</a></p>
 </section>
 
 <section class="section" id="ssh"><h2>2. SSH key and first connection</h2>
@@ -38,7 +38,7 @@ cat ~/.ssh/id_ed25519.pub</pre>
 <p>Complete the browser pairing. The remote agent then runs in a tmux session, so your SSH window does not have to remain open.</p>
 <p>Check status:</p><pre>ai-challenge-remote status</pre>
 <p>Latest logs:</p><pre>ai-challenge-remote logs</pre>
-<div class="callout"><strong>Acceptance test:</strong> make ChatGPT execute a real command. Seeing only “online” is insufficient.</div>
+<p><a href="https://desktopcommander.app/mcp/" target="_blank" rel="noopener noreferrer">Official Remote Desktop Commander guide ↗</a></p><div class="callout"><strong>Acceptance test:</strong> make ChatGPT execute a real command. Seeing only “online” is insufficient.</div>
 </section>
 
 <section class="section" id="handoff"><h2>5. Handoff to ChatGPT</h2>
@@ -56,7 +56,7 @@ ai-challenge-remote</pre><p>SSH always remains your emergency access.</p>
 </section>
 
 <section class="section"><h2>What ChatGPT completes itself</h2>
-<ul class="checklist"><li>Git and GitHub CLI</li><li>GitHub authentication as <code>orchestrator</code></li><li>Claude Code en Codex</li><li>The canonical AI Orchestrator Starter version from the manifest</li><li>systemd, health en watchdog</li><li>diagnostics and tests</li><li>remove temporary bootstrap sudo</li><li>reboot acceptance</li><li>real orchestrator test job and evidence</li></ul>
+<ul class="checklist"><li>Git and GitHub CLI</li><li>GitHub authentication as <code>orchestrator</code></li><li>Claude Code and Codex</li><li>The canonical AI Orchestrator Starter version from the manifest</li><li>systemd, health and watchdog</li><li>diagnostics and tests</li><li>remove temporary bootstrap sudo</li><li>reboot acceptance</li><li>real orchestrator test job and evidence</li></ul>
 </section>
 
 <footer class="site-footer"><p><a href="en/zelf-bouwen.html">Back to Build your own</a></p></footer>
