@@ -65,6 +65,9 @@ say "Node.js for Remote Desktop Commander"
 runuser -u "$TARGET_USER" -- env HOME="$TARGET_HOME" DC_PACKAGE="$DC_PACKAGE" bash -lc '
   set -e
   export NVM_DIR="$HOME/.nvm"
+  if [ -f "$HOME/.npmrc" ]; then
+    sed -i -E '/^[[:space:]]*(prefix|globalconfig)[[:space:]]*=/d' "$HOME/.npmrc"
+  fi
   if [ ! -s "$NVM_DIR/nvm.sh" ]; then
     curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
   fi
@@ -74,8 +77,7 @@ runuser -u "$TARGET_USER" -- env HOME="$TARGET_HOME" DC_PACKAGE="$DC_PACKAGE" ba
   node --version
   npm --version
   mkdir -p "$HOME/.npm-global"
-  npm config set prefix "$HOME/.npm-global"
-  npm install -g --allow-scripts=@wonderwhy-er/desktop-commander,sharp,puppeteer "$DC_PACKAGE"
+  npm install -g --prefix "$HOME/.npm-global" --allow-scripts=@wonderwhy-er/desktop-commander,sharp,puppeteer "$DC_PACKAGE"
   "$HOME/.npm-global/bin/desktop-commander" --version || true
 '
 
