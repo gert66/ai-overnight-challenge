@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AI Challenge bootstrap status",
+  "type": "object",
+  "required": ["schema_version", "bootstrap_version", "phase", "handoff_ready", "desktop_commander", "github", "claude", "codex", "orchestrator"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "bootstrap_version": {"type": "string"},
+    "hostname": {"type": "string"},
+    "os": {"type": "string"},
+    "phase": {"enum": ["BOOTSTRAPPING", "HANDOFF_READY", "INSTALLING", "AUTH_REQUIRED", "VALIDATING", "READY", "ERROR"]},
+    "handoff_ready": {"type": "boolean"},
+    "desktop_commander": {
+      "type": "object",
+      "required": ["installed", "verified"],
+      "properties": {
+        "installed": {"type": "boolean"},
+        "verified": {"type": "boolean"},
+        "last_verified": {"type": ["string", "null"]}
+      }
+    },
+    "github": {"enum": ["pending", "authenticated", "error"]},
+    "claude": {"enum": ["pending", "installed", "authenticated", "error"]},
+    "codex": {"enum": ["pending", "installed", "authenticated", "error"]},
+    "orchestrator": {
+      "type": "object",
+      "required": ["installed", "diagnose", "post_reboot_acceptance", "real_job_acceptance"],
+      "properties": {
+        "installed": {"type": "boolean"},
+        "diagnose": {"enum": ["not_run", "pass", "fail"]},
+        "post_reboot_acceptance": {"enum": ["not_run", "pass", "fail"]},
+        "real_job_acceptance": {"enum": ["not_run", "pass", "fail"]}
+      }
+    },
+    "temporary_bootstrap_sudo": {"type": "boolean"},
+    "last_error": {"type": ["string", "null"]},
+    "updated_at": {"type": ["string", "null"]}
+  },
+  "additionalProperties": true
+}

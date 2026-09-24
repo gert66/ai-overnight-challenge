@@ -1,63 +1,65 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Step-by-step installation | AI Overnight Challenge</title><style>
-:root{--bg:#07111f;--ink:#f3f7fb;--muted:#9fb0c4;--line:#263a52;--blue:#63d0ff;--green:#7ff0bd;--yellow:#ffd166;--max:1100px}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 20% 0,#102b47 0,#07111f 38%,#050b14 100%);color:var(--ink);font:16px/1.65 Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}a{color:var(--blue)}.wrap{max-width:var(--max);margin:auto;padding:28px 22px 80px}.nav{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;margin-bottom:36px}.navlinks{display:flex;gap:14px;flex-wrap:wrap}.hero{padding:38px;border:1px solid #31506d;border-radius:26px;background:linear-gradient(135deg,#133550,#0a1727)}.eyebrow{color:var(--green);font-weight:800;text-transform:uppercase;letter-spacing:.12em;font-size:13px}h1{font-size:clamp(38px,6vw,64px);line-height:1.04;margin:8px 0 16px}h2{font-size:32px;margin:0 0 10px}h3{font-size:21px;margin:0 0 8px}.lead{font-size:20px;color:#dbe7f2;max-width:900px}.section{margin-top:48px}.intro{color:#c7d5e2;max-width:900px}.card,.step,.callout{border:1px solid var(--line);background:rgba(14,27,43,.94);border-radius:17px}.card{padding:21px;margin-top:15px}.step{padding:22px;margin:16px 0}.stepno{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--blue);color:#04101b;font-weight:900;margin-right:10px}.callout{padding:20px;border-left:4px solid var(--green);margin:20px 0}.buttons{display:flex;gap:11px;flex-wrap:wrap;margin-top:22px}.btn{display:inline-block;padding:11px 15px;border-radius:11px;border:1px solid #3e6386;background:#102942;color:white;text-decoration:none;font-weight:750}.btn.primary{background:var(--blue);color:#04101b;border-color:var(--blue)}code{background:#111827;color:#d8b4fe;padding:2px 5px;border-radius:5px}pre{background:#050b14;border:1px solid #2d435c;border-radius:13px;padding:17px;overflow:auto;color:#d6e5f2;line-height:1.5}table{width:100%;border-collapse:collapse;margin-top:18px;background:#0b1726}th,td{text-align:left;padding:12px 13px;border:1px solid var(--line);vertical-align:top}th{background:#102238}.toc{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:22px}.toc a{border:1px solid var(--line);background:#0b1726;border-radius:12px;padding:12px;text-decoration:none}.footer{margin-top:65px;padding-top:22px;border-top:1px solid var(--line);color:var(--muted);font-size:14px}@media(max-width:760px){.toc{grid-template-columns:1fr}.hero{padding:27px 21px}h1{font-size:40px}}
-.lang-switch{position:fixed;top:14px;right:14px;z-index:9998;display:inline-flex;align-items:center;gap:7px;padding:9px 12px;border:1px solid rgba(255,255,255,.28);border-radius:999px;background:rgba(7,24,48,.86);color:#fff!important;text-decoration:none!important;font:700 14px/1 Inter,Arial,sans-serif;box-shadow:0 8px 24px rgba(0,0,0,.22);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:transform .15s ease,background .15s ease}.lang-switch:hover{transform:translateY(-1px);background:rgba(14,48,92,.95)}.lang-switch .globe{font-size:18px;line-height:1}.lang-switch .code{letter-spacing:.04em}@media(max-width:560px){.lang-switch{top:10px;right:10px;padding:8px 10px;font-size:13px}.lang-switch .globe{font-size:17px}}</style></head><body><a class="lang-switch" href="install-howto.html" aria-label="Naar Nederlands" title="Naar Nederlands"><span class="globe" aria-hidden="true">🌐</span><span class="code">NL</span></a><div class="wrap"><nav class="nav"><strong>AI Agent Overnight Challenge</strong><div class="navlinks"><a href="index-en.html">Dashboard</a><a href="how-we-built-en.html">Architecture</a><a href="build-your-own-en.html">Requirements & costs</a><a href="prompt-chain-en.html">Prompt chain</a><a href="install-howto.html">Nederlands</a></div></nav>
-<section class="hero"><div class="eyebrow">Beginner guide</div><h1>From zero to your first AI build environment</h1><p class="lead">This page assumes you do not yet have a server, a GitHub connection, or experience with SSH. Follow the steps in order. First we get one VM and one coding agent working reliably. Only then do we add automation.</p><div class="buttons"><a class="btn primary" href="#accounts">Start with step 1</a><a class="btn" href="build-your-own-en.html">Back to overview</a></div></section>
-<div class="toc"><a href="#accounts">1. Accounts</a><a href="#sshkey">2. SSH key</a><a href="#hetzner">3. Hetzner VM</a><a href="#connect">4. Connect</a><a href="#software">5. Software</a><a href="#github">6. GitHub</a><a href="#agent">7. Coding agent</a><a href="#desktopcommander">7A. Desktop Commander</a><a href="#env">8. Environment variables</a><a href="#firstjob">9. First job</a><a href="#orchestrator">10. Orchestrator</a><a href="#watchdog">11. Watchdog</a><a href="#checklist">12. Final check</a></div>
-<section class="section" id="accounts"><h2>1. Create the three accounts</h2><div class="step"><span class="stepno">1</span><b>GitHub</b><p>Go to <a href="https://github.com/signup" target="_blank">github.com/signup</a>, create an account and enable two-factor authentication. Then create an empty repository, for example <code>my-ai-builds</code>.</p></div><div class="step"><span class="stepno">2</span><b>Hetzner Cloud</b><p>Create an account with <a href="https://console.hetzner.cloud/" target="_blank">Hetzner Cloud Console</a>. You will create one small Ubuntu server here.</p></div><div class="step"><span class="stepno">3</span><b>AI account</b><p>For this guide we use Claude Code on the VM because it is a documented terminal agent. According to Anthropic, Claude Code can authenticate with Claude Pro/Max or through the Anthropic Console. For the human chat layer, you can use ChatGPT or Claude.</p></div></section>
-<section class="section" id="sshkey"><h2>2. Create an SSH key on your own computer</h2><p class="intro">SSH is the secure connection between your laptop and the Linux VM.</p><div class="card"><h3>Windows PowerShell</h3><pre>ssh-keygen -t ed25519 -C "your-email@example.com"</pre><p>Press Enter to use the default location. The public key is usually located at <code>C:/Users/YOUR_NAME/.ssh/id_ed25519.pub</code>.</p><pre>type $env:USERPROFILE/.ssh/id_ed25519.pub</pre></div><div class="card"><h3>macOS / Linux</h3><pre>ssh-keygen -t ed25519 -C "your-email@example.com"
-cat ~/.ssh/id_ed25519.pub</pre></div><div class="callout">Copy only the public key, the file ending in <code>.pub</code>. Never share your private key.</div><p><a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent" target="_blank">Official GitHub guide to SSH keys</a>.</p></section>
-<section class="section" id="hetzner"><h2>3. Create the Hetzner VM</h2><div class="step"><span class="stepno">1</span>Open the Hetzner Cloud Console and create a project, for example <code>AI-Lab</code>.</div><div class="step"><span class="stepno">2</span>Choose <b>Servers → Add server</b>.</div><div class="step"><span class="stepno">3</span>Choose a location close to you.</div><div class="step"><span class="stepno">4</span>Choose <b>Ubuntu</b> as the image.</div><div class="step"><span class="stepno">5</span>Choose a small instance around <b>2 vCPU / 4 GB RAM</b>. As a rough estimate, expect about €6 to €7 per month and check the current price before ordering.</div><div class="step"><span class="stepno">6</span>Under <b>SSH key</b> paste the public key from step 2.</div><div class="step"><span class="stepno">7</span>Name the server, for example <code>ai-builder-01</code> and click <b>Create & Buy Now</b>.</div><p><a href="https://docs.hetzner.com/cloud/servers/getting-started/creating-a-server/" target="_blank">Official Hetzner guide</a>.</p></section>
-<section class="section" id="connect"><h2>4. Make the first SSH connection</h2><p>Hetzner shows a public IP address. Replace <code>SERVER_IP</code> below with your actual IP.</p><pre>ssh root@SERVER_IP</pre><p>The first time, SSH asks whether you trust the fingerprint. Verify that you are connecting to the correct IP and then answer <code>yes</code>.</p><div class="card"><h3>Create a regular administrator account immediately</h3><pre>adduser aiadmin
-usermod -aG sudo aiadmin
-mkdir -p /home/aiadmin/.ssh
-cp /root/.ssh/authorized_keys /home/aiadmin/.ssh/authorized_keys
-chown -R aiadmin:aiadmin /home/aiadmin/.ssh
-chmod 700 /home/aiadmin/.ssh
-chmod 600 /home/aiadmin/.ssh/authorized_keys</pre><p>Then test in a new terminal:</p><pre>ssh aiadmin@SERVER_IP</pre></div></section>
-<section class="section" id="software"><h2>5. Install the basic software</h2><pre>sudo apt update
-sudo apt upgrade -y
-sudo apt install -y git curl build-essential python3 python3-venv python3-pip unzip jq ripgrep</pre><p>Install Node with nvm:</p><pre>curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
-source ~/.bashrc
-nvm install --lts
-node --version
-npm --version
-git --version
-python3 --version</pre></section>
-<section class="section" id="github"><h2>6. Connect the VM to GitHub</h2><pre>ssh-keygen -t ed25519 -C "ai-builder-01"
-cat ~/.ssh/id_ed25519.pub</pre><p>Copy the public key. On GitHub, go to <b>Settings → SSH and GPG keys → New SSH key</b> and paste it there. Then test:</p><pre>ssh -T git@github.com</pre><p>Set your Git identity and clone your repository:</p><pre>git config --global user.name "Your Name"
-git config --global user.email "your-email@example.com"
-mkdir -p ~/projects
-cd ~/projects
-git clone git@github.com:YOUR_GITHUB_NAME/my-ai-builds.git
-cd my-ai-builds</pre><p><a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account" target="_blank">Official GitHub guide</a>.</p></section>
-<section class="section" id="agent"><h2>7. Install and activate the coding agent</h2><pre>npm install -g @anthropic-ai/claude-code
-claude doctor
-cd ~/projects/my-ai-builds
-claude</pre><p>Follow the login procedure shown by Claude Code. Start interactively and first have it perform one simple task.</p><p><a href="https://docs.anthropic.com/en/docs/claude-code/getting-started" target="_blank">Official Claude Code setup</a>.</p></section>
-<section class="section" id="desktopcommander"><h2>7A. Optional but very useful: Desktop Commander</h2><p class="intro">Desktop Commander is the tool bridge between ChatGPT and your VM. The orchestrator controls autonomous jobs. Desktop Commander serves a separate administrative role: when you ask, it can directly inspect and operate the machine by reading and editing files, browsing directories, starting processes, following logs, and running terminal commands.</p><div class="card"><h3>Install and connect it</h3><p>Node 18 or newer is required. Start the Remote Device on the VM:</p><pre>npx @wonderwhy-er/desktop-commander@latest remote</pre><p>The first run shows a one-time verification code. Confirm that code in the browser. Then add the Remote MCP server in ChatGPT or another MCP-compatible client:</p><pre>https://mcp.desktopcommander.app/mcp</pre><p>After OAuth authorization, the chat can reach the paired VM while the Remote Device is running. On our challenge VM, Desktop Commander Remote runs as a persistent service, so the connection does not depend on keeping an SSH terminal open.</p></div><div class="card"><h3>Why this is useful</h3><p>It removes a lot of manual SSH copy-and-paste work. ChatGPT can, for example, check whether a service is running, edit a configuration file, inspect a log, or check Git status while you remain in the same conversation.</p></div><div class="callout"><b>Important:</b> Desktop Commander has execution capabilities on the machine within its configured access boundaries. Treat it like administrator access: restrict allowed directories and commands, keep secrets out of Git, and connect only machines you deliberately prepared for this purpose. Verify pairing codes before authorizing a new device.</div><p><a href="https://github.com/desktop-commander/remote-desktop-commander" target="_blank">Official Remote Desktop Commander guide</a>.</p></section>
-<section class="section" id="env"><h2>8. Set environment variables and secrets securely</h2><p>Never put tokens or API keys directly in code or Git.</p><div class="card"><h3>Project-specific .env file</h3><pre>cd ~/projects/my-ai-builds
-nano .env</pre><p>Example:</p><pre>APP_ENV=development
-MY_SERVICE_TOKEN=paste_a_real_token_here</pre><p>Keep the file out of Git:</p><pre>printf "
-.env
-.env.*
-" >> .gitignore
-chmod 600 .env</pre></div><div class="card"><h3>Non-secret shell settings</h3><pre>nano ~/.bashrc
-# example:
-export AI_PROJECT_ROOT="$HOME/projects"
-source ~/.bashrc</pre></div><div class="callout">For real production secrets, use a secrets manager. For a first private experiment, an uncommitted file with strict permissions is a reasonable starting point.</div></section>
-<section class="section" id="firstjob"><h2>9. First perform one manual end-to-end test</h2><pre>cd ~/projects/my-ai-builds
-mkdir hello-agent && cd hello-agent
-npm init -y
-printf 'console.log("AI build environment works")
-' > index.js
-node index.js</pre><p>Then have the coding agent add one test. Check the result and push a separate branch:</p><pre>git checkout -b experiment/first-agent-test
-git add .
-git commit -m "First agent environment test"
-git push -u origin experiment/first-agent-test</pre><div class="callout">Only add the orchestrator once VM → agent → test → Git commit → GitHub push works.</div></section>
-<section class="section" id="orchestrator"><h2>10. Then add the orchestrator</h2><p>Version 1 only needs to do six things:</p><table><tr><th>Phase</th><th>Function</th></tr><tr><td>PLAN</td><td>Create one concrete build step with acceptance criteria.</td></tr><tr><td>BUILD</td><td>Start the coding agent in the correct repository.</td></tr><tr><td>TEST</td><td>Run fixed test commands.</td></tr><tr><td>REVIEW</td><td>Have a separate review run check the result.</td></tr><tr><td>COMMIT</td><td>Commit only when the evidence and review are green.</td></tr><tr><td>REPEAT</td><td>Repeat until the acceptance criteria are met.</td></tr></table><p>Store state outside the model, for example in <code>state.json</code>, so a restart can resume.</p></section>
-<section class="section" id="watchdog"><h2>11. Add monitoring and a watchdog</h2><p>Have active jobs periodically write a heartbeat. A separate watchdog checks whether that heartbeat is still recent and only takes action when a job has demonstrably stalled.</p><pre>{
-  "job_id": "demo-001",
-  "phase": "WORKING",
-  "heartbeat": "2026-09-17T08:30:00Z"
-}</pre><p>On Linux, use for example <code>systemd</code> for the orchestrator and a timer or cron for periodic checks. Always give retries a maximum.</p></section>
-<section class="section" id="checklist"><h2>12. Final check before leaving it to run on its own</h2><table><tr><th>Check</th><th>Must be true</th></tr><tr><td>SSH</td><td>You can log in as a regular user and have sudo access.</td></tr><tr><td>GitHub</td><td><code>ssh -T git@github.com</code> works and you can push.</td></tr><tr><td>Agent</td><td>The coding agent can read and modify the repository and run tests.</td></tr><tr><td>Secrets</td><td>No keys in Git.</td></tr><tr><td>Tests</td><td>There is at least one fixed test command with a clear exit code.</td></tr><tr><td>State</td><td>The orchestrator stores the phase, last step, and heartbeat outside the model.</td></tr><tr><td>Retries</td><td>There is a maximum.</td></tr><tr><td>Git</td><td>Every accepted step is committed separately.</td></tr><tr><td>Remote</td><td>A run only counts as complete once the commits have also been pushed to GitHub.</td></tr><tr><td>Watchdog</td><td>You have tested what happens when a worker is deliberately stopped.</td></tr></table><div class="buttons"><a class="btn primary" href="how-we-built-en.html">View the architecture</a><a class="btn" href="build-your-own-en.html">Back to costs</a></div></section><footer class="footer">AI Agent Overnight Challenge · practical beginner guide · check current prices and product details with the provider</footer></div></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bootstrap & recovery | AI Overnight Challenge</title>
+<link rel="stylesheet" href="assets/v3.css">
+</head>
+<body>
+<div class="topbar"><a class="brand" href="index.html">AI Overnight Challenge</a><nav class="topnav"><a href="en/zelf-bouwen.html">Build your own</a><a href="en/onder-de-motorkap.html">Under the hood</a><a class="pill" href="install-howto.html">🌐 NL</a></nav></div>
+<main>
+<a class="home-return" href="en/zelf-bouwen.html">← Back to the simple route</a>
+<section class="hero"><span class="eyebrow">Technical help</span><h1>Only the bootstrap and recovery you may need to do yourself</h1><div class="lead">After Remote Desktop Commander is connected, ChatGPT should perform the technical installation. This page therefore stops at the handoff and only provides recovery help afterwards.</div></section>
+
+<section class="section" id="server"><h2>1. Create the Hetzner server</h2>
+<ul class="checklist"><li>Image: Ubuntu</li><li>Architecture: x86</li><li>Minimum: about 2 vCPU / 4 GB RAM / 40 GB disk</li><li>Recommended: about 4 vCPU / 8 GB RAM / 80 GB disk</li><li>Add your public SSH key while creating the server</li></ul>
+<div class="callout">Server names and prices change. Choose the current Hetzner option closest to these specifications.</div><p><a href="https://console.hetzner.cloud/" target="_blank" rel="noopener noreferrer">Open Hetzner Cloud Console ↗</a> · <a href="https://accounts.hetzner.com/login" target="_blank" rel="noopener noreferrer">Account/login ↗</a></p>
+</section>
+
+<section class="section" id="ssh"><h2>2. SSH key and first connection</h2>
+<h3>Windows PowerShell</h3><pre>ssh-keygen -t ed25519
+type $env:USERPROFILE\.ssh\id_ed25519.pub</pre>
+<h3>macOS / Linux</h3><pre>ssh-keygen -t ed25519
+cat ~/.ssh/id_ed25519.pub</pre>
+<p>Paste only the public key into Hetzner. Never share your private key.</p>
+<p>After creating the server:</p><pre>ssh root@SERVER_IP</pre>
+</section>
+
+<section class="section" id="bootstrap"><h2>3. Download and run the small bootstrap</h2>
+<p>Download it first as a readable file:</p><pre>curl -fsSL https://raw.githubusercontent.com/gert66/ai-overnight-challenge/main/setup/bootstrap.sh -o /tmp/ai-challenge-bootstrap.sh</pre>
+<p>You can inspect it with:</p><pre>less /tmp/ai-challenge-bootstrap.sh</pre>
+<p>Then run it:</p><pre>sudo bash /tmp/ai-challenge-bootstrap.sh</pre>
+<p>A successful run ends with <code>AI CHALLENGE BOOTSTRAP READY</code>.</p>
+<p>The bootstrap contains no passwords, API keys or tokens. It also does not install the full orchestrator yet.</p>
+</section>
+
+<section class="section" id="desktopcommander"><h2>4. Start Remote Desktop Commander</h2>
+<pre>ai-challenge-remote</pre>
+<p>Complete the browser pairing. The remote agent then runs in a tmux session, so your SSH window does not have to remain open.</p>
+<p>Check status:</p><pre>ai-challenge-remote status</pre>
+<p>Latest logs:</p><pre>ai-challenge-remote logs</pre>
+<p><a href="https://desktopcommander.app/mcp/" target="_blank" rel="noopener noreferrer">Official Remote Desktop Commander guide ↗</a></p><div class="callout"><strong>Acceptance test:</strong> make ChatGPT execute a real command. Seeing only “online” is insufficient.</div>
+</section>
+
+<section class="section" id="handoff"><h2>5. Handoff to ChatGPT</h2>
+<pre>I have completed the AI Challenge bootstrap. Connect to my server through Desktop Commander. Read ~/AI_CHALLENGE_CONTEXT.md, ~/AI_CHALLENGE_STATUS.json and ~/AI_CHALLENGE_MANIFEST.json. Continue the installation from there. Do as much as possible yourself. Ask me only when you need an authorization, password, browser login, payment action or another action I must personally approve.</pre>
+<p>ChatGPT should inspect the real machine first and only then continue installation.</p>
+</section>
+
+<section class="section" id="recovery"><h2>Recovery</h2>
+<h3>SSH session lost</h3><p>Reconnect with <code>ssh root@SERVER_IP</code>. The bootstrap is idempotent and can be run again.</p>
+<h3>Remote Desktop Commander offline</h3><pre>ai-challenge-remote status
+ai-challenge-remote</pre><p>SSH always remains your emergency access.</p>
+<h3>Stopped halfway</h3><p>Start a new ChatGPT chat with the same handoff instruction. ChatGPT reads the status, inspects the real machine and continues from the first incomplete step.</p>
+<h3>After reboot</h3><p>The orchestrator, health timer and watchdog must return automatically. Remote Desktop Commander must then be tested again with a real command. If the current Remote version needs fresh browser authorization, only that authorization is a human step.</p>
+<h3>Authentication failed</h3><p>Let ChatGPT restart the login flow. Enter passwords, 2FA and secrets yourself. Never put them in Git or the bootstrap.</p>
+</section>
+
+<section class="section"><h2>What ChatGPT completes itself</h2>
+<ul class="checklist"><li>Git and GitHub CLI</li><li>GitHub authentication as <code>orchestrator</code></li><li>Claude Code and Codex</li><li>The canonical AI Orchestrator Starter version from the manifest</li><li>systemd, health and watchdog</li><li>diagnostics and tests</li><li>remove temporary bootstrap sudo</li><li>reboot acceptance</li><li>real orchestrator test job and evidence</li></ul>
+</section>
+
+<footer class="site-footer"><p><a href="en/zelf-bouwen.html">Back to Build your own</a></p></footer>
+</main>
+</body>
+</html>
