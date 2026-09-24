@@ -45,10 +45,11 @@ The manifest is authoritative for:
 - bootstrap version
 - canonical AI Orchestrator Starter repository
 - canonical ref/version
+- canonical commit when supplied
 - default provider profile
 - Remote Desktop Commander package
 
-Do not hardcode a different branch or version unless the human explicitly asks for it.
+Check out the canonical ref and, when `canonical_commit` is present, verify that `git rev-parse HEAD` matches that commit before installing. Do not hardcode a different branch or version unless the human explicitly asks for it.
 
 ## Default model routing
 
