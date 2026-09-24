@@ -9,10 +9,10 @@
   },
   "orchestrator": {
     "repository": "gert66/AI-Orchestrator-Starter",
-    "canonical_ref": "feature/ai-challenge-bootstrap-handoff",
+    "canonical_ref": "work/happy-path-v4",
     "default_profile": "claude",
     "install_path": "/opt/ai-orchestrator",
-    "canonical_commit": "ca84aade11062a22056ddd459104029a54534669"
+    "canonical_commit": "b359a860bedc6e4ffbe8c0c2cbf554e5d6ac8a0b"
   },
   "supported_ubuntu": [
     "22.04",
