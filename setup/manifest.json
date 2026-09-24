@@ -11,7 +11,8 @@
     "repository": "gert66/AI-Orchestrator-Starter",
     "canonical_ref": "feature/ai-challenge-bootstrap-handoff",
     "default_profile": "claude",
-    "install_path": "/opt/ai-orchestrator"
+    "install_path": "/opt/ai-orchestrator",
+    "canonical_commit": "ca84aade11062a22056ddd459104029a54534669"
   },
   "supported_ubuntu": [
     "22.04",
