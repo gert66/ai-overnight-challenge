@@ -30,7 +30,14 @@ esac
 
 say "Minimum system packages"
 apt-get update
-DEBIAN_FRONTEND=noninteractive apt-get install -y curl ca-certificates jq sudo tmux openssh-client
+DEBIAN_FRONTEND=noninteractive apt-get install -y curl ca-certificates jq sudo tmux openssh-client python3
+
+say "Load central bootstrap manifest"
+TMP_MANIFEST="/tmp/ai-challenge-manifest.json"
+curl -fsSL "$SOURCE_BASE/manifest.json" -o "$TMP_MANIFEST"
+BOOTSTRAP_VERSION="$(jq -er '.bootstrap_version' "$TMP_MANIFEST")" || fail "Manifest has no bootstrap_version."
+DC_PACKAGE="$(jq -er '.desktop_commander.package' "$TMP_MANIFEST")" || fail "Manifest has no desktop_commander.package."
+[ -n "$DC_PACKAGE" ] || fail "Desktop Commander package in manifest is empty."
 
 say "Dedicated orchestrator user"
 if ! id "$TARGET_USER" >/dev/null 2>&1; then
@@ -55,7 +62,7 @@ chmod 0440 "$SUDO_FILE"
 visudo -cf "$SUDO_FILE" >/dev/null
 
 say "Node.js for Remote Desktop Commander"
-runuser -u "$TARGET_USER" -- env HOME="$TARGET_HOME" bash -lc '
+runuser -u "$TARGET_USER" -- env HOME="$TARGET_HOME" DC_PACKAGE="$DC_PACKAGE" bash -lc '
   set -e
   export NVM_DIR="$HOME/.nvm"
   if [ ! -s "$NVM_DIR/nvm.sh" ]; then
@@ -68,12 +75,12 @@ runuser -u "$TARGET_USER" -- env HOME="$TARGET_HOME" bash -lc '
   npm --version
   mkdir -p "$HOME/.npm-global"
   npm config set prefix "$HOME/.npm-global"
-  npm install -g @wonderwhy-er/desktop-commander@0.2.51
+  npm install -g "$DC_PACKAGE"
   "$HOME/.npm-global/bin/desktop-commander" --version || true
 '
 
 say "AI Challenge handoff files"
-curl -fsSL "$SOURCE_BASE/manifest.json" -o "$TARGET_HOME/AI_CHALLENGE_MANIFEST.json"
+install -m 0644 "$TMP_MANIFEST" "$TARGET_HOME/AI_CHALLENGE_MANIFEST.json"
 curl -fsSL "$SOURCE_BASE/AI_CHALLENGE_CONTEXT.md" -o "$TARGET_HOME/AI_CHALLENGE_CONTEXT.md"
 curl -fsSL "$SOURCE_BASE/status.schema.json" -o "$TARGET_HOME/AI_CHALLENGE_STATUS.schema.json"
 chown "$TARGET_USER:$TARGET_USER"   "$TARGET_HOME/AI_CHALLENGE_MANIFEST.json"   "$TARGET_HOME/AI_CHALLENGE_CONTEXT.md"   "$TARGET_HOME/AI_CHALLENGE_STATUS.schema.json"
