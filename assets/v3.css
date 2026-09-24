@@ -880,3 +880,27 @@ details.jargon .jargon-def {
   .wietse-build-card{margin-top:2.6rem!important}
   .wietse-build-card .build-sticker{transform:translateY(-105%) rotate(-1.5deg)!important}
 }
+
+
+/* Beginner shell and SSH guidance */
+.plain-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1.1rem 0}
+.plain-card{display:flex;flex-direction:column;gap:.45rem;padding:1rem 1.1rem;border:1px solid rgba(148,163,184,.28);border-radius:14px;background:rgba(15,23,42,.35)}
+.plain-card strong{font-size:1.05rem}
+.plain-card span{color:var(--muted);line-height:1.55}
+.beginner-steps{padding-left:1.5rem}
+.beginner-steps li{margin:.65rem 0;line-height:1.6}
+.command-location{display:inline-flex;align-items:center;margin:.85rem 0 .4rem;padding:.3rem .55rem;border-radius:999px;font-size:.72rem;font-weight:900;letter-spacing:.045em;text-transform:uppercase;border:1px solid rgba(148,163,184,.32)}
+.command-location.local{background:rgba(88,166,255,.12)}
+.command-location.remote{background:rgba(63,185,80,.12)}
+.command-location.chat{background:rgba(188,140,255,.12)}
+.copy-code{position:relative;margin:.2rem 0 1rem}
+.copy-code pre{margin:0;padding-right:7rem}
+.copy-btn{position:absolute;right:.55rem;top:.55rem;z-index:2;padding:.38rem .62rem;border:1px solid rgba(148,163,184,.35);border-radius:8px;background:#161b22;color:#e6edf3;font:inherit;font-size:.78rem;font-weight:800;cursor:pointer}
+.copy-btn:hover{background:#21262d}
+.callout.warning{border-left-color:#d29922}
+@media(max-width:760px){
+  .plain-grid{grid-template-columns:1fr}
+  .copy-code pre{padding-top:3.1rem;padding-right:1rem}
+  .copy-btn{left:.55rem;right:auto}
+  .command-location{font-size:.66rem;line-height:1.25}
+}

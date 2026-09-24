@@ -9,57 +9,186 @@
 <div class="topbar"><a class="brand" href="index.html">AI Overnight Challenge</a><nav class="topnav"><a href="zelf-bouwen.html">Zelf bouwen</a><a href="onder-de-motorkap.html">Onder de motorkap</a><a class="pill" href="install-howto-en.html">🌐 EN</a></nav></div>
 <main>
 <a class="home-return" href="zelf-bouwen.html">← Terug naar de eenvoudige route</a>
-<section class="hero"><span class="eyebrow">Technische hulp</span><h1>Alleen de bootstrap en recovery die jij zelf nodig kunt hebben</h1><div class="lead">Na Remote Desktop Commander hoort ChatGPT de technische installatie uit te voeren. Deze pagina stopt daarom bewust bij de handoff en bevat daarna alleen recovery.</div></section>
 
-<section class="section" id="server"><h2>1. Maak de Hetzner-server</h2>
-<ul class="checklist"><li>Image: Ubuntu</li><li>Architecture: x86</li><li>Minimum: ongeveer 2 vCPU / 4 GB RAM / 40 GB disk</li><li>Aanbevolen: ongeveer 4 vCPU / 8 GB RAM / 80 GB disk</li><li>Voeg je publieke SSH-key toe tijdens het maken van de server</li></ul>
-<div class="callout">Servernamen en prijzen veranderen. Kies de actuele Hetzner-variant die het dichtst bij deze specificaties ligt.</div><p><a href="https://console.hetzner.cloud/" target="_blank" rel="noopener noreferrer">Open Hetzner Cloud Console ↗</a> · <a href="https://accounts.hetzner.com/login" target="_blank" rel="noopener noreferrer">Account/login ↗</a></p>
+<section class="hero">
+<span class="eyebrow">Technische hulp voor beginners</span>
+<h1>Van lege laptop naar een server waar ChatGPT zelf verder kan</h1>
+<div class="lead">Deze pagina zegt niet alleen welk commando je nodig hebt, maar ook waar je het moet typen en wat er gebeurt. Tot en met Remote Desktop Commander doe jij een paar kleine stappen. Daarna neemt ChatGPT de technische installatie over.</div>
 </section>
 
-<section class="section" id="ssh"><h2>2. SSH-key en eerste verbinding</h2>
-<h3>Windows PowerShell</h3><pre>ssh-keygen -t ed25519
-type $env:USERPROFILE\.ssh\id_ed25519.pub</pre>
-<h3>macOS / Linux</h3><pre>ssh-keygen -t ed25519
-cat ~/.ssh/id_ed25519.pub</pre>
-<p>Plak alleen de publieke sleutel in Hetzner. Deel nooit je private key.</p>
-<p>Na het maken van de server:</p><pre>ssh root@SERVER_IP</pre>
+<section class="section">
+<h2>Eerst even: wat zijn PowerShell, SSH en een SSH-key?</h2>
+<div class="plain-grid">
+<div class="plain-card"><strong>PowerShell</strong><span>Een tekstvenster op je eigen Windows-computer waarin je commando's kunt typen. Je opent het via Start en typt <code>PowerShell</code>.</span></div>
+<div class="plain-card"><strong>SSH</strong><span>Een beveiligde verbinding van jouw computer naar de Linux-server bij Hetzner. Na het inloggen typ je commando's rechtstreeks op die server.</span></div>
+<div class="plain-card"><strong>SSH-key</strong><span>Een digitaal sleutelpaar. De publieke sleutel mag naar Hetzner. De private sleutel blijft altijd op jouw eigen computer en deel je nooit.</span></div>
+</div>
+<div class="callout"><strong>Belangrijk:</strong> vóór de SSH-verbinding typ je commando's op je eigen computer. Zodra je prompt ongeveer <code>root@jouw-server:~#</code> laat zien, werk je op de Hetzner-server.</div>
 </section>
 
-<section class="section" id="bootstrap"><h2>3. Download en run de kleine bootstrap</h2>
-<p>Download hem eerst als leesbaar bestand:</p><pre>curl -fsSL https://raw.githubusercontent.com/gert66/ai-overnight-challenge/main/setup/bootstrap.sh -o /tmp/ai-challenge-bootstrap.sh</pre>
-<p>Je kunt hem bekijken met:</p><pre>less /tmp/ai-challenge-bootstrap.sh</pre>
-<p>Voer hem daarna uit:</p><pre>sudo bash /tmp/ai-challenge-bootstrap.sh</pre>
-<p>Een geslaagde run eindigt met <code>AI CHALLENGE BOOTSTRAP READY</code>.</p>
-<p>De bootstrap bevat geen wachtwoorden, API-keys of tokens. Hij installeert ook nog niet de volledige orchestrator.</p>
+<section class="section" id="ssh-key">
+<h2>1. Maak eerst een SSH-key op je eigen computer</h2>
+<p>Doe dit voordat je de Hetzner-server maakt, zodat je de publieke sleutel meteen aan die server kunt koppelen.</p>
+
+<h3>Windows</h3>
+<ol class="beginner-steps">
+<li>Druk op de <strong>Windows-toets</strong>, typ <strong>PowerShell</strong> en open <strong>Windows PowerShell</strong> of <strong>Terminal</strong>.</li>
+<li>Je ziet een prompt die ongeveer begint met <code>PS C:\Users\jouwnaam&gt;</code>. Dat betekent: je werkt nu op je eigen computer.</li>
+<li>Kopieer het onderstaande commando met de knop en plak het in PowerShell. Druk daarna op Enter.</li>
+</ol>
+<div class="command-location local">WAAR: op je eigen Windows-computer, in PowerShell</div>
+<pre>ssh-keygen -t ed25519 -C "ai-challenge"</pre>
+<p>PowerShell stelt daarna een paar vragen:</p>
+<ul class="checklist">
+<li><strong>Enter file in which to save the key:</strong> druk gewoon op Enter om de standaardlocatie te gebruiken.</li>
+<li><strong>Als er staat dat het bestand al bestaat:</strong> typ <code>n</code> en druk op Enter. Je hebt dan al een key en hoeft geen nieuwe te maken.</li>
+<li><strong>Passphrase:</strong> voor de eenvoudigste installatie kun je twee keer op Enter drukken en hem leeg laten. Je mag ook een wachtzin kiezen, maar onthoud die dan goed.</li>
+</ul>
+<p>Laat nu je publieke sleutel zien:</p>
+<div class="command-location local">WAAR: nog steeds in PowerShell op je eigen computer</div>
+<pre>Get-Content "$env:USERPROFILE\.ssh\id_ed25519.pub"</pre>
+<p>Je krijgt één lange regel die meestal begint met <code>ssh-ed25519</code>. <strong>Kopieer die hele regel.</strong> Dit is de publieke sleutel die je straks in Hetzner plakt.</p>
+
+<h3>macOS / Linux</h3>
+<p>Open de app <strong>Terminal</strong>. Je werkt hier nog op je eigen computer.</p>
+<div class="command-location local">WAAR: Terminal op je eigen Mac of Linux-computer</div>
+<pre>ssh-keygen -t ed25519 -C "ai-challenge"</pre>
+<p>Gebruik daarna:</p>
+<div class="command-location local">WAAR: nog steeds op je eigen computer</div>
+<pre>cat ~/.ssh/id_ed25519.pub</pre>
+<p>Kopieer de volledige regel die begint met <code>ssh-ed25519</code>.</p>
+
+<div class="callout warning"><strong>Nooit delen:</strong> het bestand zonder <code>.pub</code>, bijvoorbeeld <code>id_ed25519</code>, is je private key. Die blijft uitsluitend op je eigen computer.</div>
 </section>
 
-<section class="section" id="desktopcommander"><h2>4. Start Remote Desktop Commander</h2>
+<section class="section" id="server">
+<h2>2. Maak de Hetzner-server</h2>
+<p><a href="https://console.hetzner.cloud/" target="_blank" rel="noopener noreferrer">Open Hetzner Cloud Console ↗</a></p>
+<ol class="beginner-steps">
+<li>Maak eventueel eerst een project en kies daarna <strong>Add Server</strong> of <strong>Create Server</strong>.</li>
+<li>Bij <strong>Image</strong>: kies <strong>Ubuntu 24.04 LTS</strong>. Als Hetzner later een nieuwere Ubuntu LTS als standaard aanbiedt, blijft 24.04 LTS voor deze handleiding een veilige keuze.</li>
+<li>Bij <strong>Architecture</strong>: kies <strong>x86</strong>, niet ARM.</li>
+<li>Kies minimaal ongeveer <strong>2 vCPU / 4 GB RAM / 40 GB disk</strong>. Voor comfortabel gebruik adviseren we ongeveer <strong>4 vCPU / 8 GB RAM / 80 GB disk</strong>.</li>
+<li>Zorg dat de server een <strong>publiek IPv4-adres</strong> krijgt. Dat is het nummer waarmee je straks via SSH verbinding maakt.</li>
+<li>Bij <strong>SSH Keys</strong>: kies <strong>Add SSH Key</strong>, plak de hele publieke regel uit stap 1 en geef hem bijvoorbeeld de naam <code>mijn-laptop</code>.</li>
+<li>Zorg dat die SSH-key geselecteerd is voor deze server en maak de server aan.</li>
+<li>Na het aanmaken zie je een <strong>Public IPv4</strong>, bijvoorbeeld <code>203.0.113.42</code>. Kopieer jouw echte nummer. Je hebt het in de volgende stap nodig.</li>
+</ol>
+<div class="callout">Het voorbeeld-IP <code>203.0.113.42</code> hieronder is expres nep. Gebruik altijd het echte Public IPv4-adres dat bij jouw eigen Hetzner-server staat.</div>
+</section>
+
+<section class="section" id="ssh">
+<h2>3. Maak de eerste SSH-verbinding</h2>
+<p>Ga terug naar PowerShell op Windows of Terminal op macOS/Linux. Je maakt nu vanuit jouw computer een beveiligde verbinding met de server.</p>
+<div class="command-location local">WAAR: op je eigen computer, dus nog niet op de server</div>
+<pre>ssh root@203.0.113.42</pre>
+<p><strong>Vervang <code>203.0.113.42</code> door jouw echte Public IPv4-adres.</strong> Typ dus bijvoorbeeld <code>ssh root@95.217.12.34</code> als dát jouw server-IP is. Zet geen haakjes om het IP-adres.</p>
+<p>De eerste keer kan SSH vragen:</p>
+<pre>Are you sure you want to continue connecting (yes/no/[fingerprint])?</pre>
+<p>Typ dan <code>yes</code> en druk op Enter. Als je bij het maken van de SSH-key een passphrase hebt ingesteld, vul je die nu in.</p>
+<div class="callout good"><strong>Gelukt?</strong> Je prompt verandert nu ongeveer van <code>PS C:\Users\jouwnaam&gt;</code> naar <code>root@jouw-server:~#</code>. Vanaf dit moment worden de volgende commando's op de Hetzner-server uitgevoerd.</div>
+</section>
+
+<section class="section" id="bootstrap">
+<h2>4. Download en run de kleine bootstrap</h2>
+<p>Je bent nu via SSH ingelogd als <code>root</code>. De volgende commando's moeten dus <strong>in die SSH-sessie</strong> worden geplakt, niet in een nieuw lokaal PowerShell-venster.</p>
+<p>Eerst download je de bootstrap:</p>
+<div class="command-location remote">WAAR: op de Hetzner-server, in je SSH-sessie als root</div>
+<pre>curl -fsSL https://raw.githubusercontent.com/gert66/ai-overnight-challenge/main/setup/bootstrap.sh -o /tmp/ai-challenge-bootstrap.sh</pre>
+<p>Wil je hem eerst bekijken, dan kan dat met:</p>
+<div class="command-location remote">WAAR: op de Hetzner-server</div>
+<pre>less /tmp/ai-challenge-bootstrap.sh</pre>
+<p>Druk op <code>q</code> om <code>less</code> weer te sluiten.</p>
+<p>Start daarna de bootstrap:</p>
+<div class="command-location remote">WAAR: op de Hetzner-server, nog steeds als root</div>
+<pre>bash /tmp/ai-challenge-bootstrap.sh</pre>
+<p>Dit kan een paar minuten duren. De bootstrap maakt de gebruiker <code>orchestrator</code>, installeert de minimale hulpmiddelen, Node en Remote Desktop Commander, en schrijft de contextbestanden die ChatGPT later leest.</p>
+<div class="callout good"><strong>Goed teken:</strong> een geslaagde run eindigt met <code>AI CHALLENGE BOOTSTRAP READY</code>.</div>
+</section>
+
+<section class="section" id="desktopcommander">
+<h2>5. Start Remote Desktop Commander</h2>
+<p>Blijf in dezelfde SSH-sessie en voer uit:</p>
+<div class="command-location remote">WAAR: op de Hetzner-server, in dezelfde SSH-sessie</div>
 <pre>ai-challenge-remote</pre>
-<p>Volg de getoonde browser-pairing. De remote agent draait daarna in een tmux-sessie, zodat je SSH-venster niet permanent open hoeft te blijven.</p>
-<p>Status bekijken:</p><pre>ai-challenge-remote status</pre>
-<p>Laatste logs:</p><pre>ai-challenge-remote logs</pre>
-<p><a href="https://desktopcommander.app/mcp/" target="_blank" rel="noopener noreferrer">Remote Desktop Commander officiële uitleg ↗</a></p><div class="callout"><strong>Acceptatietest:</strong> laat ChatGPT een echt commando uitvoeren. Alleen “online” zien is onvoldoende.</div>
+<p>Je krijgt nu de pairing/login-instructies van Remote Desktop Commander. Volg de browserstap die wordt getoond. Laat de remote sessie daarna draaien.</p>
+<p>Als je de tmux-weergave wilt verlaten zonder Remote Desktop Commander te stoppen: druk <strong>Ctrl+B</strong>, laat de toetsen los en druk daarna op <strong>D</strong>.</p>
+<p><a href="https://desktopcommander.app/mcp/" target="_blank" rel="noopener noreferrer">Open de officiële Remote Desktop Commander-uitleg ↗</a></p>
+<p>Later controleren of de remote sessie nog draait:</p>
+<div class="command-location remote">WAAR: op de Hetzner-server</div>
+<pre>ai-challenge-remote status</pre>
+<div class="callout"><strong>Belangrijk:</strong> alleen zien dat een device “online” is, is niet genoeg. ChatGPT moet straks echt <code>hostname</code> kunnen uitvoeren en het contextbestand op de server kunnen lezen.</div>
 </section>
 
-<section class="section" id="handoff"><h2>5. Handoff naar ChatGPT</h2>
-<pre>I have completed the AI Challenge bootstrap. Connect to my server through Desktop Commander. Read ~/AI_CHALLENGE_CONTEXT.md, ~/AI_CHALLENGE_STATUS.json and ~/AI_CHALLENGE_MANIFEST.json. Continue the installation from there. Do as much as possible yourself. Ask me only when you need an authorization, password, browser login, payment action or another action I must personally approve.</pre>
-<p>ChatGPT hoort daarna eerst de machine te inspecteren en pas daarna verder te installeren.</p>
+<section class="section" id="handoff">
+<h2>6. Geef de server over aan ChatGPT</h2>
+<p>Open ChatGPT. Zorg dat Remote Desktop Commander als plugin/connector is verbonden en start een nieuwe chat. Kopieer vervolgens deze hele opdracht:</p>
+<div class="command-location chat">WAAR: als bericht in ChatGPT, niet in PowerShell of SSH</div>
+<pre>I have completed the AI Challenge bootstrap. Connect to my server through Desktop Commander. First prove the connection by running hostname and whoami. Then read ~/AI_CHALLENGE_CONTEXT.md, ~/AI_CHALLENGE_STATUS.json and ~/AI_CHALLENGE_MANIFEST.json. Inspect the real machine state and continue the installation from the first incomplete step. Do as much as possible yourself. Ask me only when you need an authorization, password, browser login, payment action, secret, or another action I must personally approve. Do not send me back to SSH for routine technical work that you can perform yourself.</pre>
+<p>Vanaf dit moment hoort ChatGPT GitHub, Claude Code, Codex, de Orchestrator, systemd, health checks, watchdogs, tests en reboot-validatie zoveel mogelijk zelf af te handelen.</p>
 </section>
 
-<section class="section" id="recovery"><h2>Recovery</h2>
-<h3>SSH-sessie kwijt</h3><p>Maak opnieuw verbinding met <code>ssh root@SERVER_IP</code>. De bootstrap is idempotent en mag opnieuw worden uitgevoerd.</p>
-<h3>Remote Desktop Commander offline</h3><pre>ai-challenge-remote status
-ai-challenge-remote</pre><p>SSH blijft altijd je noodtoegang.</p>
-<h3>Halverwege gestopt</h3><p>Start een nieuwe ChatGPT-chat met dezelfde handoff-opdracht. ChatGPT leest de status, controleert de echte machine en gaat verder vanaf de eerste onvoltooide stap.</p>
-<h3>Na reboot</h3><p>De orchestrator, health en watchdog moeten zelfstandig terugkomen. Remote Desktop Commander moet daarna opnieuw met een echt commando worden getest. Als de actuele Remote-versie opnieuw browserautorisatie nodig heeft, is alleen die autorisatie een menselijke stap.</p>
-<h3>Authenticatie mislukt</h3><p>Laat ChatGPT de loginflow opnieuw starten. Voer wachtwoorden, 2FA en secrets zelf in. Zet ze nooit in Git of in de bootstrap.</p>
+<section class="section" id="recovery">
+<h2>Recovery als iets stopt</h2>
+<h3>Ik heb PowerShell of Terminal per ongeluk gesloten</h3>
+<p>Open PowerShell/Terminal opnieuw en maak opnieuw verbinding. Vervang het voorbeeld-IP door jouw echte IP:</p>
+<div class="command-location local">WAAR: op je eigen computer</div>
+<pre>ssh root@203.0.113.42</pre>
+
+<h3>Remote Desktop Commander lijkt offline</h3>
+<p>Maak eerst opnieuw SSH-verbinding en controleer daarna:</p>
+<div class="command-location remote">WAAR: op de server, na SSH-login</div>
+<pre>ai-challenge-remote status</pre>
+<p>Start hem zo nodig opnieuw:</p>
+<div class="command-location remote">WAAR: op de server</div>
+<pre>ai-challenge-remote</pre>
+
+<h3>De installatie stopte halverwege</h3>
+<p>Start een nieuwe ChatGPT-chat met dezelfde handoff-opdracht. ChatGPT hoort eerst de statusbestanden én de echte machine te controleren en vervolgens vanaf de eerste onvoltooide stap door te gaan.</p>
+
+<h3>Authenticatie vraagt om mijn hulp</h3>
+<p>Dat is normaal voor OAuth, browserlogin, 2FA, wachtwoorden en secrets. Doe alleen die menselijke autorisatiestap en laat ChatGPT daarna weer verdergaan.</p>
 </section>
 
-<section class="section"><h2>Wat ChatGPT daarna zelf afmaakt</h2>
-<ul class="checklist"><li>Git en GitHub CLI</li><li>GitHub-authenticatie als <code>orchestrator</code></li><li>Claude Code en Codex</li><li>De canonieke AI Orchestrator Starter-versie uit het manifest</li><li>systemd, health en watchdog</li><li>diagnostics en tests</li><li>tijdelijke bootstrap-sudo verwijderen</li><li>reboot acceptance</li><li>echte orchestrator-testjob en bewijs</li></ul>
+<section class="section">
+<h2>Hoe weet je dat alles echt klaar is?</h2>
+<ul class="checklist">
+<li>Remote Desktop Commander kan een echt commando uitvoeren.</li>
+<li>GitHub werkt als gebruiker <code>orchestrator</code>.</li>
+<li>Claude Code en Codex zijn geïnstalleerd en geauthenticeerd.</li>
+<li>De AI Orchestrator is geïnstalleerd.</li>
+<li>Diagnostics, health en watchdog zijn groen.</li>
+<li>De server is gereboot en de post-reboot checks slagen.</li>
+<li>Een echte orchestrator-testjob bereikt DONE.</li>
+<li>De tijdelijke bootstrap-sudo is verwijderd.</li>
+</ul>
+<div class="callout good">Pas dan hoort ChatGPT te melden: <strong>Your AI workspace is ready.</strong></div>
 </section>
 
 <footer class="site-footer"><p><a href="zelf-bouwen.html">Terug naar Zelf bouwen</a></p></footer>
 </main>
+<script>
+(function(){
+  function fallbackCopy(text){
+    const area=document.createElement('textarea');
+    area.value=text; area.setAttribute('readonly',''); area.style.position='fixed'; area.style.opacity='0';
+    document.body.appendChild(area); area.select(); document.execCommand('copy'); area.remove();
+  }
+  document.querySelectorAll('pre').forEach(function(pre){
+    if(pre.parentElement && pre.parentElement.classList.contains('copy-code')) return;
+    const wrap=document.createElement('div'); wrap.className='copy-code';
+    pre.parentNode.insertBefore(wrap,pre); wrap.appendChild(pre);
+    const btn=document.createElement('button'); btn.type='button'; btn.className='copy-btn'; btn.textContent='Kopieer';
+    btn.setAttribute('aria-label','Kopieer dit commando');
+    btn.addEventListener('click',async function(){
+      const text=pre.innerText.trim();
+      try{ if(navigator.clipboard && window.isSecureContext){ await navigator.clipboard.writeText(text); } else { fallbackCopy(text); } btn.textContent='Gekopieerd'; }
+      catch(e){ try{ fallbackCopy(text); btn.textContent='Gekopieerd'; } catch(e2){ btn.textContent='Selecteer handmatig'; } }
+      setTimeout(function(){ btn.textContent='Kopieer'; },1600);
+    });
+    wrap.appendChild(btn);
+  });
+})();
+</script>
 </body>
 </html>
