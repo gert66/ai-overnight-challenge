@@ -3,7 +3,7 @@
   "bootstrap_version": "1.0.0",
   "context_version": "1.0.0",
   "desktop_commander": {
-    "package": "@wonderwhy-er/desktop-commander@latest",
+    "package": "@wonderwhy-er/desktop-commander@0.2.51",
     "remote_mcp_url": "https://mcp.desktopcommander.app/mcp",
     "minimum_node_major": 18
   },
