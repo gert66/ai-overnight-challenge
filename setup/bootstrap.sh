@@ -75,7 +75,7 @@ runuser -u "$TARGET_USER" -- env HOME="$TARGET_HOME" DC_PACKAGE="$DC_PACKAGE" ba
   npm --version
   mkdir -p "$HOME/.npm-global"
   npm config set prefix "$HOME/.npm-global"
-  npm install -g "$DC_PACKAGE"
+  npm install -g --allow-scripts=@wonderwhy-er/desktop-commander,sharp,puppeteer "$DC_PACKAGE"
   "$HOME/.npm-global/bin/desktop-commander" --version || true
 '
 
