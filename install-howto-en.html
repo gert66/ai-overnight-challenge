@@ -9,31 +9,23 @@
 <div class="topbar"><a class="brand" href="index.html">AI Overnight Challenge</a><nav class="topnav"><a href="en/zelf-bouwen.html">Build your own</a><a href="en/onder-de-motorkap.html">Under the hood</a><a class="pill" href="install-howto.html">🌐 NL</a></nav></div>
 <main>
 <a class="home-return" href="en/zelf-bouwen.html">← Back to the simple route</a>
-<section class="hero"><span class="eyebrow">Technical help</span><h1>Only the bootstrap and recovery you may need to do yourself</h1><div class="lead">After Remote Desktop Commander is connected, ChatGPT should perform the technical installation. This page therefore stops at the handoff and only provides recovery help afterwards.</div></section>
+<section class="hero"><span class="eyebrow">Technical help for beginners</span><h1>From your laptop to a server ChatGPT can finish itself</h1><div class="lead">This page tells you exactly where to type each command and what it does. You handle only the few steps needed to connect Remote Desktop Commander. After that, ChatGPT takes over the technical setup.</div></section>
+<section class="section"><h2>First: PowerShell, SSH and SSH keys</h2><div class="plain-grid"><div class="plain-card"><strong>PowerShell</strong><span>A command window on your own Windows computer.</span></div><div class="plain-card"><strong>SSH</strong><span>A secure connection from your computer to the Linux server at Hetzner.</span></div><div class="plain-card"><strong>SSH key</strong><span>A digital key pair. The public key goes to Hetzner. The private key stays on your computer and is never shared.</span></div></div><div class="callout"><strong>Important:</strong> before SSH, commands run on your own computer. Once your prompt looks like <code>root@your-server:~#</code>, commands run on the Hetzner server.</div></section>
+<section class="section" id="ssh-key"><h2>1. Create an SSH key on your own computer</h2><h3>Windows</h3><p>Press the Windows key, type <strong>PowerShell</strong>, and open PowerShell or Terminal. Your prompt looks roughly like <code>PS C:\Users\yourname&gt;</code>.</p><div class="command-location local">WHERE: your own Windows computer, in PowerShell</div><pre>ssh-keygen -t ed25519 -C "ai-challenge"</pre><p>Press Enter for the default file location. If the file already exists, answer <code>n</code> and keep the existing key. For the simplest setup, you may leave the passphrase empty by pressing Enter twice.</p><p>Show the public key:</p><div class="command-location local">WHERE: still in PowerShell on your computer</div><pre>Get-Content "$env:USERPROFILE\.ssh\id_ed25519.pub"</pre><p>Copy the entire line beginning with <code>ssh-ed25519</code>.</p><h3>macOS / Linux</h3><div class="command-location local">WHERE: Terminal on your own computer</div><pre>ssh-keygen -t ed25519 -C "ai-challenge"</pre><pre>cat ~/.ssh/id_ed25519.pub</pre><div class="callout warning"><strong>Never share:</strong> the file without <code>.pub</code>, for example <code>id_ed25519</code>, is your private key.</div></section>
 
-<section class="section" id="server"><h2>1. Create the Hetzner server</h2>
-<ul class="checklist"><li>Image: Ubuntu</li><li>Architecture: x86</li><li>Minimum: about 2 vCPU / 4 GB RAM / 40 GB disk</li><li>Recommended: about 4 vCPU / 8 GB RAM / 80 GB disk</li><li>Add your public SSH key while creating the server</li></ul>
-<div class="callout">Server names and prices change. Choose the current Hetzner option closest to these specifications.</div><p><a href="https://console.hetzner.cloud/" target="_blank" rel="noopener noreferrer">Open Hetzner Cloud Console ↗</a> · <a href="https://accounts.hetzner.com/login" target="_blank" rel="noopener noreferrer">Account/login ↗</a></p>
-</section>
+<section class="section" id="server"><h2>2. Create the Hetzner server</h2><p><a href="https://console.hetzner.cloud/" target="_blank" rel="noopener noreferrer">Open Hetzner Cloud Console ↗</a></p><ol class="beginner-steps"><li>Choose <strong>Ubuntu 24.04 LTS</strong> as the image.</li><li>Choose <strong>x86</strong> architecture, not ARM.</li><li>Use at least about <strong>2 vCPU / 4 GB RAM / 40 GB disk</strong>. About <strong>4 vCPU / 8 GB RAM / 80 GB disk</strong> is recommended.</li><li>Make sure the server receives a <strong>public IPv4 address</strong>.</li><li>Under <strong>SSH Keys</strong>, choose <strong>Add SSH Key</strong>, paste the entire public key line from step 1, give it a name such as <code>my-laptop</code>, and select it for this server.</li><li>Create the server and copy its real <strong>Public IPv4</strong>, for example <code>203.0.113.42</code>.</li></ol><div class="callout">The IP <code>203.0.113.42</code> is only an example. Always use the real Public IPv4 shown for your own server.</div></section>
 
-<section class="section" id="ssh"><h2>2. SSH key and first connection</h2>
-<h3>Windows PowerShell</h3><pre>ssh-keygen -t ed25519
-type $env:USERPROFILE\.ssh\id_ed25519.pub</pre>
-<h3>macOS / Linux</h3><pre>ssh-keygen -t ed25519
-cat ~/.ssh/id_ed25519.pub</pre>
-<p>Paste only the public key into Hetzner. Never share your private key.</p>
-<p>After creating the server:</p><pre>ssh root@SERVER_IP</pre>
-</section>
+<section class="section" id="ssh"><h2>3. Make the first SSH connection</h2><p>Return to PowerShell on Windows or Terminal on macOS/Linux.</p><div class="command-location local">WHERE: your own computer, not the server yet</div><pre>ssh root@203.0.113.42</pre><p><strong>Replace <code>203.0.113.42</code> with your real Public IPv4 address.</strong> Do not type brackets around the IP.</p><p>The first time, SSH may ask <code>Are you sure you want to continue connecting?</code>. Type <code>yes</code> and press Enter.</p><div class="callout good"><strong>Success?</strong> Your prompt now looks roughly like <code>root@your-server:~#</code>. From here onward, commands run on the Hetzner server.</div></section>
 
-<section class="section" id="bootstrap"><h2>3. Download and run the small bootstrap</h2>
+<section class="section" id="bootstrap"><h2>4. Download and run the small bootstrap</h2><div class="command-location remote">WHERE: on the Hetzner server, in your SSH session as root</div>
 <p>Download it first as a readable file:</p><pre>curl -fsSL https://raw.githubusercontent.com/gert66/ai-overnight-challenge/main/setup/bootstrap.sh -o /tmp/ai-challenge-bootstrap.sh</pre>
 <p>You can inspect it with:</p><pre>less /tmp/ai-challenge-bootstrap.sh</pre>
-<p>Then run it:</p><pre>sudo bash /tmp/ai-challenge-bootstrap.sh</pre>
+<p>Then run it:</p><pre>bash /tmp/ai-challenge-bootstrap.sh</pre>
 <p>A successful run ends with <code>AI CHALLENGE BOOTSTRAP READY</code>.</p>
 <p>The bootstrap contains no passwords, API keys or tokens. It also does not install the full orchestrator yet.</p>
 </section>
 
-<section class="section" id="desktopcommander"><h2>4. Start Remote Desktop Commander</h2>
+<section class="section" id="desktopcommander"><h2>5. Start Remote Desktop Commander</h2><div class="command-location remote">WHERE: on the Hetzner server, in the same SSH session</div>
 <pre>ai-challenge-remote</pre>
 <p>Complete the browser pairing. The remote agent then runs in a tmux session, so your SSH window does not have to remain open.</p>
 <p>Check status:</p><pre>ai-challenge-remote status</pre>
@@ -41,8 +33,8 @@ cat ~/.ssh/id_ed25519.pub</pre>
 <p><a href="https://desktopcommander.app/mcp/" target="_blank" rel="noopener noreferrer">Official Remote Desktop Commander guide ↗</a></p><div class="callout"><strong>Acceptance test:</strong> make ChatGPT execute a real command. Seeing only “online” is insufficient.</div>
 </section>
 
-<section class="section" id="handoff"><h2>5. Handoff to ChatGPT</h2>
-<pre>I have completed the AI Challenge bootstrap. Connect to my server through Desktop Commander. Read ~/AI_CHALLENGE_CONTEXT.md, ~/AI_CHALLENGE_STATUS.json and ~/AI_CHALLENGE_MANIFEST.json. Continue the installation from there. Do as much as possible yourself. Ask me only when you need an authorization, password, browser login, payment action or another action I must personally approve.</pre>
+<section class="section" id="handoff"><h2>6. Handoff to ChatGPT</h2><div class="command-location chat">WHERE: as a message in ChatGPT, not in PowerShell or SSH</div>
+<pre>I have completed the AI Challenge bootstrap. Connect to my server through Desktop Commander. First prove the connection by running hostname and whoami. Then read ~/AI_CHALLENGE_CONTEXT.md, ~/AI_CHALLENGE_STATUS.json and ~/AI_CHALLENGE_MANIFEST.json. Inspect the real machine state and continue the installation from the first incomplete step. Do as much as possible yourself. Ask me only when you need an authorization, password, browser login, payment action, secret, or another action I must personally approve. Do not send me back to SSH for routine technical work that you can perform yourself.</pre>
 <p>ChatGPT should inspect the real machine first and only then continue installation.</p>
 </section>
 
@@ -61,5 +53,11 @@ ai-challenge-remote</pre><p>SSH always remains your emergency access.</p>
 
 <footer class="site-footer"><p><a href="en/zelf-bouwen.html">Back to Build your own</a></p></footer>
 </main>
+<script>
+(function(){
+  function fallbackCopy(text){const area=document.createElement('textarea');area.value=text;area.setAttribute('readonly','');area.style.position='fixed';area.style.opacity='0';document.body.appendChild(area);area.select();document.execCommand('copy');area.remove();}
+  document.querySelectorAll('pre').forEach(function(pre){if(pre.parentElement&&pre.parentElement.classList.contains('copy-code'))return;const wrap=document.createElement('div');wrap.className='copy-code';pre.parentNode.insertBefore(wrap,pre);wrap.appendChild(pre);const btn=document.createElement('button');btn.type='button';btn.className='copy-btn';btn.textContent='Copy';btn.addEventListener('click',async function(){const text=pre.innerText.trim();try{if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(text);}else{fallbackCopy(text);}btn.textContent='Copied';}catch(e){fallbackCopy(text);btn.textContent='Copied';}setTimeout(function(){btn.textContent='Copy';},1600);});wrap.appendChild(btn);});
+})();
+</script>
 </body>
 </html>
